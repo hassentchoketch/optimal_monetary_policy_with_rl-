@@ -44,7 +44,130 @@ pip install -r requirements.txt
 # Install package in development mode
 pip install -e .
 ```
+## Quick Start with main.py
 
+The `main.py` script provides a unified interface for all project tasks:
+
+### Complete Pipeline
+```bash
+# Run everything (data → estimate → train → evaluate → figures)
+python main.py --task all
+
+# Skip data download if already available
+python main.py --task all --skip-data
+
+# Use GPU for training
+python main.py --task all --device cuda
+```
+
+### Individual Tasks
+
+#### 1. Data Preparation
+```bash
+python main.py --task data
+```
+
+#### 2. Economy Estimation
+```bash
+# Estimate both SVAR and ANN
+python main.py --task estimate --model both
+
+# Estimate only ANN
+python main.py --task estimate --model ann
+```
+
+#### 3. Agent Training
+```bash
+# Train specific configuration
+python main.py --task train --economy ann --policy nonlinear --lags 1
+
+# Train all configurations
+python main.py --task train-all
+
+# Train with GPU
+python main.py --task train-all --device cuda
+```
+
+#### 4. Policy Evaluation
+```bash
+# Both historical and static counterfactuals
+python main.py --task evaluate --mode both
+
+# Only historical counterfactual
+python main.py --task evaluate --mode historical --economy ann
+```
+
+#### 5. Figure Generation
+```bash
+# Generate all figures and tables
+python main.py --task figures --all --tables
+
+# Generate specific figure
+python main.py --task figures --figure 2
+python main.py --task figures --figure 6 --figure 7
+```
+
+### Utility Commands
+
+#### Check Project Status
+```bash
+python main.py --task status
+```
+
+#### Clean Results
+```bash
+# Clean everything
+python main.py --task clean --all
+
+# Clean only figures
+python main.py --task clean --figures-only
+
+# Clean only checkpoints
+python main.py --task clean --checkpoints-only
+```
+
+### Advanced Usage
+
+#### Custom Directories
+```bash
+python main.py --task train \
+  --economy ann --policy linear --lags 0 \
+  --checkpoint-dir custom/checkpoints \
+  --output-dir custom/output
+```
+
+#### Verbose Mode
+```bash
+python main.py --task all --verbose
+```
+
+#### Help
+```bash
+python main.py --help
+```
+
+### Common Workflows
+
+**Quick Test Run:**
+```bash
+# Estimate economies only
+python main.py --task estimate --model both
+
+# Train one agent for testing
+python main.py --task train --economy ann --policy linear --lags 0
+```
+
+**Paper Replication:**
+```bash
+# Full replication (takes 2-4 hours)
+python main.py --task all
+```
+
+**Update Figures After Changes:**
+```bash
+# Regenerate all visualizations
+python main.py --task figures --all --tables
+```
 ## Usage
 
 ### 1. Data Preparation
