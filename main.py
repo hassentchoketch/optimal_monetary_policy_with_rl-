@@ -145,7 +145,7 @@ class ProjectRunner:
             Exit code
         """
         return self._run_script(
-            'src/data/data_loader.py',
+            'scripts/data_preparation.py',
             [],
             "DATA PREPARATION"
         )

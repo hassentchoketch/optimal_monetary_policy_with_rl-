@@ -31,8 +31,8 @@ This project implements a Deep Deterministic Policy Gradient (DDPG) reinforcemen
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/monetary_policy_rl.git
-cd monetary_policy_rl
+git clone https://github.com/yourusername/optimal_monetary_policy_with_rl.git
+cd optimal_monetary_policy_with_rl
 
 # Create virtual environment
 python -m venv venv
@@ -50,10 +50,10 @@ The `main.py` script provides a unified interface for all project tasks:
 
 ### Complete Pipeline
 ```bash
-# Run everything (data → estimate → train → evaluate → figures)
+# Run everything (load and preprocssed data  → estimate → train → evaluate → figures)
 python main.py --task all
 
-# Skip data download if already available
+# Skip data download and preprocessed if already available
 python main.py --task all --skip-data
 
 # Use GPU for training
@@ -62,7 +62,7 @@ python main.py --task all --device cuda
 
 ### Individual Tasks
 
-#### 1. Data Preparation
+#### 1. Data  Preparation
 ```bash
 python main.py --task data
 ```

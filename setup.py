@@ -10,12 +10,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="monetary_policy_rl",
     version="1.0.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Hacene Tchoketch-Kebir",
+    author_email="hassentchoketch@gmail.com",
     description="Optimal Monetary Policy using Reinforcement Learning",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/monetary_policy_rl",
+    url="https://github.com/hassentchoketch/optimal_monetary_policy_with_rl-",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
