@@ -1,0 +1,119 @@
+2025-10-19 16:27:42 - main - ERROR - Error: 2025-10-19 16:27:40 - economy_estimation - INFO - ============================================================
+2025-10-19 16:27:40 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-10-19 16:27:40 - economy_estimation - INFO - ============================================================
+2025-10-19 16:27:40 - economy_estimation - INFO - 
+Loading data...
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\util\connection.py", line 60, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\socket.py", line 978, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connection.py", line 753, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connection.py", line 205, in _new_conn
+    raise NameResolutionError(self.host, self, e) from e
+urllib3.exceptions.NameResolutionError: <urllib3.connection.HTTPSConnection object at 0x000001F98D3A19A0>: Failed to resolve 'fred.stlouisfed.org' ([Errno 11001] getaddrinfo failed)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=GDPDEF (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001F98D3A19A0>: Failed to resolve 'fred.stlouisfed.org' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py", line 47, in load_us_data
+    gdp_deflator = pdr.get_data_fred('GDPDEF', start=start_date, end=end_date)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\data.py", line 72, in get_data_fred
+    return FredReader(*args, **kwargs).read()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\fred.py", line 27, in read
+    return self._read()
+           ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\fred.py", line 62, in _read
+    [fetch_data(url, n) for url, n in zip(urls, names)], axis=1, join="outer"
+     ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\fred.py", line 41, in fetch_data
+    resp = self._read_url_as_StringIO(url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\base.py", line 119, in _read_url_as_StringIO
+    response = self._get_response(url, params=params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas_datareader\base.py", line 155, in _get_response
+    response = self.session.get(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\requests\sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\requests\adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Max retries exceeded with url: /graph/fredgraph.csv?id=GDPDEF (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x000001F98D3A19A0>: Failed to resolve 'fred.stlouisfed.org' ([Errno 11001] getaddrinfo failed)"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\estimate_economy.py", line 515, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\estimate_economy.py", line 432, in main
+    data_loader = DataLoader(
+                  ^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py", line 235, in __init__
+    self.df = load_us_data(start_date, end_date, data_dir)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py", line 95, in load_us_data
+    inflation = pd.read_csv(inflation_path, index_col=0, parse_dates=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'data/raw\\inflation.csv'
+
+2025-10-19 16:27:42 - main - ERROR - Pipeline failed at economy estimation

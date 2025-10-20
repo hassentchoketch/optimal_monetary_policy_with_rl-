@@ -1,0 +1,45 @@
+2025-10-19 16:34:57 - ddpg_svar_linear_lags0 - INFO - Starting training: ddpg_svar_linear_lags0
+2025-10-19 16:34:57 - ddpg_svar_linear_lags0 - INFO - Loading economy model...
+2025-10-19 16:34:57 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=None
+2025-10-19 16:35:26 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -165.2175
+2025-10-19 16:35:26 - ddpg_svar_linear_lags0 - INFO - New best agent found!
+2025-10-19 16:35:26 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=None
+2025-10-19 16:35:54 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -205.7913
+2025-10-19 16:35:54 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=None
+2025-10-19 16:36:27 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -187.3710
+2025-10-19 16:36:27 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=None
+2025-10-19 16:36:54 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -161.0895
+2025-10-19 16:36:54 - ddpg_svar_linear_lags0 - INFO - New best agent found!
+2025-10-19 16:36:54 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=None
+2025-10-19 16:37:23 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -143.3856
+2025-10-19 16:37:23 - ddpg_svar_linear_lags0 - INFO - New best agent found!
+2025-10-19 16:37:23 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=None
+2025-10-19 16:37:52 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -175.6743
+2025-10-19 16:37:52 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=None
+2025-10-19 16:38:22 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -165.1899
+2025-10-19 16:38:22 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=None
+2025-10-19 16:38:54 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -193.6971
+2025-10-19 16:38:54 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=None
+2025-10-19 16:39:24 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -164.5577
+2025-10-19 16:39:24 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=None
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - Steady-state reward: -183.7492
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - 
+Best agent saved to: results/checkpoints\ddpg_svar_linear_lags0.pth
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - Best configuration: {'critic_nodes': 5, 'actor_nodes': None, 'steady_state_reward': np.float64(-143.38561513505346)}
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - Policy parameters saved to: results/checkpoints\ddpg_svar_linear_lags0_params.pkl
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - 
+Optimized Policy Parameters:
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO -   alpha_0: 0.1639
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO -   beta_y_0: 1.5630
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO -   beta_pi_0: -0.2160
+2025-10-19 16:40:00 - ddpg_svar_linear_lags0 - INFO - Training complete!

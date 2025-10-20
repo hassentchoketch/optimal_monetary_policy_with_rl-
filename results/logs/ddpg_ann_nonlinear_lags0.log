@@ -1,0 +1,314 @@
+2025-10-19 16:53:56 - ddpg_ann_nonlinear_lags0 - INFO - Starting training: ddpg_ann_nonlinear_lags0
+2025-10-19 16:53:56 - ddpg_ann_nonlinear_lags0 - INFO - Loading economy model...
+2025-10-19 16:53:56 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=1
+2025-10-19 16:54:23 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.2850
+2025-10-19 16:54:23 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:54:23 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=2
+2025-10-19 16:54:53 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.5683
+2025-10-19 16:54:53 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:54:53 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=3
+2025-10-19 16:55:25 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -77.6141
+2025-10-19 16:55:25 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:55:25 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=4
+2025-10-19 16:55:55 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.7852
+2025-10-19 16:55:55 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=5
+2025-10-19 16:56:26 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -75.9105
+2025-10-19 16:56:26 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:56:26 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=6
+2025-10-19 16:56:57 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -75.3708
+2025-10-19 16:56:57 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:56:57 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=7
+2025-10-19 16:57:28 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -67.5268
+2025-10-19 16:57:28 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:57:28 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=8
+2025-10-19 16:57:59 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -65.9172
+2025-10-19 16:57:59 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-10-19 16:57:59 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=9
+2025-10-19 16:58:30 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -93.9565
+2025-10-19 16:58:30 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=10
+2025-10-19 16:59:01 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -94.3330
+2025-10-19 16:59:01 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=1
+2025-10-19 16:59:33 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -97.3105
+2025-10-19 16:59:33 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=2
+2025-10-19 17:00:05 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -74.9234
+2025-10-19 17:00:05 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=3
+2025-10-19 17:00:38 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -74.4609
+2025-10-19 17:00:38 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=4
+2025-10-19 17:01:10 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -70.4838
+2025-10-19 17:01:10 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=5
+2025-10-19 17:01:43 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -92.1342
+2025-10-19 17:01:43 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=6
+2025-10-19 17:02:14 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -86.5110
+2025-10-19 17:02:14 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=7
+2025-10-19 17:02:45 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.4866
+2025-10-19 17:02:45 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=8
+2025-10-19 17:03:16 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -66.6699
+2025-10-19 17:03:16 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=9
+2025-10-19 17:03:47 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -93.0248
+2025-10-19 17:03:47 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=2, actor_nodes=10
+2025-10-19 17:04:19 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -94.7967
+2025-10-19 17:04:19 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=1
+2025-10-19 17:04:50 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -94.8747
+2025-10-19 17:04:50 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=2
+2025-10-19 17:05:25 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -79.2564
+2025-10-19 17:05:25 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=3
+2025-10-19 17:05:56 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.6369
+2025-10-19 17:05:56 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=4
+2025-10-19 17:06:27 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -85.4736
+2025-10-19 17:06:27 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=5
+2025-10-19 17:07:01 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -94.6032
+2025-10-19 17:07:01 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=6
+2025-10-19 17:07:35 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.9267
+2025-10-19 17:07:35 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=7
+2025-10-19 17:08:09 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -72.8044
+2025-10-19 17:08:09 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=8
+2025-10-19 17:08:42 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.0689
+2025-10-19 17:08:42 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=9
+2025-10-19 17:09:14 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.5143
+2025-10-19 17:09:14 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=3, actor_nodes=10
+2025-10-19 17:09:47 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -96.3752
+2025-10-19 17:09:47 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=1
+2025-10-19 17:10:19 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -85.6821
+2025-10-19 17:10:19 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=2
+2025-10-19 17:10:51 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -86.6585
+2025-10-19 17:10:51 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=3
+2025-10-19 17:11:22 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -86.0502
+2025-10-19 17:11:22 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=4
+2025-10-19 17:11:56 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -78.6094
+2025-10-19 17:11:56 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=5
+2025-10-19 17:12:28 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -91.0670
+2025-10-19 17:12:28 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=6
+2025-10-19 17:12:59 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.7578
+2025-10-19 17:12:59 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=7
+2025-10-19 17:13:31 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.6296
+2025-10-19 17:13:31 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=8
+2025-10-19 17:14:00 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.9870
+2025-10-19 17:14:00 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=9
+2025-10-19 17:14:31 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.4031
+2025-10-19 17:14:31 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=4, actor_nodes=10
+2025-10-19 17:15:02 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -78.3029
+2025-10-19 17:15:02 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=1
+2025-10-19 17:15:34 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -87.8997
+2025-10-19 17:15:34 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=2
+2025-10-19 17:16:06 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -77.0875
+2025-10-19 17:16:06 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=3
+2025-10-19 17:16:40 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.5944
+2025-10-19 17:16:40 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=4
+2025-10-19 17:17:13 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -72.8916
+2025-10-19 17:17:13 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=5
+2025-10-19 17:17:46 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.1679
+2025-10-19 17:17:46 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=6
+2025-10-19 17:18:20 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -85.2618
+2025-10-19 17:18:20 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=7
+2025-10-19 17:18:59 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.6002
+2025-10-19 17:18:59 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=8
+2025-10-19 17:19:32 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.0354
+2025-10-19 17:19:32 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=9
+2025-10-19 17:20:00 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.2177
+2025-10-19 17:20:00 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=5, actor_nodes=10
+2025-10-19 17:20:26 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.4512
+2025-10-19 17:20:26 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=1
+2025-10-19 17:20:52 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.0151
+2025-10-19 17:20:52 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=2
+2025-10-19 17:21:18 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -71.4885
+2025-10-19 17:21:18 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=3
+2025-10-19 17:21:44 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.2506
+2025-10-19 17:21:44 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=4
+2025-10-19 17:22:10 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.1188
+2025-10-19 17:22:10 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=5
+2025-10-19 17:22:36 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.5521
+2025-10-19 17:22:36 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=6
+2025-10-19 17:23:02 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -70.0548
+2025-10-19 17:23:02 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=7
+2025-10-19 17:23:28 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.5223
+2025-10-19 17:23:28 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=8
+2025-10-19 17:23:55 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -79.1786
+2025-10-19 17:23:55 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=9
+2025-10-19 17:24:26 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.3027
+2025-10-19 17:24:26 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=6, actor_nodes=10
+2025-10-19 17:24:55 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -89.8504
+2025-10-19 17:24:55 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=1
+2025-10-19 17:25:24 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -88.3951
+2025-10-19 17:25:24 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=2
+2025-10-19 17:25:54 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.2173
+2025-10-19 17:25:54 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=3
+2025-10-19 17:26:23 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -77.8354
+2025-10-19 17:26:23 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=4
+2025-10-19 17:26:53 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -87.8365
+2025-10-19 17:26:53 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=5
+2025-10-19 17:27:22 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.4076
+2025-10-19 17:27:22 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=6
+2025-10-19 17:27:51 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -89.5454
+2025-10-19 17:27:51 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=7
+2025-10-19 17:28:20 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -72.8168
+2025-10-19 17:28:20 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=8
+2025-10-19 17:28:48 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -74.7883
+2025-10-19 17:28:48 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=9
+2025-10-19 17:29:17 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.6647
+2025-10-19 17:29:17 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=7, actor_nodes=10
+2025-10-19 17:29:46 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.1654
+2025-10-19 17:29:46 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=1
+2025-10-19 17:30:14 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -90.6372
+2025-10-19 17:30:14 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=2
+2025-10-19 17:30:43 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.9766
+2025-10-19 17:30:43 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=3
+2025-10-19 17:31:12 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -77.9471
+2025-10-19 17:31:12 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=4
+2025-10-19 17:31:40 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -87.0520
+2025-10-19 17:31:40 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=5
+2025-10-19 17:32:08 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -85.2684
+2025-10-19 17:32:08 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=6
+2025-10-19 17:32:36 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -72.5299
+2025-10-19 17:32:36 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=7
+2025-10-19 17:33:04 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.6901
+2025-10-19 17:33:04 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=8
+2025-10-19 17:33:32 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.6112
+2025-10-19 17:33:32 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=9
+2025-10-19 17:34:00 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -77.8025
+2025-10-19 17:34:00 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=8, actor_nodes=10
+2025-10-19 17:34:36 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.1464
+2025-10-19 17:34:36 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=1
+2025-10-19 17:35:09 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -90.1374
+2025-10-19 17:35:09 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=2
+2025-10-19 17:35:43 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.8491
+2025-10-19 17:35:43 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=3
+2025-10-19 17:36:15 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.9010
+2025-10-19 17:36:15 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=4
+2025-10-19 17:36:51 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.3039
+2025-10-19 17:36:51 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=5
+2025-10-19 17:37:25 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -78.4503
+2025-10-19 17:37:25 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=6
+2025-10-19 17:38:00 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.3527
+2025-10-19 17:38:00 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=7
+2025-10-19 17:38:32 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -80.9378
+2025-10-19 17:38:32 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=8
+2025-10-19 17:39:06 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -73.6687
+2025-10-19 17:39:06 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=9
+2025-10-19 17:39:38 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -76.9669
+2025-10-19 17:39:38 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=9, actor_nodes=10
+2025-10-19 17:40:07 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -94.6435
+2025-10-19 17:40:07 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=1
+2025-10-19 17:40:35 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -85.4046
+2025-10-19 17:40:35 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=2
+2025-10-19 17:41:03 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.2413
+2025-10-19 17:41:03 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=3
+2025-10-19 17:41:31 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -83.1537
+2025-10-19 17:41:31 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=4
+2025-10-19 17:41:59 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -86.3964
+2025-10-19 17:41:59 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=5
+2025-10-19 17:42:27 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -81.6221
+2025-10-19 17:42:27 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=6
+2025-10-19 17:42:55 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -72.6141
+2025-10-19 17:42:55 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=7
+2025-10-19 17:43:23 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -84.2191
+2025-10-19 17:43:23 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=8
+2025-10-19 17:43:51 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -68.6536
+2025-10-19 17:43:51 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=9
+2025-10-19 17:44:20 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -89.3525
+2025-10-19 17:44:20 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=10, actor_nodes=10
+2025-10-19 17:44:48 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -82.8633
+2025-10-19 17:44:48 - ddpg_ann_nonlinear_lags0 - INFO - 
+Best agent saved to: results/checkpoints\ddpg_ann_nonlinear_lags0.pth
+2025-10-19 17:44:48 - ddpg_ann_nonlinear_lags0 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': 8, 'steady_state_reward': np.float64(-65.91722249767764)}
+2025-10-19 17:44:48 - ddpg_ann_nonlinear_lags0 - INFO - Policy parameters saved to: results/checkpoints\ddpg_ann_nonlinear_lags0_params.pkl
+2025-10-19 17:44:48 - ddpg_ann_nonlinear_lags0 - INFO - Training complete!

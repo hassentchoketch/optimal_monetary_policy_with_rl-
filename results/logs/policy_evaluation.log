@@ -1,0 +1,119 @@
+2025-10-19 20:04:50 - policy_evaluation - INFO - ============================================================
+2025-10-19 20:04:50 - policy_evaluation - INFO - POLICY EVALUATION
+2025-10-19 20:04:50 - policy_evaluation - INFO - ============================================================
+2025-10-19 20:04:50 - policy_evaluation - INFO - 
+Loading data...
+2025-10-19 20:05:01 - policy_evaluation - INFO - 
+Loading ANN economy...
+2025-10-19 20:05:01 - policy_evaluation - INFO - 
+Loading policies...
+2025-10-19 20:05:03 - policy_evaluation - INFO - Loaded 9 policies
+2025-10-19 20:05:03 - policy_evaluation - INFO - 
+============================================================
+2025-10-19 20:05:03 - policy_evaluation - INFO - HISTORICAL COUNTERFACTUAL ANALYSIS
+2025-10-19 20:05:03 - policy_evaluation - INFO - ============================================================
+2025-10-19 20:05:03 - policy_evaluation - INFO - 
+Simulating with TR93...
+2025-10-19 20:05:03 - policy_evaluation - INFO - 
+Simulating with NPP...
+2025-10-19 20:05:03 - policy_evaluation - INFO - 
+Simulating with BA...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_SVAR_no_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_SVAR_one_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_ANN_no_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_ANN_one_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_ANN_no_lag_nonlin...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Simulating with RL_ANN_one_lag_nonlin...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+============================================================
+2025-10-19 20:05:04 - policy_evaluation - INFO - HISTORICAL COUNTERFACTUAL METRICS (Table 4)
+2025-10-19 20:05:04 - policy_evaluation - INFO - ============================================================
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Actual:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  1.7430
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.8920
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     2.8175
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+TR93:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  10.2062
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 2.8681
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     6.5372
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -132.0%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+NPP:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  11.7135
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.9263
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     7.8199
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -177.5%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+BA:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  10.7368
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.6360
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     7.1864
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -155.1%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_SVAR_no_lag:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  7.2325
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.0668
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     5.1497
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -82.8%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_SVAR_one_lag:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  7.0240
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.6991
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     5.3616
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -90.3%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_ANN_no_lag:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  8.0286
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.8862
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     5.9574
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -111.4%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_ANN_one_lag:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  7.4533
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 2.6105
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     5.0319
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -78.6%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_ANN_no_lag_nonlin:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  5.1866
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 2.3336
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     3.7601
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -33.5%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+RL_ANN_one_lag_nonlin:
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Inflation:  6.6430
+2025-10-19 20:05:04 - policy_evaluation - INFO -   MSE Output Gap: 3.0755
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Total Loss:     4.8592
+2025-10-19 20:05:04 - policy_evaluation - INFO -   Improvement:    -72.5%
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+============================================================
+2025-10-19 20:05:04 - policy_evaluation - INFO - STATIC COUNTERFACTUAL ANALYSIS
+2025-10-19 20:05:04 - policy_evaluation - INFO - ============================================================
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating TR93...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating NPP...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating BA...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_SVAR_no_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_SVAR_one_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_ANN_no_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_ANN_one_lag...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_ANN_no_lag_nonlin...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluating RL_ANN_one_lag_nonlin...
+2025-10-19 20:05:04 - policy_evaluation - INFO - 
+Evaluation complete!

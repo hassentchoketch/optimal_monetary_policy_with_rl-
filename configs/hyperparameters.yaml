@@ -1,0 +1,141 @@
+# Hyperparameters for Optimal Monetary Policy RL
+# Based on Hinterlang & Tänzer (2024)
+
+# Random seed for reproducibility
+seed: 42
+
+# Data configuration
+data:
+  start_date: "1987-07-01"  # 1987:Q3
+  end_date: "2023-06-30"     # 2023:Q2
+  frequency: "Q"              # Quarterly
+  validation_split: 0.15      # 15% for validation (ANN)
+  
+  variables:
+    inflation: "GDPDEF"       # GDP Deflator
+    output_gap: "GDPPOT"      # Potential GDP (CBO)
+    interest_rate: "FEDFUNDS" # Effective Federal Funds Rate
+    shadow_rate: "wu_xia"     # Wu-Xia Shadow Rate
+
+# Economy estimation
+economy:
+  svar:
+    max_lags: 2
+    significance_level: 0.10
+    recursive: true  # π_t depends on y_t contemporaneously
+    
+  ann:
+    hidden_units_y: 2        # Output gap equation
+    hidden_units_pi: 8       # Inflation equation
+    activation: "tanh"
+    learning_rate: 2.5e-5
+    max_epochs: 1000
+    patience: 6              # Early stopping
+    batch_size: 32
+
+# Reinforcement Learning
+rl_training:
+  # Training parameters
+  num_episodes: 500
+  max_steps_per_episode: 12
+  discount_factor: 0.99      # γ
+  tau: 0.001                 # Soft update parameter
+  
+  # Network architecture
+  critic_nodes_search: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  actor_nodes_linear: 1
+  actor_nodes_nonlinear_search: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  
+  # Optimization
+  learning_rate_actor: 2.5e-5
+  learning_rate_critic: 2.5e-5
+  optimizer: "adam"
+  gradient_clip: 1.0
+  
+  # Experience replay
+  buffer_size: 10000
+  batch_size: 64
+  
+  # Exploration
+  noise_type: "ou"           # Ornstein-Uhlenbeck
+  noise_std: 1.0             # 1-10% of action range
+  noise_theta: 0.15
+  noise_sigma: 0.2
+  
+  # Stopping criteria
+  stopping_tolerance:
+    inflation: 0.2           # |π - π*| < 0.2
+    output_gap: 0.2          # |y| < 0.2
+    
+  # Agent selection
+  selection_criteria:
+    min_episode_reward_per_step: -4.0
+    min_episode_steps: 2
+    max_episode_steps: 12
+
+# Reward function (Equation 14)
+reward:
+  weight_inflation: 0.5      # ω_π
+  weight_output_gap: 0.5     # ω_y
+  target_inflation: 2.0      # π* (percent)
+  target_output_gap: 0.0     # y* (percent)
+  penalty_threshold: 2.0     # Penalty if |deviation| > 2 pp
+  penalty_multiplier: 10.0
+
+# Baseline policies
+baseline_policies:
+  tr93:
+    r_star: 2.0
+    beta_pi: 1.5
+    beta_y: 0.5
+    alpha_0: 1.0
+    
+  npp:  # Nikolsko-Rzhevskyy et al. (2018)
+    r_star: 2.0
+    beta_pi: 2.0
+    beta_y: 0.5
+    alpha_0: 0.0
+    
+  ba:
+    r_star: 2.0
+    beta_pi: 1.5
+    beta_y: 1.0
+    alpha_0: 1.0
+
+# Evaluation
+evaluation:
+  counterfactual:
+    historical:
+      use_estimated_shocks: true
+      num_simulations: 1
+    static:
+      use_actual_data: true
+      
+  metrics:
+    - squared_deviation_inflation
+    - squared_deviation_output_gap
+    - total_loss
+    - mean_absolute_error
+    
+# Visualization
+visualization:
+  dpi: 300
+  figure_format: "pdf"
+  style: "seaborn-v0_8-paper"
+  color_palette: "deep"
+  font_size: 12
+  use_latex: true
+  
+  partial_dependence:
+    inflation_range: [0, 6]
+    output_gap_range: [-5, 3]
+    interest_rate_range: [-3, 7]
+    grid_resolution: 50
+
+# Logging
+logging:
+  level: "INFO"
+  log_to_file: true
+  log_dir: "results/logs"
+  tensorboard: true
+  save_frequency: 50  # Save checkpoint every N episodes
