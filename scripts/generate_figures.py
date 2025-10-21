@@ -154,7 +154,7 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
     tables_dir = os.path.join(output_dir, '..', 'tables')
     
     # Figure 6: Historical counterfactual with linear policies
-    linear_policies = ['TR93', 'NPP', 'BA', 'RL_ANN_no_lag', 'RL_ANN_one_lag']
+    linear_policies = ['TR93', 'NPP', 'BA', 'RL_SVAR_no_lag','RL_ANN_no_lag', 'RL_ANN_one_lag']
     cf_data_linear = {}
     
     for policy in linear_policies:
@@ -181,7 +181,7 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
         logger.info(f"  Saved Figure 6")
     
     # Figure 7: Historical counterfactual with RL policies
-    rl_policies = ['RL_ANN_no_lag', 'RL_ANN_one_lag',
+    rl_policies = ['RL_SVAR_no_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
                    'RL_ANN_no_lag_nonlin', 'RL_ANN_one_lag_nonlin']
     cf_data_rl = {}
     
@@ -209,7 +209,7 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
         logger.info(f"  Saved Figure 7")
     
     # Figure 8: Static counterfactual
-    static_policies = ['RL_ANN_no_lag', 'RL_ANN_one_lag',
+    static_policies = ['RL_SVAR_no_lag''RL_ANN_no_lag', 'RL_ANN_one_lag',
                        'RL_ANN_no_lag_nonlin', 'RL_ANN_one_lag_nonlin']
     cf_data_static = {}
     

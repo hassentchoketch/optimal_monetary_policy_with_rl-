@@ -28,52 +28,6 @@ from src.data.data_loader import DataLoader
 from src.utils.metrics import compute_metrics, compare_policies, compute_loss
 from src.utils.logger import setup_logger
 
-
-# def load_all_policies(checkpoint_dir: str, config: dict, device: str = 'cpu') -> Dict:
-#     """Load all trained policies and baselines."""
-#     policies = {}
-    
-#     # Baseline policies
-#     for rule_type in ['TR93', 'NPP', 'BA']:
-#         policies[rule_type] = BaselinePolicy(
-#             rule_type=rule_type,
-#             r_star=config['baseline_policies'][rule_type.lower()]['r_star'],
-#             pi_star=config['reward']['target_inflation']
-#         )
-    
-#     # RL policies
-#     for economy in ['svar', 'ann']:
-#         for policy_type in ['linear', 'nonlinear']:
-#             for lags in [0, 1]:
-#                 if policy_type == 'nonlinear' and economy == 'svar':
-#                     continue  # Skip nonlinear SVAR (not trained)
-                
-#                 name = f"RL_{economy.upper()}_{'no' if lags == 0 else 'one'}_lag"
-#                 if policy_type == 'nonlinear':
-#                     name += "_nonlin"
-                
-#                 checkpoint_path = os.path.join(
-#                     checkpoint_dir,
-#                     f"ddpg_{economy}_{policy_type}_lags{lags}.pth"
-#                 )
-                
-#                 if os.path.exists(checkpoint_path):
-#                     # Load agent
-#                     state_dim = 2 if lags == 0 else 4
-#                     agent = DDPGAgent(
-                    
-#                         state_dim=state_dim,
-#                         action_dim=1,
-#                         critic_hidden=5,  # Will be overwritten by checkpoint
-#                         actor_hidden= None if policy_type == 'linear' else 8,
-#                         linear_policy=(policy_type == 'linear'),
-#                         device=device
-#                     )
-#                     agent.load(checkpoint_path)
-#                     policies[name] = RLPolicy(agent, name)
-    
-#     return policies
-
 def load_all_policies(checkpoint_dir: str, config: dict, device: str = 'cpu') -> Dict:
     """Load all trained policies and baselines."""
     policies = {}
@@ -216,7 +170,6 @@ def run_historical_counterfactual(
     
     return results
 
-
 def run_static_counterfactual(
     policies: Dict,
     data: pd.DataFrame,
@@ -270,7 +223,6 @@ def run_static_counterfactual(
         }
     
     return results
-
 
 def main():
     parser = argparse.ArgumentParser(description='Evaluate monetary policies')

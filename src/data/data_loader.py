@@ -19,6 +19,7 @@ def load_us_data(
     start_date: str = "1987-07-01",
     end_date: str = "2023-06-30",
     data_dir: str = "data\\raw",
+    save_raw: bool = True,
     save_processed: bool = True
 ) -> pd.DataFrame:
     """
@@ -45,20 +46,29 @@ def load_us_data(
 
         # GDP Deflator (for inflation calculation)
         gdp_deflator = pdr.get_data_fred('GDPDEF', start=start_date, end=end_date)
+        # Real GDP and Potential GDP (for output gap)
+        gdp = pdr.get_data_fred('GDPC1', start=start_date, end=end_date)
+        potential_gdp = pdr.get_data_fred('GDPPOT', start=start_date, end=end_date)
+        # Federal Funds Rate
+        ffr = pdr.get_data_fred('DFF', start=start_date, end=end_date)
+        # Save raw data
+        if save_raw:
+            raw_dir = "data\\raw"
+            os.makedirs(raw_dir, exist_ok=True)
+            gdp_deflator.to_csv(os.path.join(raw_dir, 'gdp_deflator.csv'))
+            gdp.to_csv(os.path.join(raw_dir, 'gdp.csv'))
+            potential_gdp.to_csv(os.path.join(raw_dir, 'potential_gdp.csv'))
+            ffr.to_csv(os.path.join(raw_dir, 'federal_funds_rate.csv'))
+        
 
         # Calculate year-over-year inflation
         inflation = gdp_deflator.pct_change(periods=4) * 100
         inflation.columns = ['inflation']
-
         # Output gap (using CBO potential GDP)
-        gdp = pdr.get_data_fred('GDPC1', start=start_date, end=end_date)
-        potential_gdp = pdr.get_data_fred('GDPPOT', start=start_date, end=end_date)
         output_gap = ((gdp["GDPC1"] - potential_gdp["GDPPOT"]) / potential_gdp["GDPPOT"] * 100).reset_index().set_index('DATE')
         output_gap.columns = ['output_gap']
-
         # Federal Funds Rate
         ffr = pdr.get_data_fred('DFF', start=start_date, end=end_date)
-
         # Quarterly average of monthly data
         ffr_quarterly = ffr.resample('QS').mean()
         ffr_quarterly.columns = ['interest_rate']
@@ -77,36 +87,49 @@ def load_us_data(
         #     ffr_quarterly.loc[mask, 'interest_rate'] = shadow_rate_quarterly.loc[mask].values
         
         # Combine all series
-        df = pd.concat([inflation, output_gap, ffr_quarterly], axis=1)
-        df = df.dropna()
+        df_processed = pd.concat([inflation, output_gap, ffr_quarterly], axis=1)
+        df_processed = df_processed.dropna()
         
         # Ensure quarterly frequency
-        df = df.asfreq('QS')
+        df_processed = df_processed.asfreq('QS')
         
     except Exception as e:
         print(f"Error loading from FRED: {e}")
         print("Loading from provided CSV files...")
         
         # Fallback: load from CSV files
-        inflation_path = os.path.join(data_dir, 'inflation.csv')
-        output_gap_path = os.path.join(data_dir, 'output_gap.csv')
+        gdp_deflator_path = os.path.join(data_dir, 'gdp_deflator.csv')
+        gdp_path = os.path.join(data_dir, 'gdp.csv')
+        potential_gdp_path = os.path.join(data_dir, 'potential_gdp.csv')
         ffr_path = os.path.join(data_dir, 'federal_funds_rate.csv')
-        
-        inflation = pd.read_csv(inflation_path, index_col=0, parse_dates=True)
-        output_gap = pd.read_csv(output_gap_path, index_col=0, parse_dates=True)
+
+        gdp_deflator = pd.read_csv(gdp_deflator_path, index_col=0, parse_dates=True)
+        gdp = pd.read_csv(gdp_path, index_col=0, parse_dates=True)
+        potential_gdp = pd.read_csv(potential_gdp_path, index_col=0, parse_dates=True)
         ffr = pd.read_csv(ffr_path, index_col=0, parse_dates=True)
-        
-        df = pd.concat([inflation, output_gap, ffr], axis=1)
-        df.columns = ['inflation', 'output_gap', 'interest_rate']
-        df = df.loc[start_date:end_date]
-    
+
+        # Calculate year-over-year inflation
+        inflation = gdp_deflator.pct_change(periods=4) * 100
+        inflation.columns = ['inflation']
+        # Output gap (using CBO potential GDP)
+        output_gap = ((gdp["GDPC1"] - potential_gdp["GDPPOT"]) / potential_gdp["GDPPOT"] * 100).reset_index().set_index('DATE')
+        output_gap.columns = ['output_gap']
+        # Federal Funds Rate
+        ffr = pdr.get_data_fred('DFF', start=start_date, end=end_date)
+        # Quarterly average of monthly data
+        ffr_quarterly = ffr.resample('QS').mean()
+        ffr_quarterly.columns = ['interest_rate']
+
+        df_processed = pd.concat([inflation, output_gap, ffr_quarterly], axis=1)
+        df_processed.columns = ['inflation', 'output_gap', 'interest_rate']
+        df_processed = df_processed.loc[start_date:end_date]
+
     # Save processed data
     if save_processed:
         processed_dir = "data\\processed"
         os.makedirs(processed_dir, exist_ok=True)
-        df.to_csv(os.path.join(processed_dir, 'us_macro_data.csv'))
-    
-    return df
+        df_processed.to_csv(os.path.join(processed_dir, 'us_macro_data.csv'))
+    return df_processed
 
 def check_stationarity(
     data: pd.Series,
@@ -248,10 +271,10 @@ class DataLoader:
     def get_train_val_split(
         self,
         validation_split: float = 0.15,
-        seed: Optional[int] = None
+        # seed: Optional[int] = None
     ) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """Get train/validation split."""
-        return prepare_training_data(self.df, validation_split, seed)
+        return prepare_training_data(self.df, validation_split)
     
     def get_lagged_data(self, lags: int = 2) -> pd.DataFrame:
         """Get data with lagged features."""

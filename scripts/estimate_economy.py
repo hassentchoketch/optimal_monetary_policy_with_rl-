@@ -53,8 +53,8 @@ def estimate_svar(
     # Output gap equation: y_t = C^y + a^y_{y,1} y_{t-1} + a^y_{π,1} π_{t-1} + 
     #                              a^y_{i,1} i_{t-1} + a^y_{i,2} i_{t-2} + ε^y_t
     
-    X_y = data[['output_gap_lag1', 'inflation_lag1', 
-                'interest_rate_lag1', 'interest_rate_lag2']].values
+    X_y = data[['output_gap_lag1','output_gap_lag2', 'inflation_lag1', 
+                'inflation_lag2','interest_rate_lag1', 'interest_rate_lag2']].values
     y_y = data['output_gap'].values
     
     # Add constant
@@ -69,8 +69,8 @@ def estimate_svar(
     # Inflation equation: π_t = C^π + a^π_{y,0} y_t + a^π_{y,1} y_{t-1} + 
     #                            a^π_{π,1} π_{t-1} + a^π_{π,2} π_{t-2} + a^π_{i,1} i_{t-1} + ε^π_t
     
-    X_pi = data[['output_gap', 'output_gap_lag1', 'inflation_lag1', 
-                 'inflation_lag2', 'interest_rate_lag1']].values
+    X_pi = data[['output_gap', 'output_gap_lag1','output_gap_lag2', 'inflation_lag1', 
+                 'inflation_lag2','interest_rate_lag1','interest_rate_lag2']].values
     y_pi = data['inflation'].values
     
     X_pi = add_constant(X_pi)
@@ -83,18 +83,22 @@ def estimate_svar(
     params_y = {
         'const': model_y.params[0],
         'y_lag1': model_y.params[1],
-        'pi_lag1': model_y.params[2],
-        'i_lag1': model_y.params[3],
-        'i_lag2': model_y.params[4]
+        'y_lag2': model_y.params[2],
+        'pi_lag1': model_y.params[3],
+        'pi_lag2': model_y.params[4],
+        'i_lag1': model_y.params[5],
+        'i_lag2': model_y.params[6]
     }
     
     params_pi = {
         'const': model_pi.params[0],
         'y_lag0': model_pi.params[1],
         'y_lag1': model_pi.params[2],
-        'pi_lag1': model_pi.params[3],
-        'pi_lag2': model_pi.params[4],
-        'i_lag1': model_pi.params[5]
+        'y_lag2': model_pi.params[3],
+        'pi_lag1': model_pi.params[4],
+        'pi_lag2': model_pi.params[5],
+        'i_lag1': model_pi.params[6],
+        'i_lag2': model_pi.params[7]
     }
     
     # Compute residuals (structural shocks)

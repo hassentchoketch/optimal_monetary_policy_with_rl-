@@ -450,41 +450,59 @@ class ProjectRunner:
     ):
         """
         Clean generated results.
-        
-        Args:
-            figures: Clean figures
-            checkpoints: Clean model checkpoints
-            logs: Clean logs
-            all_results: Clean everything
         """
         import shutil
+        import logging
+        from pathlib import Path
         
-        self.logger.info("\n" + "="*60)
-        self.logger.info("CLEANING RESULTS")
-        self.logger.info("="*60)
+        # Close all loggers and use print for cleanup
+        logging.shutdown()
+        
+        print("\n" + "="*60)
+        print("CLEANING RESULTS")
+        print("="*60)
         
         if all_results or figures:
-            self.logger.info("Cleaning figures...")
-            for pattern in ['*.pdf', '*.png']:
-                for file in Path('results/figures').glob(pattern):
-                    file.unlink()
-                    self.logger.debug(f"  Removed {file}")
+            print("Cleaning figures...")
+            figures_dir = Path('results/figures')
+            if figures_dir.exists():
+                for pattern in ['*.pdf', '*.png', '*.jpg']:
+                    for file in figures_dir.glob(pattern):
+                        try:
+                            file.unlink()
+                            print(f"  Removed {file}")
+                        except Exception as e:
+                            print(f"  Could not remove {file}: {e}")
         
         if all_results or checkpoints:
-            self.logger.info("Cleaning checkpoints...")
-            for pattern in ['*.pth', '*.pkl']:
-                for file in Path('results/checkpoints').glob(pattern):
-                    file.unlink()
-                    self.logger.debug(f"  Removed {file}")
+            print("Cleaning checkpoints...")
+            checkpoints_dir = Path('results/checkpoints')
+            if checkpoints_dir.exists():
+                for pattern in ['*.pth', '*.pkl', '*.pt']:
+                    for file in checkpoints_dir.glob(pattern):
+                        try:
+                            file.unlink()
+                            print(f"  Removed {file}")
+                        except Exception as e:
+                            print(f"  Could not remove {file}: {e}")
         
         if all_results or logs:
-            self.logger.info("Cleaning logs...")
-            for pattern in ['*.log', '*.csv']:
-                for file in Path('results/logs').glob(pattern):
-                    file.unlink()
-                    self.logger.debug(f"  Removed {file}")
+            print("Cleaning logs...")
+            logs_dir = Path('results/logs')
+            if logs_dir.exists():
+                for pattern in ['*.log', '*.csv', '*.txt']:
+                    for file in logs_dir.glob(pattern):
+                        try:
+                            file.unlink()
+                            print(f"  Removed {file}")
+                        except Exception as e:
+                            print(f"  Could not remove {file}: {e}")
         
-        self.logger.info("✓ Cleaning completed")
+        print("✓ Cleaning completed")
+        
+        # Reinitialize the original logger by calling the existing setup method
+        # This assumes you have some logger setup in your __init__ method
+        # If not, the next operation will set it up again
     
     def status(self):
         """
