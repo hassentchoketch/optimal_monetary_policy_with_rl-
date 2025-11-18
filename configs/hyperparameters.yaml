@@ -11,11 +11,11 @@ data:
   frequency: "Q"              # Quarterly
   validation_split: 0.15      # 15% for validation (ANN)
   
-  variables:
-    inflation: "GDPDEF"       # GDP Deflator
-    output_gap: "GDPPOT"      # Potential GDP (CBO)
-    interest_rate: "FEDFUNDS" # Effective Federal Funds Rate
-    shadow_rate: "wu_xia"     # Wu-Xia Shadow Rate
+  # variables:
+  #   inflation: "GDPDEF"       # GDP Deflator
+  #   output_gap: "GDPPOT"      # Potential GDP (CBO)
+  #   interest_rate: "FEDFUNDS" # Effective Federal Funds Rate
+  #   shadow_rate: "wu_xia"     # Wu-Xia Shadow Rate
 
 # Economy estimation
 economy:
@@ -28,7 +28,7 @@ economy:
     hidden_units_y: 2        # Output gap equation
     hidden_units_pi: 8       # Inflation equation
     activation: "tanh"
-    learning_rate: 2.5e-5
+    learning_rate: 0.01
     max_epochs: 500
     patience: 6              # Early stopping
     batch_size: 32
@@ -36,16 +36,16 @@ economy:
 # Reinforcement Learning
 rl_training:
   # Training parameters
-  num_episodes: 200
+  num_episodes: 500
   max_steps_per_episode: 12
   discount_factor: 0.99      # γ
   tau: 0.001                 # Soft update parameter
   
   # Network architecture
-  critic_nodes_search: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  critic_nodes_search: [1] #[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   actor_nodes_linear: 1
-  actor_nodes_nonlinear_search: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  
+  actor_nodes_nonlinear_search: [8] #[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
   # Optimization
   learning_rate_actor: 2.5e-5
   learning_rate_critic: 2.5e-5

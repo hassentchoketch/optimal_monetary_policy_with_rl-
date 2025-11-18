@@ -1,0 +1,407 @@
+2025-11-18 08:14:56 - main - ERROR - Error: 2025-11-18 08:14:25 - figure_generation - INFO - ============================================================
+2025-11-18 08:14:25 - figure_generation - INFO - FIGURE GENERATION
+2025-11-18 08:14:25 - figure_generation - INFO - ============================================================
+2025-11-18 08:14:25 - figure_generation - INFO - 
+Generating Figure 2: Economy Fit Comparison...
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 305, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 290, in main
+    generate_figure2(config, args.checkpoint_dir, args.output_dir, logger)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 54, in generate_figure2
+    network_y.load_state_dict(torch.load(
+                              ^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results/checkpoints\\ann_y_network.pth'
+
+2025-11-18 08:17:09 - main - ERROR - Error: 2025-11-18 08:16:49 - figure_generation - INFO - ============================================================
+2025-11-18 08:16:49 - figure_generation - INFO - FIGURE GENERATION
+2025-11-18 08:16:49 - figure_generation - INFO - ============================================================
+2025-11-18 08:16:49 - figure_generation - INFO - 
+Generating Figure 2: Economy Fit Comparison...
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 305, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 290, in main
+    generate_figure2(config, args.checkpoint_dir, args.output_dir, logger)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 54, in generate_figure2
+    network_y.load_state_dict(torch.load(
+                              ^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1484, in load
+    with _open_file_like(f, "rb") as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 759, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 740, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results/checkpoints\\ann_y_network.pth'
+
+2025-11-18 20:25:20 - main - ERROR - Error: usage: generate_figures.py [-h] [--all] [--figure {2,3,6,7,8}] [--tables]
+                           [--config CONFIG] [--checkpoint_dir CHECKPOINT_DIR]
+                           [--output_dir OUTPUT_DIR]
+generate_figures.py: error: argument --figure: invalid choice: '9' (choose from 2, 3, 6, 7, 8)
+
+2025-11-18 20:37:59 - main - ERROR - Error: 2025-11-18 20:37:50 - figure_generation - INFO - ============================================================
+2025-11-18 20:37:50 - figure_generation - INFO - FIGURE GENERATION
+2025-11-18 20:37:50 - figure_generation - INFO - ============================================================
+2025-11-18 20:37:50 - figure_generation - INFO - 
+Generating Figures 6-9: Counterfactual Analysis...
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+2025-11-18 20:37:57 - figure_generation - WARNING -   Could not find data for RL_ANN_no_lag
+2025-11-18 20:37:57 - figure_generation - WARNING -   Could not find data for RL_ANN_one_lag
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 333, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 324, in main
+    generate_figures_6_7_8_9(config, args.output_dir, logger)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 172, in generate_figures_6_7_8_9
+    plot_counterfactual(
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\utils\visualization.py", line 295, in plot_counterfactual
+    axes[0].plot(dates, data['ffr'], color=color, 
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_axes.py", line 1777, in plot
+    lines = [*self._get_lines(self, *args, data=data, **kwargs)]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 297, in __call__
+    yield from self._plot_args(
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 546, in _plot_args
+    return [l[0] for l in result]
+                          ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 539, in <genexpr>
+    result = (make_artist(axes, x[:, j % ncx], y[:, j % ncy], kw,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 338, in _make_line
+    seg = mlines.Line2D(x, y, **kw)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\lines.py", line 390, in __init__
+    self.set_color(color)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\lines.py", line 1081, in set_color
+    mcolors._check_color_like(color=color)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\colors.py", line 249, in _check_color_like
+    raise ValueError(
+ValueError: 'tab:yellow' is not a valid value for color: supported inputs are (r, g, b) and (r, g, b, a) 0-1 float tuples; '#rrggbb', '#rrggbbaa', '#rgb', '#rgba' strings; named color strings; string reprs of 0-1 floats for grayscale values; 'C0', 'C1', ... strings for colors of the color cycle; and pairs combining one of the above with an alpha value
+
+2025-11-18 20:43:07 - main - ERROR - Error: 2025-11-18 20:42:55 - figure_generation - INFO - ============================================================
+2025-11-18 20:42:55 - figure_generation - INFO - FIGURE GENERATION
+2025-11-18 20:42:55 - figure_generation - INFO - ============================================================
+2025-11-18 20:42:55 - figure_generation - INFO - 
+Generating Figures 6-9: Counterfactual Analysis...
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is greater than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\data\data_loader.py:159: InterpolationWarning: The test statistic is outside of the range of p-values available in the
+look-up table. The actual p-value is smaller than the p-value returned.
+
+  kpss_result = kpss(data.dropna(), regression='c', nlags='auto')
+2025-11-18 20:43:05 - figure_generation - WARNING -   Could not find data for RL_ANN_no_lag
+2025-11-18 20:43:05 - figure_generation - WARNING -   Could not find data for RL_ANN_one_lag
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 333, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 324, in main
+    generate_figures_6_7_8_9(config, args.output_dir, logger)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\generate_figures.py", line 172, in generate_figures_6_7_8_9
+    plot_counterfactual(
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\utils\visualization.py", line 310, in plot_counterfactual
+    axes[0].plot(dates, data['ffr'], color=color, linestyle=style,
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_axes.py", line 1777, in plot
+    lines = [*self._get_lines(self, *args, data=data, **kwargs)]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 297, in __call__
+    yield from self._plot_args(
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 546, in _plot_args
+    return [l[0] for l in result]
+                          ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 539, in <genexpr>
+    result = (make_artist(axes, x[:, j % ncx], y[:, j % ncy], kw,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\axes\_base.py", line 338, in _make_line
+    seg = mlines.Line2D(x, y, **kw)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\lines.py", line 390, in __init__
+    self.set_color(color)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\lines.py", line 1081, in set_color
+    mcolors._check_color_like(color=color)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\matplotlib\colors.py", line 249, in _check_color_like
+    raise ValueError(
+ValueError: 'tab:yellow' is not a valid value for color: supported inputs are (r, g, b) and (r, g, b, a) 0-1 float tuples; '#rrggbb', '#rrggbbaa', '#rgb', '#rgba' strings; named color strings; string reprs of 0-1 floats for grayscale values; 'C0', 'C1', ... strings for colors of the color cycle; and pairs combining one of the above with an alpha value
+
+2025-11-18 20:48:35 - main - ERROR - Error: 2025-11-18 20:48:34 - ddpg_svar_linear_lags0 - INFO - Starting training: ddpg_svar_linear_lags0
+2025-11-18 20:48:34 - ddpg_svar_linear_lags0 - INFO - Loading economy model...
+2025-11-18 20:48:34 - ddpg_svar_linear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=None
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 355, in main
+    agent, saved_agents = train_agent(
+                          ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 142, in train_agent
+    agent = DDPGAgent(
+            ^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\agents\ddpg_agent.py", line 151, in __init__
+    ).to(self.device)
+      ^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 930, in _apply
+    module._apply(fn)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\cuda\__init__.py", line 403, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+2025-11-18 20:48:46 - main - ERROR - Error: 2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - Starting training: ddpg_svar_linear_lags1
+2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - Loading economy model...
+2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - 
+Training with critic_nodes=1, actor_nodes=None
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 355, in main
+    agent, saved_agents = train_agent(
+                          ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 142, in train_agent
+    agent = DDPGAgent(
+            ^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\src\agents\ddpg_agent.py", line 151, in __init__
+    ).to(self.device)
+      ^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 930, in _apply
+    module._apply(fn)
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\nn\modules\module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\cuda\__init__.py", line 403, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+
+2025-11-18 20:48:55 - main - ERROR - Error: 2025-11-18 20:48:54 - ddpg_ann_linear_lags0 - INFO - Starting training: ddpg_ann_linear_lags0
+2025-11-18 20:48:54 - ddpg_ann_linear_lags0 - INFO - Loading economy model...
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 330, in main
+    economy = load_economy(args.economy, args.checkpoint_dir, config, args.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 87, in load_economy
+    network_y.load_state_dict(torch.load(network_y_path, map_location=device))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1521, in load
+    return _load(
+           ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2122, in _load
+    result = unpickler.load()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\_weights_only_unpickler.py", line 535, in load
+    self.append(self.persistent_load(pid))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2086, in persistent_load
+    typed_storage = load_tensor(
+                    ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2052, in load_tensor
+    wrap_storage = restore_location(storage, location)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1859, in restore_location
+    return default_restore_location(storage, map_location)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 698, in default_restore_location
+    result = fn(storage, location)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 636, in _deserialize
+    device = _validate_device(location, backend_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 605, in _validate_device
+    raise RuntimeError(
+RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.
+
+2025-11-18 20:49:05 - main - ERROR - Error: 2025-11-18 20:49:04 - ddpg_ann_linear_lags1 - INFO - Starting training: ddpg_ann_linear_lags1
+2025-11-18 20:49:04 - ddpg_ann_linear_lags1 - INFO - Loading economy model...
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 330, in main
+    economy = load_economy(args.economy, args.checkpoint_dir, config, args.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 87, in load_economy
+    network_y.load_state_dict(torch.load(network_y_path, map_location=device))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1521, in load
+    return _load(
+           ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2122, in _load
+    result = unpickler.load()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\_weights_only_unpickler.py", line 535, in load
+    self.append(self.persistent_load(pid))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2086, in persistent_load
+    typed_storage = load_tensor(
+                    ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2052, in load_tensor
+    wrap_storage = restore_location(storage, location)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1859, in restore_location
+    return default_restore_location(storage, map_location)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 698, in default_restore_location
+    result = fn(storage, location)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 636, in _deserialize
+    device = _validate_device(location, backend_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 605, in _validate_device
+    raise RuntimeError(
+RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.
+
+2025-11-18 20:49:15 - main - ERROR - Error: 2025-11-18 20:49:14 - ddpg_ann_nonlinear_lags0 - INFO - Starting training: ddpg_ann_nonlinear_lags0
+2025-11-18 20:49:14 - ddpg_ann_nonlinear_lags0 - INFO - Loading economy model...
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 330, in main
+    economy = load_economy(args.economy, args.checkpoint_dir, config, args.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 87, in load_economy
+    network_y.load_state_dict(torch.load(network_y_path, map_location=device))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1521, in load
+    return _load(
+           ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2122, in _load
+    result = unpickler.load()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\_weights_only_unpickler.py", line 535, in load
+    self.append(self.persistent_load(pid))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2086, in persistent_load
+    typed_storage = load_tensor(
+                    ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2052, in load_tensor
+    wrap_storage = restore_location(storage, location)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1859, in restore_location
+    return default_restore_location(storage, map_location)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 698, in default_restore_location
+    result = fn(storage, location)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 636, in _deserialize
+    device = _validate_device(location, backend_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 605, in _validate_device
+    raise RuntimeError(
+RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.
+
+2025-11-18 20:49:26 - main - ERROR - Error: 2025-11-18 20:49:25 - ddpg_ann_nonlinear_lags1 - INFO - Starting training: ddpg_ann_nonlinear_lags1
+2025-11-18 20:49:25 - ddpg_ann_nonlinear_lags1 - INFO - Loading economy model...
+Traceback (most recent call last):
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 420, in <module>
+    main()
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 330, in main
+    economy = load_economy(args.economy, args.checkpoint_dir, config, args.device)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\scripts\train_agent.py", line 87, in load_economy
+    network_y.load_state_dict(torch.load(network_y_path, map_location=device))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1521, in load
+    return _load(
+           ^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2122, in _load
+    result = unpickler.load()
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\_weights_only_unpickler.py", line 535, in load
+    self.append(self.persistent_load(pid))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2086, in persistent_load
+    typed_storage = load_tensor(
+                    ^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 2052, in load_tensor
+    wrap_storage = restore_location(storage, location)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 1859, in restore_location
+    return default_restore_location(storage, map_location)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 698, in default_restore_location
+    result = fn(storage, location)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 636, in _deserialize
+    device = _validate_device(location, backend_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\tchok\Desktop\projects\optimal_monetary_policy_with_rl\venv\Lib\site-packages\torch\serialization.py", line 605, in _validate_device
+    raise RuntimeError(
+RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.
+
+2025-11-18 20:49:26 - main - ERROR - 
+Failed configurations:
+2025-11-18 20:49:26 - main - ERROR -   - svar + linear + LAGS=0
+2025-11-18 20:49:26 - main - ERROR -   - svar + linear + LAGS=1
+2025-11-18 20:49:26 - main - ERROR -   - ann + linear + LAGS=0
+2025-11-18 20:49:26 - main - ERROR -   - ann + linear + LAGS=1
+2025-11-18 20:49:26 - main - ERROR -   - ann + nonlinear + LAGS=0
+2025-11-18 20:49:26 - main - ERROR -   - ann + nonlinear + LAGS=1
+2025-11-18 20:49:26 - main - ERROR - Pipeline failed at agent training

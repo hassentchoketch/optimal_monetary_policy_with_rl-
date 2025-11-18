@@ -139,9 +139,9 @@ def generate_figure3(config: dict, checkpoint_dir: str, output_dir: str, logger)
     logger.info(f"  Saved to: {output_dir}/figure3_pd_*.pdf")
 
 
-def generate_figures_6_7_8(config: dict, output_dir: str, logger):
-    """Generate Figures 6-8: Counterfactual analysis."""
-    logger.info("\nGenerating Figures 6-8: Counterfactual Analysis...")
+def generate_figures_6_7_8_9(config: dict, output_dir: str, logger):
+    """Generate Figures 6-9: Counterfactual analysis."""
+    logger.info("\nGenerating Figures 6-9: Counterfactual Analysis...")
     
     # Load data
     data_loader = DataLoader(
@@ -154,7 +154,7 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
     tables_dir = os.path.join(output_dir, '..', 'tables')
     
     # Figure 6: Historical counterfactual with linear policies
-    linear_policies = ['TR93', 'NPP', 'BA', 'RL_SVAR_no_lag','RL_ANN_no_lag', 'RL_ANN_one_lag']
+    linear_policies = ['TR93', 'NPP', 'BA', 'RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag']
     cf_data_linear = {}
     
     for policy in linear_policies:
@@ -181,7 +181,9 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
         logger.info(f"  Saved Figure 6")
     
     # Figure 7: Historical counterfactual with RL policies
-    rl_policies = ['RL_SVAR_no_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
+    rl_policies = [
+        # 'TR93', 'NPP', 'BA',
+                   'RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
                    'RL_ANN_no_lag_nonlin', 'RL_ANN_one_lag_nonlin']
     cf_data_rl = {}
     
@@ -208,9 +210,9 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
         )
         logger.info(f"  Saved Figure 7")
     
-    # Figure 8: Static counterfactual
-    static_policies = ['RL_SVAR_no_lag''RL_ANN_no_lag', 'RL_ANN_one_lag',
-                       'RL_ANN_no_lag_nonlin', 'RL_ANN_one_lag_nonlin']
+    # Figure 8: Static counterfactual linear policies
+    static_policies = ['TR93', 'NPP', 'BA','RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
+                       ]
     cf_data_static = {}
     
     for policy in static_policies:
@@ -231,12 +233,38 @@ def generate_figures_6_7_8(config: dict, output_dir: str, logger):
             actual_inflation=data['inflation'].values,
             actual_output_gap=data['output_gap'].values,
             counterfactual_data=cf_data_static,
-            save_path=os.path.join(output_dir, 'figure8_static_counterfactual.pdf'),
-            title='Static Counterfactual: RL Policies'
+            save_path=os.path.join(output_dir, 'figure8_static_counterfactual_linear.pdf'),
+            title='Static Counterfactual: Linear Policies'
         )
         logger.info(f"  Saved Figure 8")
 
-
+    # Figure 9: Static counterfactual RL policies
+        static_policies = ['RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
+                           'RL_SVAR_one_lag_nonlin','RL_SVAR_no_lag_nonlin', 'RL_ANN_one_lag_nonlin','RL_ANN_no_lag_nonlin']
+        cf_data_static = {}
+        
+        for policy in static_policies:
+            try:
+                df = pd.read_csv(os.path.join(tables_dir, f'static_cf_{policy}.csv'))
+                cf_data_static[policy] = {
+                    'ffr': df['ffr'].values,
+                    'inflation': df['inflation'].values,
+                    'output_gap': df['output_gap'].values
+                }
+            except FileNotFoundError:
+                logger.warning(f"  Could not find data for {policy}")
+        
+        if cf_data_static:
+            plot_counterfactual(
+                dates=data.index,
+                actual_ffr=data['interest_rate'].values,
+                actual_inflation=data['inflation'].values,
+                actual_output_gap=data['output_gap'].values,
+                counterfactual_data=cf_data_static,
+                save_path=os.path.join(output_dir, 'figure9_static_counterfactual_rl.pdf'),
+                title='Static Counterfactual: RL Policies'
+            )
+        logger.info(f"  Saved Figure 9")
 def generate_tables(config: dict, output_dir: str, logger):
     """Generate LaTeX tables."""
     logger.info("\nGenerating tables...")
@@ -262,7 +290,7 @@ def generate_tables(config: dict, output_dir: str, logger):
 def main():
     parser = argparse.ArgumentParser(description='Generate figures from paper')
     parser.add_argument('--all', action='store_true', help='Generate all figures')
-    parser.add_argument('--figure', type=int, choices=[2, 3, 6, 7, 8],
+    parser.add_argument('--figure', type=int, choices=[2, 3, 6, 7, 8, 9],
                        help='Generate specific figure')
     parser.add_argument('--tables', action='store_true', help='Generate tables')
     parser.add_argument('--config', type=str, default='configs/hyperparameters.yaml')
@@ -292,8 +320,8 @@ def main():
     if args.all or args.figure == 3:
         generate_figure3(config, args.checkpoint_dir, args.output_dir, logger)
     
-    if args.all or args.figure in [6, 7, 8]:
-        generate_figures_6_7_8(config, args.output_dir, logger)
+    if args.all or args.figure in [6, 7, 8, 9]:
+        generate_figures_6_7_8_9(config, args.output_dir, logger)
     
     if args.all or args.tables:
         generate_tables(config, args.output_dir, logger)

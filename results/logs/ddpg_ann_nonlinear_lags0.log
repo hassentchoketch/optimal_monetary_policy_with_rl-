@@ -1,0 +1,13 @@
+2025-11-18 20:49:14 - ddpg_ann_nonlinear_lags0 - INFO - Starting training: ddpg_ann_nonlinear_lags0
+2025-11-18 20:49:14 - ddpg_ann_nonlinear_lags0 - INFO - Loading economy model...
+2025-11-18 21:06:02 - ddpg_ann_nonlinear_lags0 - INFO - Starting training: ddpg_ann_nonlinear_lags0
+2025-11-18 21:06:02 - ddpg_ann_nonlinear_lags0 - INFO - Loading economy model...
+2025-11-18 21:06:02 - ddpg_ann_nonlinear_lags0 - INFO - 
+Training with critic_nodes=1, actor_nodes=8
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - Steady-state reward: -47.5374
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - New best agent found!
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - 
+Best agent saved to: results/checkpoints\ddpg_ann_nonlinear_lags0.pth
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': 8, 'steady_state_reward': np.float64(-47.537394665977615)}
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - Policy parameters saved to: results/checkpoints\ddpg_ann_nonlinear_lags0_params.pkl
+2025-11-18 21:07:08 - ddpg_ann_nonlinear_lags0 - INFO - Training complete!

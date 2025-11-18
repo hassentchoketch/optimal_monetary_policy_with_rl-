@@ -1,0 +1,344 @@
+2025-11-18 00:57:57 - economy_estimation - INFO - ============================================================
+2025-11-18 00:57:57 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-18 00:57:57 - economy_estimation - INFO - ============================================================
+2025-11-18 00:57:57 - economy_estimation - INFO - 
+Loading data...
+2025-11-18 00:59:28 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-18 00:59:28 - economy_estimation - INFO - Date range: 1988-07-01 00:00:00 to 2023-04-01 00:00:00
+2025-11-18 00:59:28 - economy_estimation - INFO - 
+============================================================
+2025-11-18 00:59:28 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY
+2025-11-18 00:59:28 - economy_estimation - INFO - ============================================================
+2025-11-18 00:59:28 - economy_estimation - INFO - 
+Output Gap Equation:
+2025-11-18 00:59:28 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.713
+Model:                            OLS   Adj. R-squared:                  0.704
+Method:                 Least Squares   F-statistic:                     82.50
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           4.58e-35
+Time:                        00:59:28   Log-Likelihood:                -195.96
+No. Observations:                 138   AIC:                             401.9
+Df Residuals:                     133   BIC:                             416.6
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.3377      0.245     -1.376      0.171      -0.823       0.148
+x1             0.7583      0.064     11.855      0.000       0.632       0.885
+x2             0.0091      0.076      0.120      0.904      -0.140       0.159
+x3             0.4510      0.221      2.042      0.043       0.014       0.888
+x4            -0.3951      0.207     -1.913      0.058      -0.804       0.013
+==============================================================================
+Omnibus:                      132.983   Durbin-Watson:                   2.173
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6474.248
+Skew:                          -2.862   Prob(JB):                         0.00
+Kurtosis:                      36.063   Cond. No.                         21.0
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 00:59:28 - economy_estimation - INFO - 
+Inflation Equation:
+2025-11-18 00:59:29 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.943
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     437.8
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           2.53e-80
+Time:                        00:59:29   Log-Likelihood:                -31.427
+No. Observations:                 138   AIC:                             74.85
+Df Residuals:                     132   BIC:                             92.42
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2350      0.076      3.102      0.002       0.085       0.385
+x1             0.1273      0.026      4.876      0.000       0.076       0.179
+x2            -0.1044      0.029     -3.651      0.000      -0.161      -0.048
+x3             1.5252      0.077     19.736      0.000       1.372       1.678
+x4            -0.6132      0.078     -7.827      0.000      -0.768      -0.458
+x5            -0.0086      0.014     -0.630      0.530      -0.036       0.018
+==============================================================================
+Omnibus:                       17.533   Durbin-Watson:                   2.217
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               41.203
+Skew:                           0.468   Prob(JB):                     1.13e-09
+Kurtosis:                       5.508   Cond. No.                         21.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 00:59:29 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 00:59:29 - economy_estimation - INFO - FIT STATISTICS
+2025-11-18 00:59:29 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 00:59:29 - economy_estimation - INFO - Output Gap MSE: 1.002164
+2025-11-18 00:59:29 - economy_estimation - INFO - Inflation MSE:  0.092327
+2025-11-18 00:59:29 - economy_estimation - INFO - Total MSE:      0.547246
+2025-11-18 00:59:29 - economy_estimation - INFO - Output Gap R²:  0.7127
+2025-11-18 00:59:29 - economy_estimation - INFO - Inflation R²:   0.9431
+2025-11-18 00:59:29 - economy_estimation - INFO - 
+SVAR parameters saved to: results/checkpoints\svar_params.pkl
+2025-11-18 00:59:29 - economy_estimation - INFO - 
+Estimation complete!
+2025-11-18 20:48:11 - economy_estimation - INFO - ============================================================
+2025-11-18 20:48:11 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-18 20:48:11 - economy_estimation - INFO - ============================================================
+2025-11-18 20:48:11 - economy_estimation - INFO - 
+Loading data...
+2025-11-18 20:48:17 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-18 20:48:17 - economy_estimation - INFO - Date range: 1988-07-01 00:00:00 to 2023-04-01 00:00:00
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+============================================================
+2025-11-18 20:48:17 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY
+2025-11-18 20:48:17 - economy_estimation - INFO - ============================================================
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+Output Gap Equation:
+2025-11-18 20:48:17 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.713
+Model:                            OLS   Adj. R-squared:                  0.704
+Method:                 Least Squares   F-statistic:                     82.50
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           4.58e-35
+Time:                        20:48:17   Log-Likelihood:                -195.96
+No. Observations:                 138   AIC:                             401.9
+Df Residuals:                     133   BIC:                             416.6
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.3377      0.245     -1.376      0.171      -0.823       0.148
+x1             0.7583      0.064     11.855      0.000       0.632       0.885
+x2             0.0091      0.076      0.120      0.904      -0.140       0.159
+x3             0.4510      0.221      2.042      0.043       0.014       0.888
+x4            -0.3951      0.207     -1.913      0.058      -0.804       0.013
+==============================================================================
+Omnibus:                      132.983   Durbin-Watson:                   2.173
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6474.248
+Skew:                          -2.862   Prob(JB):                         0.00
+Kurtosis:                      36.063   Cond. No.                         21.0
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+Inflation Equation:
+2025-11-18 20:48:17 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.943
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     437.8
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           2.53e-80
+Time:                        20:48:17   Log-Likelihood:                -31.427
+No. Observations:                 138   AIC:                             74.85
+Df Residuals:                     132   BIC:                             92.42
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2350      0.076      3.102      0.002       0.085       0.385
+x1             0.1273      0.026      4.876      0.000       0.076       0.179
+x2            -0.1044      0.029     -3.651      0.000      -0.161      -0.048
+x3             1.5252      0.077     19.736      0.000       1.372       1.678
+x4            -0.6132      0.078     -7.827      0.000      -0.768      -0.458
+x5            -0.0086      0.014     -0.630      0.530      -0.036       0.018
+==============================================================================
+Omnibus:                       17.533   Durbin-Watson:                   2.217
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               41.203
+Skew:                           0.468   Prob(JB):                     1.13e-09
+Kurtosis:                       5.508   Cond. No.                         21.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 20:48:17 - economy_estimation - INFO - FIT STATISTICS
+2025-11-18 20:48:17 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 20:48:17 - economy_estimation - INFO - Output Gap MSE: 1.002164
+2025-11-18 20:48:17 - economy_estimation - INFO - Inflation MSE:  0.092327
+2025-11-18 20:48:17 - economy_estimation - INFO - Total MSE:      0.547246
+2025-11-18 20:48:17 - economy_estimation - INFO - Output Gap R²:  0.7127
+2025-11-18 20:48:17 - economy_estimation - INFO - Inflation R²:   0.9431
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+SVAR parameters saved to: results/checkpoints\svar_params.pkl
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+============================================================
+2025-11-18 20:48:17 - economy_estimation - INFO - ESTIMATING ANN ECONOMY
+2025-11-18 20:48:17 - economy_estimation - INFO - ============================================================
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+Dataset sizes:
+2025-11-18 20:48:17 - economy_estimation - INFO -   Training:   119 observations
+2025-11-18 20:48:17 - economy_estimation - INFO -   Validation: 21 observations
+2025-11-18 20:48:17 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 20:48:17 - economy_estimation - INFO - Training Output Gap Network
+2025-11-18 20:48:17 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 20:48:23 - economy_estimation - INFO -   Early stopping at epoch 49
+2025-11-18 20:48:23 - economy_estimation - INFO -   Best validation loss: 5.637292
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 20:48:23 - economy_estimation - INFO - Training Inflation Network
+2025-11-18 20:48:23 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 20:48:23 - economy_estimation - INFO -   Early stopping at epoch 30
+2025-11-18 20:48:23 - economy_estimation - INFO -   Best validation loss: 6.206751
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 20:48:23 - economy_estimation - INFO - FIT STATISTICS
+2025-11-18 20:48:23 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 20:48:23 - economy_estimation - INFO - Output Gap MSE: 3.587064
+2025-11-18 20:48:23 - economy_estimation - INFO - Inflation MSE:  1.247880
+2025-11-18 20:48:23 - economy_estimation - INFO - Total MSE:      2.417472
+2025-11-18 20:48:23 - economy_estimation - INFO - Output Gap R²:  -0.0282
+2025-11-18 20:48:23 - economy_estimation - INFO - Inflation R²:   0.2313
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+ANN networks saved to:
+2025-11-18 20:48:23 - economy_estimation - INFO -   Output gap:  results/checkpoints\ann_y_network.pth
+2025-11-18 20:48:23 - economy_estimation - INFO -   Inflation:   results/checkpoints\ann_pi_network.pth
+2025-11-18 20:48:23 - economy_estimation - INFO -   Shock std:   results/checkpoints\ann_shock_std.pkl
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+============================================================
+2025-11-18 20:48:23 - economy_estimation - INFO - MODEL COMPARISON (Table 2)
+2025-11-18 20:48:23 - economy_estimation - INFO - ============================================================
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+  Model  MSE_Output_Gap  MSE_Inflation  MSE_Total
+0  SVAR        1.002164       0.092327   0.547246
+1   ANN        3.587064       1.247880   2.417472
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+ANN improvement over SVAR: -341.8%
+2025-11-18 20:48:23 - economy_estimation - INFO - 
+Estimation complete!
+2025-11-18 21:01:09 - economy_estimation - INFO - ============================================================
+2025-11-18 21:01:09 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-18 21:01:09 - economy_estimation - INFO - ============================================================
+2025-11-18 21:01:09 - economy_estimation - INFO - 
+Loading data...
+2025-11-18 21:01:14 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-18 21:01:14 - economy_estimation - INFO - Date range: 1988-07-01 00:00:00 to 2023-04-01 00:00:00
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+============================================================
+2025-11-18 21:01:14 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY
+2025-11-18 21:01:14 - economy_estimation - INFO - ============================================================
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+Output Gap Equation:
+2025-11-18 21:01:14 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.713
+Model:                            OLS   Adj. R-squared:                  0.704
+Method:                 Least Squares   F-statistic:                     82.50
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           4.58e-35
+Time:                        21:01:14   Log-Likelihood:                -195.96
+No. Observations:                 138   AIC:                             401.9
+Df Residuals:                     133   BIC:                             416.6
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.3377      0.245     -1.376      0.171      -0.823       0.148
+x1             0.7583      0.064     11.855      0.000       0.632       0.885
+x2             0.0091      0.076      0.120      0.904      -0.140       0.159
+x3             0.4510      0.221      2.042      0.043       0.014       0.888
+x4            -0.3951      0.207     -1.913      0.058      -0.804       0.013
+==============================================================================
+Omnibus:                      132.983   Durbin-Watson:                   2.173
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6474.248
+Skew:                          -2.862   Prob(JB):                         0.00
+Kurtosis:                      36.063   Cond. No.                         21.0
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+Inflation Equation:
+2025-11-18 21:01:14 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.943
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     437.8
+Date:                Tue, 18 Nov 2025   Prob (F-statistic):           2.53e-80
+Time:                        21:01:14   Log-Likelihood:                -31.427
+No. Observations:                 138   AIC:                             74.85
+Df Residuals:                     132   BIC:                             92.42
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2350      0.076      3.102      0.002       0.085       0.385
+x1             0.1273      0.026      4.876      0.000       0.076       0.179
+x2            -0.1044      0.029     -3.651      0.000      -0.161      -0.048
+x3             1.5252      0.077     19.736      0.000       1.372       1.678
+x4            -0.6132      0.078     -7.827      0.000      -0.768      -0.458
+x5            -0.0086      0.014     -0.630      0.530      -0.036       0.018
+==============================================================================
+Omnibus:                       17.533   Durbin-Watson:                   2.217
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               41.203
+Skew:                           0.468   Prob(JB):                     1.13e-09
+Kurtosis:                       5.508   Cond. No.                         21.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 21:01:14 - economy_estimation - INFO - FIT STATISTICS
+2025-11-18 21:01:14 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 21:01:14 - economy_estimation - INFO - Output Gap MSE: 1.002164
+2025-11-18 21:01:14 - economy_estimation - INFO - Inflation MSE:  0.092327
+2025-11-18 21:01:14 - economy_estimation - INFO - Total MSE:      0.547246
+2025-11-18 21:01:14 - economy_estimation - INFO - Output Gap R²:  0.7127
+2025-11-18 21:01:14 - economy_estimation - INFO - Inflation R²:   0.9431
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+SVAR parameters saved to: results/checkpoints\svar_params.pkl
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+============================================================
+2025-11-18 21:01:14 - economy_estimation - INFO - ESTIMATING ANN ECONOMY
+2025-11-18 21:01:14 - economy_estimation - INFO - ============================================================
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+Dataset sizes:
+2025-11-18 21:01:14 - economy_estimation - INFO -   Training:   119 observations
+2025-11-18 21:01:14 - economy_estimation - INFO -   Validation: 21 observations
+2025-11-18 21:01:14 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 21:01:14 - economy_estimation - INFO - Training Output Gap Network
+2025-11-18 21:01:14 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 21:01:18 - economy_estimation - INFO -   Epoch 100: Train Loss=1.395327, Val Loss=4.326361
+2025-11-18 21:01:18 - economy_estimation - INFO -   Early stopping at epoch 173
+2025-11-18 21:01:18 - economy_estimation - INFO -   Best validation loss: 3.894838
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 21:01:18 - economy_estimation - INFO - Training Inflation Network
+2025-11-18 21:01:18 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 21:01:18 - economy_estimation - INFO -   Early stopping at epoch 29
+2025-11-18 21:01:18 - economy_estimation - INFO -   Best validation loss: 6.394557
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-18 21:01:18 - economy_estimation - INFO - FIT STATISTICS
+2025-11-18 21:01:18 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-18 21:01:18 - economy_estimation - INFO - Output Gap MSE: 1.234789
+2025-11-18 21:01:18 - economy_estimation - INFO - Inflation MSE:  1.317010
+2025-11-18 21:01:18 - economy_estimation - INFO - Total MSE:      1.275899
+2025-11-18 21:01:18 - economy_estimation - INFO - Output Gap R²:  0.6461
+2025-11-18 21:01:18 - economy_estimation - INFO - Inflation R²:   0.1887
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+ANN networks saved to:
+2025-11-18 21:01:18 - economy_estimation - INFO -   Output gap:  results/checkpoints\ann_y_network.pth
+2025-11-18 21:01:18 - economy_estimation - INFO -   Inflation:   results/checkpoints\ann_pi_network.pth
+2025-11-18 21:01:18 - economy_estimation - INFO -   Shock std:   results/checkpoints\ann_shock_std.pkl
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+============================================================
+2025-11-18 21:01:18 - economy_estimation - INFO - MODEL COMPARISON (Table 2)
+2025-11-18 21:01:18 - economy_estimation - INFO - ============================================================
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+  Model  MSE_Output_Gap  MSE_Inflation  MSE_Total
+0  SVAR        1.002164       0.092327   0.547246
+1   ANN        1.234789       1.317010   1.275899
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+ANN improvement over SVAR: -133.1%
+2025-11-18 21:01:18 - economy_estimation - INFO - 
+Estimation complete!

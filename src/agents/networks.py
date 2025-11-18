@@ -28,7 +28,7 @@ class ActorNetwork(nn.Module):
         self,
         state_dim: int,
         hidden_units: Optional[int] = None,
-        linear: bool = True
+        linear: bool = False
     ):
         """
         Initialize actor network.

@@ -39,7 +39,7 @@ class RLPolicy:
     def get_action(
         self,
         state: np.ndarray,
-        deterministic: bool = True
+        deterministic: bool = False
     ) -> float:
         """
         Compute interest rate using RL policy.

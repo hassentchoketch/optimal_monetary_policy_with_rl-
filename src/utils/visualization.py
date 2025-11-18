@@ -277,10 +277,28 @@ def plot_counterfactual(
         'TR93': 'tab:red',
         'NPP': 'tab:orange',
         'BA': 'tab:green',
+        'RL_SVAR_no_lag': 'tab:pink',
+        'RL_SVAR_one_lag': 'tab:olive',
+        'RL_SVAR_no_lag_nonlin': 'tab:brown',
+        'RL_SVAR_one_lag_nonlin': 'tab:gray',
         'RL_ANN_no_lag': 'tab:blue',
         'RL_ANN_one_lag': 'tab:purple',
         'RL_ANN_no_lag_nonlin': 'tab:cyan',
         'RL_ANN_one_lag_nonlin': 'tab:pink'
+    }
+    stylses = {
+        'Actual': '-',
+        'TR93': '--',
+        'NPP': '-.',
+        'BA': ':',
+        'RL_SVAR_no_lag': '-',
+        'RL_SVAR_one_lag': '--',
+        'RL_SVAR_no_lag_nonlin': '-.',
+        'RL_SVAR_one_lag_nonlin': ':',
+        'RL_ANN_no_lag': '-',
+        'RL_ANN_one_lag': '--',
+        'RL_ANN_no_lag_nonlin': '-.',
+        'RL_ANN_one_lag_nonlin': ':'
     }
     
     # Plot FFR
@@ -288,7 +306,8 @@ def plot_counterfactual(
                 label='Actual', linewidth=2)
     for policy_name, data in counterfactual_data.items():
         color = colors.get(policy_name, 'gray')
-        axes[0].plot(dates, data['ffr'], color=color, 
+        style = stylses.get(policy_name, '-')
+        axes[0].plot(dates, data['ffr'], color=color, linestyle=style,
                     label=policy_name, linewidth=1.5, alpha=0.8)
     axes[0].set_ylabel(r'Interest Rate (\%)', fontsize=12)
     axes[0].set_title(title, fontsize=14)
@@ -301,7 +320,8 @@ def plot_counterfactual(
                 label='Actual', linewidth=2)
     for policy_name, data in counterfactual_data.items():
         color = colors.get(policy_name, 'gray')
-        axes[1].plot(dates, data['inflation'], color=color, 
+        style = stylses.get(policy_name, '-')
+        axes[1].plot(dates, data['inflation'], color=color, linestyle=style,
                     label=policy_name, linewidth=1.5, alpha=0.8)
     axes[1].axhline(y=2.0, color='red', linestyle='--', 
                    label=r'Target ($\pi^* = 2\%$)', alpha=0.7)
@@ -314,7 +334,8 @@ def plot_counterfactual(
                 label='Actual', linewidth=2)
     for policy_name, data in counterfactual_data.items():
         color = colors.get(policy_name, 'gray')
-        axes[2].plot(dates, data['output_gap'], color=color, 
+        style = stylses.get(policy_name, '-')
+        axes[2].plot(dates, data['output_gap'], color=color, linestyle=style,
                     label=policy_name, linewidth=1.5, alpha=0.8)
     axes[2].axhline(y=0, color='red', linestyle='--', 
                    label=r'Target ($y^* = 0\%$)', alpha=0.7)
