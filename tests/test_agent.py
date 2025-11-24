@@ -5,6 +5,7 @@ Tests for DDPG agent implementation.
 import pytest
 import numpy as np
 import torch
+from typing import Dict, Any, Tuple
 from src.agents.ddpg_agent import DDPGAgent, OUNoise
 from src.agents.networks import ActorNetwork, CriticNetwork
 from src.agents.replay_buffer import ReplayBuffer
@@ -13,14 +14,14 @@ from src.agents.replay_buffer import ReplayBuffer
 class TestReplayBuffer:
     """Tests for experience replay buffer."""
     
-    def test_initialization(self):
+    def test_initialization(self) -> None:
         """Test buffer initialization."""
         buffer = ReplayBuffer(capacity=100, state_dim=2, action_dim=1)
         
         assert len(buffer) == 0
         assert buffer.capacity == 100
     
-    def test_add_transition(self):
+    def test_add_transition(self) -> None:
         """Test adding transitions."""
         buffer = ReplayBuffer(capacity=100, state_dim=2, action_dim=1)
         
@@ -34,7 +35,7 @@ class TestReplayBuffer:
         
         assert len(buffer) == 1
     
-    def test_buffer_overflow(self):
+    def test_buffer_overflow(self) -> None:
         """Test buffer behavior when full."""
         buffer = ReplayBuffer(capacity=5, state_dim=2, action_dim=1)
         
@@ -51,7 +52,7 @@ class TestReplayBuffer:
         # Should not exceed capacity
         assert len(buffer) == 5
     
-    def test_sample(self):
+    def test_sample(self) -> None:
         """Test sampling from buffer."""
         buffer = ReplayBuffer(capacity=100, state_dim=2, action_dim=1)
         
@@ -75,7 +76,7 @@ class TestReplayBuffer:
         assert next_states.shape == (10, 2)
         assert dones.shape == (10, 1)
     
-    def test_is_ready(self):
+    def test_is_ready(self) -> None:
         """Test ready check."""
         buffer = ReplayBuffer(capacity=100, state_dim=2, action_dim=1)
         
@@ -97,13 +98,13 @@ class TestReplayBuffer:
 class TestOUNoise:
     """Tests for Ornstein-Uhlenbeck noise."""
     
-    def test_initialization(self):
+    def test_initialization(self) -> None:
         """Test noise initialization."""
         noise = OUNoise(action_dim=1, mu=0.0, theta=0.15, sigma=0.2)
         
         assert noise.action_dim == 1
     
-    def test_sample(self):
+    def test_sample(self) -> None:
         """Test noise sampling."""
         noise = OUNoise(action_dim=1, seed=42)
         
@@ -115,7 +116,7 @@ class TestOUNoise:
         # Samples should be different
         assert not np.array_equal(sample1, sample2)
     
-    def test_reset(self):
+    def test_reset(self) -> None:
         """Test noise reset."""
         noise = OUNoise(action_dim=1, seed=42)
         
@@ -129,7 +130,7 @@ class TestOUNoise:
         # Should start from initial state again
         assert np.array_equal(noise.x, noise.x0)
     
-    def test_mean_reversion(self):
+    def test_mean_reversion(self) -> None:
         """Test that noise reverts to mean over time."""
         noise = OUNoise(action_dim=1, mu=0.0, theta=0.5, sigma=0.1, seed=42)
         
@@ -142,7 +143,7 @@ class TestOUNoise:
 class TestActorNetwork:
     """Tests for actor network."""
     
-    def test_linear_actor(self):
+    def test_linear_actor(self) -> None:
         """Test linear actor network."""
         actor = ActorNetwork(state_dim=2, hidden_units=None, linear=True)
         
@@ -151,7 +152,7 @@ class TestActorNetwork:
         
         assert action.shape == (10, 1)
     
-    def test_nonlinear_actor(self):
+    def test_nonlinear_actor(self) -> None:
         """Test nonlinear actor network."""
         actor = ActorNetwork(state_dim=2, hidden_units=8, linear=False)
         
@@ -160,7 +161,7 @@ class TestActorNetwork:
         
         assert action.shape == (10, 1)
     
-    def test_gradient_flow(self):
+    def test_gradient_flow(self) -> None:
         """Test gradient flow through actor."""
         actor = ActorNetwork(state_dim=2, hidden_units=8, linear=False)
         
@@ -177,7 +178,7 @@ class TestActorNetwork:
 class TestCriticNetwork:
     """Tests for critic network."""
     
-    def test_forward_pass(self):
+    def test_forward_pass(self) -> None:
         """Test critic forward pass."""
         critic = CriticNetwork(state_dim=2, action_dim=1, hidden_units=8)
         
@@ -188,7 +189,7 @@ class TestCriticNetwork:
         
         assert q_value.shape == (10, 1)
     
-    def test_gradient_flow(self):
+    def test_gradient_flow(self) -> None:
         """Test gradient flow through critic."""
         critic = CriticNetwork(state_dim=2, action_dim=1, hidden_units=8)
         
@@ -209,14 +210,14 @@ class TestCriticNetwork:
 class TestDDPGAgent:
     """Tests for DDPG agent."""
     
-    def test_initialization(self, ddpg_agent):
+    def test_initialization(self, ddpg_agent: DDPGAgent) -> None:
         """Test agent initialization."""
         assert ddpg_agent.state_dim == 2
         assert ddpg_agent.action_dim == 1
         assert isinstance(ddpg_agent.actor, ActorNetwork)
         assert isinstance(ddpg_agent.critic, CriticNetwork)
     
-    def test_select_action(self, ddpg_agent):
+    def test_select_action(self, ddpg_agent: DDPGAgent) -> None:
         """Test action selection."""
         state = np.array([1.0, 2.0])
         
@@ -228,7 +229,7 @@ class TestDDPGAgent:
         action_noisy = ddpg_agent.select_action(state, add_noise=True)
         assert isinstance(action_noisy, (float, np.floating))
     
-    def test_select_action_deterministic(self, ddpg_agent, set_seeds):
+    def test_select_action_deterministic(self, ddpg_agent: DDPGAgent, set_seeds: None) -> None:
         """Test deterministic action selection."""
         state = np.array([1.0, 2.0])
         
@@ -237,7 +238,7 @@ class TestDDPGAgent:
         
         assert action1 == action2
     
-    def test_update_requires_data(self, ddpg_agent):
+    def test_update_requires_data(self, ddpg_agent: DDPGAgent) -> None:
         """Test update requires sufficient data."""
         # Buffer is empty
         losses = ddpg_agent.update()
@@ -245,7 +246,7 @@ class TestDDPGAgent:
         assert losses['critic_loss'] == 0.0
         assert losses['actor_loss'] == 0.0
     
-    def test_update_with_data(self, ddpg_agent):
+    def test_update_with_data(self, ddpg_agent: DDPGAgent) -> None:
         """Test update with sufficient data."""
         # Fill buffer
         for _ in range(100):
@@ -263,7 +264,7 @@ class TestDDPGAgent:
         assert losses['critic_loss'] >= 0.0
         assert isinstance(losses['actor_loss'], float)
     
-    def test_soft_update(self, ddpg_agent):
+    def test_soft_update(self, ddpg_agent: DDPGAgent) -> None:
         """Test soft update of target networks."""
         # Store initial target parameters
         initial_target_params = [
@@ -283,7 +284,7 @@ class TestDDPGAgent:
             # But not fully (tau is small)
             assert not torch.allclose(current, ddpg_agent.actor.state_dict()[list(ddpg_agent.actor.state_dict().keys())[0]])
     
-    def test_save_load(self, ddpg_agent, tmp_path):
+    def test_save_load(self, ddpg_agent: DDPGAgent, tmp_path: Any) -> None:
         """Test saving and loading agent."""
         # Save
         save_path = tmp_path / "agent.pth"
@@ -301,7 +302,7 @@ class TestDDPGAgent:
         # Should be restored (can't easily check exact values without storing them)
         assert save_path.exists()
     
-    def test_get_policy_parameters_linear(self):
+    def test_get_policy_parameters_linear(self) -> None:
         """Test extracting parameters from linear policy."""
         agent = DDPGAgent(
             state_dim=2,
@@ -318,7 +319,7 @@ class TestDDPGAgent:
         assert 'beta_y_0' in params
         assert 'beta_pi_0' in params
     
-    def test_get_policy_parameters_nonlinear(self):
+    def test_get_policy_parameters_nonlinear(self) -> None:
         """Test extracting parameters from nonlinear policy."""
         agent = DDPGAgent(
             state_dim=2,
@@ -337,7 +338,7 @@ class TestDDPGAgent:
 class TestAgentEnvironmentInteraction:
     """Test agent interaction with environment."""
     
-    def test_full_episode(self, ddpg_agent, svar_economy, set_seeds):
+    def test_full_episode(self, ddpg_agent: DDPGAgent, svar_economy: Any, set_seeds: None) -> None:
         """Test complete episode."""
         state = svar_economy.reset()
         

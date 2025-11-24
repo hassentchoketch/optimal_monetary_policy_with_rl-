@@ -19,6 +19,8 @@ tests/
 
 ## Running Tests
 
+Ensure you have your virtual environment activated.
+
 ### Run All Tests
 ```bash
 pytest tests/ -v
@@ -139,34 +141,4 @@ Mark slow tests for optional exclusion:
 def test_slow_operation():
     # Slow test code
     pass
-```
-
-## CI/CD
-
-Tests run automatically on:
-- Push to `main` or `develop` branches
-- Pull requests
-- Multiple OS (Ubuntu, macOS)
-- Multiple Python versions (3.10, 3.11)
-
-## Debugging Tests
-
-### Run with verbose output
-```bash
-pytest tests/ -vv
-```
-
-### Run with print statements
-```bash
-pytest tests/ -s
-```
-
-### Run with pdb debugger
-```bash
-pytest tests/ --pdb
-```
-
-### Run specific test with maximum detail
-```bash
-pytest tests/test_agent.py::TestDDPGAgent::test_update_with_data -vv -s
 ```
