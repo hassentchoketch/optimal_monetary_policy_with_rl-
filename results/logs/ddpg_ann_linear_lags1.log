@@ -2,3 +2,21 @@
 2025-11-28 15:36:37 - ddpg_ann_linear_lags1 - INFO - Loading economy model...
 2025-11-28 15:36:37 - ddpg_ann_linear_lags1 - INFO - 
 Training with critic_nodes=1, actor_nodes=None
+2025-11-28 15:56:37 - ddpg_ann_linear_lags1 - INFO - Starting training: ddpg_ann_linear_lags1
+2025-11-28 15:56:37 - ddpg_ann_linear_lags1 - INFO - Loading economy model...
+2025-11-28 15:56:37 - ddpg_ann_linear_lags1 - INFO - 
+Training with critic_nodes=1, actor_nodes=None
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - Steady-state reward: -60.0862
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - New best agent found!
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - 
+Best agent saved to: results/checkpoints\ddpg_ann_linear_lags1.pth
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-60.08615890278402)}
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - Policy parameters saved to: results/checkpoints\ddpg_ann_linear_lags1_params.pkl
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - 
+Optimized Policy Parameters:
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO -   alpha_0: 0.1109
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO -   beta_y_0: 0.1881
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO -   beta_y_1: -0.4809
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO -   beta_pi_0: 0.8347
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO -   beta_pi_1: 1.2234
+2025-11-28 15:57:36 - ddpg_ann_linear_lags1 - INFO - Training complete!

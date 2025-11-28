@@ -52,13 +52,28 @@ class RLPolicy:
         Returns:
             Nominal interest rate i_t
         """
+        # Deduce lags p from state length (state has 3*p elements)
+        p = len(state) // 3
+        
         # Extract observations based on agent's expected state dimension
         if self.agent.state_dim == 2:
             # No lags: [y_t, π_t]
-            obs = state[:4:2] if len(state) > 2 else state  # [y_t, π_t]
+            # y_t is at index 0, π_t is at index p
+            if len(state) >= p + 1:
+                obs = np.array([state[0], state[p]])
+            else:
+                obs = state  # Fallback
         elif self.agent.state_dim == 4:
             # One lag: [y_t, y_{t-1}, π_t, π_{t-1}]
-            obs = state[:4]
+            if p >= 2:
+                # Normal case with sufficient history
+                obs = np.array([state[0], state[1], state[p], state[p+1]])
+            elif p == 1:
+                # Fallback for p=1 (not enough history)
+                # Matches train_agent.py behavior: [y_t, π_t, π_t, i_{t-1}]
+                obs = np.array([state[0], state[1], state[1], state[2]])
+            else:
+                obs = np.zeros(4)  # Should not happen
         else:
             obs = state
         
