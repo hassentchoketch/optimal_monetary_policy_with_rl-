@@ -5,16 +5,19 @@ Generate all figures from the paper.
 Usage:
     python scripts/generate_figures.py --all
     python scripts/generate_figures.py --figure 2
+    python scripts/generate_figures.py --learning_curve
 """
 
 import argparse
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import sys
 import yaml
 import pickle
 import torch
 import numpy as np
 import pandas as pd
+import logging
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -32,6 +35,10 @@ from src.utils.logger import setup_logger
 def generate_figure2(config: dict, checkpoint_dir: str, output_dir: str, logger):
     """Generate Figure 2: Economy fit comparison."""
     logger.info("\nGenerating Figure 2: Economy Fit Comparison...")
+    
+    # Create subfolder for paper figures
+    paper_fig_dir = os.path.join(output_dir, 'paper_figures')
+    os.makedirs(paper_fig_dir, exist_ok=True)
     
     # Load data
     data_loader = DataLoader(
@@ -73,27 +80,50 @@ def generate_figure2(config: dict, checkpoint_dir: str, output_dir: str, logger)
     network_pi.eval()
     
     with torch.no_grad():
-        fitted_y_ann = network_y(torch.FloatTensor(X_y)).numpy()
-        fitted_pi_ann = network_pi(torch.FloatTensor(X_pi)).numpy()
+        fitted_y_ann = network_y(torch.FloatTensor(X_y)).numpy().flatten()
+        fitted_pi_ann = network_pi(torch.FloatTensor(X_pi)).numpy().flatten()
+    
+    # Align array lengths - all arrays must have the same length
+    # SVAR may have fewer observations due to lag structure
+    min_len = min(
+        len(fitted_y_svar),
+        len(fitted_pi_svar),
+        len(fitted_y_ann),
+        len(fitted_pi_ann),
+        len(lagged_data)
+    )
+    
+    # Trim all arrays to the same length (use the last min_len observations)
+    actual_y = lagged_data['output_gap'].values[-min_len:]
+    actual_pi = lagged_data['inflation'].values[-min_len:]
+    fitted_y_svar_aligned = fitted_y_svar[-min_len:]
+    fitted_pi_svar_aligned = fitted_pi_svar[-min_len:]
+    fitted_y_ann_aligned = fitted_y_ann[-min_len:]
+    fitted_pi_ann_aligned = fitted_pi_ann[-min_len:]
+    dates_aligned = lagged_data.index[-min_len:]
     
     # Plot
     plot_economy_fit(
-        actual_y=lagged_data['output_gap'].values,
-        actual_pi=lagged_data['inflation'].values,
-        fitted_y_svar=fitted_y_svar,
-        fitted_pi_svar=fitted_pi_svar,
-        fitted_y_ann=fitted_y_ann,
-        fitted_pi_ann=fitted_pi_ann,
-        dates=lagged_data.index,
-        save_path=os.path.join(output_dir, 'figure2_economy_fit.pdf')
+        actual_y=actual_y,
+        actual_pi=actual_pi,
+        fitted_y_svar=fitted_y_svar_aligned,
+        fitted_pi_svar=fitted_pi_svar_aligned,
+        fitted_y_ann=fitted_y_ann_aligned,
+        fitted_pi_ann=fitted_pi_ann_aligned,
+        dates=dates_aligned,
+        save_path=os.path.join(paper_fig_dir, 'figure2_economy_fit.pdf')
     )
     
-    logger.info(f"  Saved to: {output_dir}/figure2_economy_fit.pdf")
+    logger.info(f"  Saved to: {paper_fig_dir}/figure2_economy_fit.pdf")
 
 
 def generate_figure3(config: dict, checkpoint_dir: str, output_dir: str, logger):
     """Generate Figure 3: Partial dependence for ANN economy."""
     logger.info("\nGenerating Figure 3: ANN Economy Partial Dependence...")
+    
+    # Create subfolder for paper figures
+    paper_fig_dir = os.path.join(output_dir, 'paper_figures')
+    os.makedirs(paper_fig_dir, exist_ok=True)
     
     # Load networks
     network_y = EconomyNetwork(4, config['economy']['ann']['hidden_units_y'])
@@ -118,7 +148,7 @@ def generate_figure3(config: dict, checkpoint_dir: str, output_dir: str, logger)
             'interest_rate': (-3, 7)
         },
         grid_resolution=50,
-        save_path=os.path.join(output_dir, 'figure3_pd_inflation.pdf'),
+        save_path=os.path.join(paper_fig_dir, 'figure3_pd_inflation.pdf'),
         title=r'Partial Dependence: Inflation $\pi_t$'
     )
     
@@ -132,16 +162,20 @@ def generate_figure3(config: dict, checkpoint_dir: str, output_dir: str, logger)
             'interest_rate': (-3, 7)
         },
         grid_resolution=50,
-        save_path=os.path.join(output_dir, 'figure3_pd_output_gap.pdf'),
+        save_path=os.path.join(paper_fig_dir, 'figure3_pd_output_gap.pdf'),
         title=r'Partial Dependence: Output Gap $y_t$'
     )
     
-    logger.info(f"  Saved to: {output_dir}/figure3_pd_*.pdf")
+    logger.info(f"  Saved to: {paper_fig_dir}/figure3_pd_*.pdf")
 
 
 def generate_figures_6_7_8_9(config: dict, output_dir: str, logger):
     """Generate Figures 6-9: Counterfactual analysis."""
     logger.info("\nGenerating Figures 6-9: Counterfactual Analysis...")
+    
+    # Create subfolder for paper figures
+    paper_fig_dir = os.path.join(output_dir, 'paper_figures')
+    os.makedirs(paper_fig_dir, exist_ok=True)
     
     # Load data
     data_loader = DataLoader(
@@ -175,7 +209,7 @@ def generate_figures_6_7_8_9(config: dict, output_dir: str, logger):
             actual_inflation=data['inflation'].values,
             actual_output_gap=data['output_gap'].values,
             counterfactual_data=cf_data_linear,
-            save_path=os.path.join(output_dir, 'figure6_counterfactual_linear.pdf'),
+            save_path=os.path.join(paper_fig_dir, 'figure6_counterfactual_linear.pdf'),
             title='Historical Counterfactual: Linear Policies'
         )
         logger.info(f"  Saved Figure 6")
@@ -205,7 +239,7 @@ def generate_figures_6_7_8_9(config: dict, output_dir: str, logger):
             actual_inflation=data['inflation'].values,
             actual_output_gap=data['output_gap'].values,
             counterfactual_data=cf_data_rl,
-            save_path=os.path.join(output_dir, 'figure7_counterfactual_rl.pdf'),
+            save_path=os.path.join(paper_fig_dir, 'figure7_counterfactual_rl.pdf'),
             title='Historical Counterfactual: RL Policies'
         )
         logger.info(f"  Saved Figure 7")
@@ -233,38 +267,40 @@ def generate_figures_6_7_8_9(config: dict, output_dir: str, logger):
             actual_inflation=data['inflation'].values,
             actual_output_gap=data['output_gap'].values,
             counterfactual_data=cf_data_static,
-            save_path=os.path.join(output_dir, 'figure8_static_counterfactual_linear.pdf'),
+            save_path=os.path.join(paper_fig_dir, 'figure8_static_counterfactual_linear.pdf'),
             title='Static Counterfactual: Linear Policies'
         )
         logger.info(f"  Saved Figure 8")
 
     # Figure 9: Static counterfactual RL policies
-        static_policies = ['RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
-                           'RL_SVAR_one_lag_nonlin','RL_SVAR_no_lag_nonlin', 'RL_ANN_one_lag_nonlin','RL_ANN_no_lag_nonlin']
-        cf_data_static = {}
-        
-        for policy in static_policies:
-            try:
-                df = pd.read_csv(os.path.join(tables_dir, f'static_cf_{policy}.csv'))
-                cf_data_static[policy] = {
-                    'ffr': df['ffr'].values,
-                    'inflation': df['inflation'].values,
-                    'output_gap': df['output_gap'].values
-                }
-            except FileNotFoundError:
-                logger.warning(f"  Could not find data for {policy}")
-        
-        if cf_data_static:
-            plot_counterfactual(
-                dates=data.index,
-                actual_ffr=data['interest_rate'].values,
-                actual_inflation=data['inflation'].values,
-                actual_output_gap=data['output_gap'].values,
-                counterfactual_data=cf_data_static,
-                save_path=os.path.join(output_dir, 'figure9_static_counterfactual_rl.pdf'),
-                title='Static Counterfactual: RL Policies'
-            )
+    static_policies = ['RL_SVAR_no_lag','RL_SVAR_one_lag','RL_ANN_no_lag', 'RL_ANN_one_lag',
+                       'RL_SVAR_one_lag_nonlin','RL_SVAR_no_lag_nonlin', 'RL_ANN_one_lag_nonlin','RL_ANN_no_lag_nonlin']
+    cf_data_static = {}
+    
+    for policy in static_policies:
+        try:
+            df = pd.read_csv(os.path.join(tables_dir, f'static_cf_{policy}.csv'))
+            cf_data_static[policy] = {
+                'ffr': df['ffr'].values,
+                'inflation': df['inflation'].values,
+                'output_gap': df['output_gap'].values
+            }
+        except FileNotFoundError:
+            logger.warning(f"  Could not find data for {policy}")
+    
+    if cf_data_static:
+        plot_counterfactual(
+            dates=data.index,
+            actual_ffr=data['interest_rate'].values,
+            actual_inflation=data['inflation'].values,
+            actual_output_gap=data['output_gap'].values,
+            counterfactual_data=cf_data_static,
+            save_path=os.path.join(paper_fig_dir, 'figure9_static_counterfactual_rl.pdf'),
+            title='Static Counterfactual: RL Policies'
+        )
         logger.info(f"  Saved Figure 9")
+
+
 def generate_tables(config: dict, output_dir: str, logger):
     """Generate LaTeX tables."""
     logger.info("\nGenerating tables...")
@@ -287,12 +323,57 @@ def generate_tables(config: dict, output_dir: str, logger):
         logger.warning("  Could not find counterfactual loss data")
 
 
+def generate_learning_curves(output_dir: str, logger):
+    """Generate learning curves from training logs."""
+    logger.info("\nGenerating Learning Curves...")
+    
+    from src.utils.visualization import plot_training_curves
+    
+    # Create subfolder
+    lc_dir = os.path.join(output_dir, 'learning_curves')
+    os.makedirs(lc_dir, exist_ok=True)
+    
+    log_dir = os.path.join(output_dir, '..', 'logs')
+    if not os.path.exists(log_dir):
+        logger.warning(f"  Log directory not found: {log_dir}")
+        return
+        
+    # Find all training logs (CSV files starting with ddpg_)
+    log_files = [f for f in os.listdir(log_dir) if f.startswith('ddpg_') and f.endswith('.csv')]
+    
+    if not log_files:
+        logger.warning("  No training logs found")
+        return
+        
+    for log_file in log_files:
+        try:
+            # Read log file
+            df = pd.read_csv(os.path.join(log_dir, log_file))
+            
+            # Extract metrics
+            episode_rewards = df['total_reward'].values
+            critic_losses = df['critic_loss'].values
+            actor_losses = df['actor_loss'].values
+            
+            # Generate plot name from log filename
+            # Remove timestamp and extension
+            base_name = log_file.rsplit('_', 2)[0]
+            plot_path = os.path.join(lc_dir, f'{base_name}_learning_curve.pdf')
+            
+            plot_training_curves(episode_rewards, critic_losses, actor_losses, plot_path)
+            logger.info(f"  Saved learning curve: {plot_path}")
+            
+        except Exception as e:
+            logger.error(f"  Failed to generate curve for {log_file}: {e}")
+
+
 def main():
     parser = argparse.ArgumentParser(description='Generate figures from paper')
     parser.add_argument('--all', action='store_true', help='Generate all figures')
     parser.add_argument('--figure', type=int, choices=[2, 3, 6, 7, 8, 9],
                        help='Generate specific figure')
     parser.add_argument('--tables', action='store_true', help='Generate tables')
+    parser.add_argument('--learning_curve', action='store_true', help='Generate learning curves')
     parser.add_argument('--config', type=str, default='configs/hyperparameters.yaml')
     parser.add_argument('--checkpoint_dir', type=str, default='results/checkpoints')
     parser.add_argument('--output_dir', type=str, default='results/figures')
@@ -325,6 +406,9 @@ def main():
     
     if args.all or args.tables:
         generate_tables(config, args.output_dir, logger)
+        
+    if args.all or args.learning_curve:
+        generate_learning_curves(args.output_dir, logger)
     
     logger.info("\nFigure generation complete!")
 

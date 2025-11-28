@@ -1,40 +1,18 @@
-2025-11-18 01:00:25 - ddpg_svar_linear_lags1 - INFO - Starting training: ddpg_svar_linear_lags1
-2025-11-18 01:00:25 - ddpg_svar_linear_lags1 - INFO - Loading economy model...
-2025-11-18 01:00:25 - ddpg_svar_linear_lags1 - INFO - 
+2025-11-28 03:29:01 - ddpg_svar_linear_lags1 - INFO - Starting training: ddpg_svar_linear_lags1
+2025-11-28 03:29:01 - ddpg_svar_linear_lags1 - INFO - Loading economy model...
+2025-11-28 03:29:01 - ddpg_svar_linear_lags1 - INFO - 
 Training with critic_nodes=1, actor_nodes=None
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - Steady-state reward: -35.6256
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - New best agent found!
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - 
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - Steady-state reward: -9623841639.1054
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - New best agent found!
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - 
 Best agent saved to: results/checkpoints\ddpg_svar_linear_lags1.pth
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-35.625576323292954)}
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - Policy parameters saved to: results/checkpoints\ddpg_svar_linear_lags1_params.pkl
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - 
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-9623841639.105427)}
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - Policy parameters saved to: results/checkpoints\ddpg_svar_linear_lags1_params.pkl
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - 
 Optimized Policy Parameters:
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO -   alpha_0: 0.1189
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO -   beta_y_0: 0.1847
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO -   beta_y_1: -0.6441
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO -   beta_pi_0: 0.8443
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO -   beta_pi_1: 1.2042
-2025-11-18 01:01:17 - ddpg_svar_linear_lags1 - INFO - Training complete!
-2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - Starting training: ddpg_svar_linear_lags1
-2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - Loading economy model...
-2025-11-18 20:48:45 - ddpg_svar_linear_lags1 - INFO - 
-Training with critic_nodes=1, actor_nodes=None
-2025-11-18 21:02:33 - ddpg_svar_linear_lags1 - INFO - Starting training: ddpg_svar_linear_lags1
-2025-11-18 21:02:33 - ddpg_svar_linear_lags1 - INFO - Loading economy model...
-2025-11-18 21:02:33 - ddpg_svar_linear_lags1 - INFO - 
-Training with critic_nodes=1, actor_nodes=None
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - Steady-state reward: -35.6256
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - New best agent found!
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - 
-Best agent saved to: results/checkpoints\ddpg_svar_linear_lags1.pth
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-35.625576323292954)}
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - Policy parameters saved to: results/checkpoints\ddpg_svar_linear_lags1_params.pkl
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - 
-Optimized Policy Parameters:
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO -   alpha_0: 0.1189
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO -   beta_y_0: 0.1847
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO -   beta_y_1: -0.6441
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO -   beta_pi_0: 0.8443
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO -   beta_pi_1: 1.2042
-2025-11-18 21:03:26 - ddpg_svar_linear_lags1 - INFO - Training complete!
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO -   alpha_0: 0.1285
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO -   beta_y_0: 0.3909
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO -   beta_y_1: -0.4514
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO -   beta_pi_0: 0.8588
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO -   beta_pi_1: 1.2187
+2025-11-28 03:30:03 - ddpg_svar_linear_lags1 - INFO - Training complete!

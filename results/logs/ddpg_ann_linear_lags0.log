@@ -1,18 +1,16 @@
-2025-11-18 20:48:54 - ddpg_ann_linear_lags0 - INFO - Starting training: ddpg_ann_linear_lags0
-2025-11-18 20:48:54 - ddpg_ann_linear_lags0 - INFO - Loading economy model...
-2025-11-18 21:03:37 - ddpg_ann_linear_lags0 - INFO - Starting training: ddpg_ann_linear_lags0
-2025-11-18 21:03:37 - ddpg_ann_linear_lags0 - INFO - Loading economy model...
-2025-11-18 21:03:37 - ddpg_ann_linear_lags0 - INFO - 
+2025-11-28 03:30:14 - ddpg_ann_linear_lags0 - INFO - Starting training: ddpg_ann_linear_lags0
+2025-11-28 03:30:14 - ddpg_ann_linear_lags0 - INFO - Loading economy model...
+2025-11-28 03:30:14 - ddpg_ann_linear_lags0 - INFO - 
 Training with critic_nodes=1, actor_nodes=None
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - Steady-state reward: -100.8983
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - New best agent found!
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - 
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - Steady-state reward: -103.3436
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - New best agent found!
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - 
 Best agent saved to: results/checkpoints\ddpg_ann_linear_lags0.pth
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-100.89831485533395)}
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - Policy parameters saved to: results/checkpoints\ddpg_ann_linear_lags0_params.pkl
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - 
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - Best configuration: {'critic_nodes': 1, 'actor_nodes': None, 'steady_state_reward': np.float64(-103.34362729474846)}
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - Policy parameters saved to: results/checkpoints\ddpg_ann_linear_lags0_params.pkl
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - 
 Optimized Policy Parameters:
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO -   alpha_0: 0.1531
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO -   beta_y_0: 1.7095
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO -   beta_pi_0: -0.2247
-2025-11-18 21:04:38 - ddpg_ann_linear_lags0 - INFO - Training complete!
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO -   alpha_0: 0.1559
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO -   beta_y_0: 1.6524
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO -   beta_pi_0: -0.2320
+2025-11-28 03:31:18 - ddpg_ann_linear_lags0 - INFO - Training complete!

@@ -44,8 +44,8 @@ def load_all_policies(checkpoint_dir: str, config: dict, device: str = 'cpu') ->
     for economy in ['svar', 'ann']:
         for policy_type in ['linear', 'nonlinear']:
             for lags in [0, 1]:
-                if policy_type == 'nonlinear' and economy == 'svar':
-                    continue
+                # if policy_type == 'nonlinear' and economy == 'svar':
+                #     continue
                 
                 name = f"RL_{economy.upper()}_{'no' if lags == 0 else 'one'}_lag"
                 if policy_type == 'nonlinear':

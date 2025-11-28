@@ -20,17 +20,17 @@ data:
 # Economy estimation
 economy:
   svar:
-    max_lags: 2
+    max_lags: 4
     significance_level: 0.10
     recursive: true  # π_t depends on y_t contemporaneously
     
   ann:
     hidden_units_y: 2        # Output gap equation
-    hidden_units_pi: 8       # Inflation equation
+    hidden_units_pi: 32       # Inflation equation
     activation: "tanh"
     learning_rate: 0.01
     max_epochs: 500
-    patience: 6              # Early stopping
+    patience: 10             # Early stopping
     batch_size: 32
 
 # Reinforcement Learning

@@ -17,7 +17,7 @@ Usage:
     python main.py --task train --economy ann --policy nonlinear --lags 1
     python main.py --task evaluate --mode historical
     python main.py --task figures --figure 2
-
+ 
 Author: Monetary Policy RL Team
 Date: 2024
 """
@@ -25,11 +25,13 @@ Date: 2024
 import argparse
 import sys
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 import yaml
 import logging
 from pathlib import Path
 from typing import Optional, List
 import subprocess
+import shutil
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -124,17 +126,17 @@ class ProjectRunner:
             )
             
             if result.returncode == 0:
-                self.logger.info(f"✓ {description} completed successfully")
+                self.logger.info(f"[OK] {description} completed successfully")
             
             return result.returncode
             
         except subprocess.CalledProcessError as e:
-            self.logger.error(f"✗ {description} failed with error code {e.returncode}")
+            self.logger.error(f"[FAILED] {description} failed with error code {e.returncode}")
             if e.stderr:
                 self.logger.error(f"Error: {e.stderr}")
             return e.returncode
         except Exception as e:
-            self.logger.error(f"✗ {description} failed: {str(e)}")
+            self.logger.error(f"[FAILED] {description} failed: {str(e)}")
             return 1
     
     def prepare_data(self) -> int:
@@ -153,7 +155,10 @@ class ProjectRunner:
     def estimate_economy(
         self,
         model: str = 'both',
-        output_dir: Optional[str] = None
+        output_dir: Optional[str] = None,
+        tune: bool = False,
+        trials: int = 20,
+        epochs: int = 500
     ) -> int:
         """
         Estimate economy models (SVAR and/or ANN).
@@ -161,6 +166,9 @@ class ProjectRunner:
         Args:
             model: Model to estimate ('svar', 'ann', 'both')
             output_dir: Custom output directory
+            tune: Tune hyperparameters before estimation
+            trials: Number of tuning trials
+            epochs: Max epochs for tuning
         
         Returns:
             Exit code
@@ -169,6 +177,11 @@ class ProjectRunner:
             '--model', model,
             '--config', self.config_path
         ]
+        
+        if tune:
+            args.append('--tune')
+            args.extend(['--trials', str(trials)])
+            args.extend(['--epochs', str(epochs)])
         
         if output_dir:
             args.extend(['--output_dir', output_dir])
@@ -281,7 +294,7 @@ class ProjectRunner:
                 self.logger.error(f"  - {economy} + {policy} + LAGS={lags}")
             return 1
         else:
-            self.logger.info("\n✓ All agents trained successfully!")
+            self.logger.info("\n[OK] All agents trained successfully!")
             return 0
     
     def evaluate_policies(
@@ -325,6 +338,7 @@ class ProjectRunner:
         figure_numbers: Optional[List[int]] = None,
         all_figures: bool = False,
         tables: bool = False,
+        learning_curve: bool = False,
         checkpoint_dir: Optional[str] = None,
         output_dir: Optional[str] = None
     ) -> int:
@@ -335,6 +349,7 @@ class ProjectRunner:
             figure_numbers: Specific figure numbers to generate
             all_figures: Generate all figures
             tables: Generate tables
+            learning_curve: Generate learning curves
             checkpoint_dir: Directory with checkpoints
             output_dir: Output directory
         
@@ -351,6 +366,9 @@ class ProjectRunner:
         
         if tables:
             args.append('--tables')
+            
+        if learning_curve:
+            args.append('--learning_curve')
         
         if checkpoint_dir:
             args.extend(['--checkpoint_dir', checkpoint_dir])
@@ -431,14 +449,14 @@ class ProjectRunner:
         self.logger.info("="*80)
         
         for step_name, step_result in steps:
-            status = "✓" if step_result == 0 else "✗"
+            status = "[OK]" if step_result == 0 else "[FAILED]"
             self.logger.info(f"{status} {step_name}")
         
         if all(result == 0 for _, result in steps):
-            self.logger.info("\n🎉 Complete pipeline finished successfully!")
+            self.logger.info("\n[SUCCESS] Complete pipeline finished successfully!")
             return 0
         else:
-            self.logger.error("\n✗ Pipeline completed with errors")
+            self.logger.error("\n[FAILED] Pipeline completed with errors")
             return 1
     
     def clean_results(
@@ -498,7 +516,7 @@ class ProjectRunner:
                         except Exception as e:
                             print(f"  Could not remove {file}: {e}")
         
-        print("✓ Cleaning completed")
+        print("[OK] Cleaning completed")
         
         # Reinitialize the original logger by calling the existing setup method
         # This assumes you have some logger setup in your __init__ method
@@ -515,9 +533,9 @@ class ProjectRunner:
         # Check data
         data_path = Path('data/processed/us_macro_data.csv')
         if data_path.exists():
-            self.logger.info("✓ Data: Available")
+            self.logger.info("[OK] Data: Available")
         else:
-            self.logger.info("✗ Data: Not found (run: python main.py --task data)")
+            self.logger.info("[FAILED] Data: Not found (run: python main.py --task data)")
         
         # Check economy models
         svar_path = Path('results/checkpoints/svar_params.pkl')
@@ -525,14 +543,14 @@ class ProjectRunner:
         ann_pi_path = Path('results/checkpoints/ann_pi_network.pth')
         
         if svar_path.exists():
-            self.logger.info("✓ SVAR Economy: Estimated")
+            self.logger.info("[OK] SVAR Economy: Estimated")
         else:
-            self.logger.info("✗ SVAR Economy: Not estimated")
+            self.logger.info("[FAILED] SVAR Economy: Not estimated")
         
         if ann_y_path.exists() and ann_pi_path.exists():
-            self.logger.info("✓ ANN Economy: Estimated")
+            self.logger.info("[OK] ANN Economy: Estimated")
         else:
-            self.logger.info("✗ ANN Economy: Not estimated")
+            self.logger.info("[FAILED] ANN Economy: Not estimated")
         
         # Check trained agents
         agent_patterns = [
@@ -549,15 +567,15 @@ class ProjectRunner:
             if (Path('results/checkpoints') / pattern).exists():
                 trained_agents += 1
         
-        self.logger.info(f"✓ Trained Agents: {trained_agents}/{len(agent_patterns)}")
+        self.logger.info(f"[OK] Trained Agents: {trained_agents}/{len(agent_patterns)}")
         
         # Check figures
         figure_count = len(list(Path('results/figures').glob('*.pdf')))
-        self.logger.info(f"✓ Generated Figures: {figure_count}")
+        self.logger.info(f"[OK] Generated Figures: {figure_count}")
         
         # Check tables
         table_count = len(list(Path('results/tables').glob('*.csv')))
-        self.logger.info(f"✓ Generated Tables: {table_count}")
+        self.logger.info(f"[OK] Generated Tables: {table_count}")
         
         self.logger.info("\n" + "="*60)
 
@@ -694,6 +712,12 @@ Examples:
         help='Generate tables (for figures task)'
     )
     
+    parser.add_argument(
+        '--learning_curve',
+        action='store_true',
+        help='Generate learning curves (for figures task)'
+    )
+    
     # Clean arguments
     parser.add_argument(
         '--figures-only',
@@ -800,6 +824,7 @@ def main():
                 figure_numbers=args.figure,
                 all_figures=args.all,
                 tables=args.tables,
+                learning_curve=args.learning_curve,
                 checkpoint_dir=args.checkpoint_dir,
                 output_dir=args.output_dir
             )

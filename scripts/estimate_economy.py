@@ -20,25 +20,34 @@ import torch.optim as optim
 from sklearn.metrics import mean_squared_error
 from statsmodels.regression.linear_model import OLS
 from statsmodels.tools.tools import add_constant
+import random
+from typing import Dict, Any, Tuple
 
 # Add src to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.data.data_loader import DataLoader
+from src.data.data_loader import DataLoader, create_lagged_features
 from src.environment.ann_economy import EconomyNetwork
 from src.utils.logger import setup_logger
 
 
 def estimate_svar(
-    data: pd.DataFrame,
+    raw_data: pd.DataFrame,
     config: dict,
     logger
 ) -> dict:
     """
-    Estimate SVAR model with recursive structure (Equations 6-7).
+    Estimate SVAR model with optimal lag selection (AIC).
+    
+    Process:
+    1. Iterate over lag lengths (1 to max_lags).
+    2. For each lag, estimate full SVAR model.
+    3. Calculate AIC/BIC.
+    4. Select optimal lag length based on AIC.
+    5. Return parameters for the optimal model (keeping all variables).
     
     Args:
-        data: DataFrame with lagged features
+        raw_data: DataFrame with raw time series (not lagged)
         config: Configuration dictionary
         logger: Logger instance
     
@@ -46,84 +55,163 @@ def estimate_svar(
         Dictionary with estimated parameters and statistics
     """
     logger.info("\n" + "="*60)
-    logger.info("ESTIMATING SVAR ECONOMY")
+    logger.info("ESTIMATING SVAR ECONOMY (OPTIMAL LAGS)")
     logger.info("="*60)
     
-    # Prepare data
-    # Output gap equation: y_t = C^y + a^y_{y,1} y_{t-1} + a^y_{π,1} π_{t-1} + 
-    #                              a^y_{i,1} i_{t-1} + a^y_{i,2} i_{t-2} + ε^y_t
+    max_lags = config.get('economy', {}).get('svar', {}).get('max_lags', 8)
+    logger.info(f"Searching for optimal lags (1 to {max_lags})...")
+    
+    best_aic = np.inf
+    best_lags = 0
+    best_model_y = None
+    best_model_pi = None
+    best_data = None
+    
+    results_summary = []
+    
+    for p in range(1, max_lags + 1):
+        # Create lagged data for this lag length
+        data_p = create_lagged_features(raw_data, lags=p)
+        
+        # ---------------------------------------------------------
+        # Output Gap Equation
+        # y_t = C + sum(y_{t-k}) + sum(π_{t-k}) + sum(i_{t-k})
+        # ---------------------------------------------------------
+        features_y = []
+        for l in range(1, p + 1):
+            features_y.extend([f'output_gap_lag{l}', f'inflation_lag{l}', f'interest_rate_lag{l}'])
+            
+        X_y = data_p[features_y].values
+        y_y = data_p['output_gap'].values
+        X_y = add_constant(X_y)
+        
+        model_y = OLS(y_y, X_y).fit()
+        
+        # ---------------------------------------------------------
+        # Inflation Equation
+        # π_t = C + y_t + sum(y_{t-k}) + sum(π_{t-k}) + sum(i_{t-k})
+        # ---------------------------------------------------------
+        features_pi = ['output_gap'] # Contemporaneous output gap
+        for l in range(1, p + 1):
+            features_pi.extend([f'output_gap_lag{l}', f'inflation_lag{l}', f'interest_rate_lag{l}'])
+            
+        X_pi = data_p[features_pi].values
+        y_pi = data_p['inflation'].values
+        X_pi = add_constant(X_pi)
+        
+        model_pi = OLS(y_pi, X_pi).fit()
+        
+        # ---------------------------------------------------------
+        # Calculate Information Criteria
+        # ---------------------------------------------------------
+        # Sum of AICs for both equations (System AIC)
+        current_aic = model_y.aic + model_pi.aic
+        current_bic = model_y.bic + model_pi.bic
+        
+        results_summary.append({
+            'lags': p,
+            'aic': current_aic,
+            'bic': current_bic,
+            'mse_total': (model_y.mse_resid + model_pi.mse_resid) / 2
+        })
+        
+        if current_aic < best_aic:
+            best_aic = current_aic
+            best_lags = p
+            best_model_y = model_y
+            best_model_pi = model_pi
+            best_data = data_p
+            
+    # Log selection results
+    logger.info("\nLag Selection Results:")
+    logger.info(f"{'Lags':<5} {'AIC':<12} {'BIC':<12} {'MSE':<12}")
+    logger.info("-" * 45)
+    for res in results_summary:
+        mark = "*" if res['lags'] == best_lags else ""
+        logger.info(f"{res['lags']:<5} {res['aic']:<12.2f} {res['bic']:<12.2f} {res['mse_total']:<12.6f} {mark}")
+        
+    logger.info(f"\nOptimal lag length selected: {best_lags}")
+    
+    # ---------------------------------------------------------
+    # Final Model Summary
+    # ---------------------------------------------------------
+    logger.info("\nOutput Gap Equation (Optimal Lags):")
+    logger.info(best_model_y.summary())
+    
+    logger.info("\nInflation Equation (Optimal Lags):")
+    logger.info(best_model_pi.summary())
+    
+    # ---------------------------------------------------------
+    # Map Coefficients
+    # ---------------------------------------------------------
+    
+    # Helper to map feature names to param keys
+    # We need to handle dynamic lag names
+    
+    # Construct params_y
+    params_y = {}
+    params_y['const'] = best_model_y.params[0]
+    
+    # Features in order: [const, output_gap_lag1, inflation_lag1, interest_rate_lag1, output_gap_lag2, ...]
+    # Note: create_lagged_features might order them differently, need to be careful.
+    # Let's reconstruct the feature list used for training to map correctly
+    features_y_names = []
+    for l in range(1, best_lags + 1):
+        features_y_names.extend([f'output_gap_lag{l}', f'inflation_lag{l}', f'interest_rate_lag{l}'])
+    
+    # Map coefficients
+    # params[0] is const
+    for idx, name in enumerate(features_y_names):
+        # Map standard names to internal param names
+        # e.g. output_gap_lag1 -> y_lag1
+        # e.g. inflation_lag1 -> pi_lag1
+        # e.g. interest_rate_lag1 -> i_lag1
+        
+        short_name = name.replace('output_gap', 'y').replace('inflation', 'pi').replace('interest_rate', 'i')
+        params_y[short_name] = best_model_y.params[idx + 1]
 
-    X_y = data[['output_gap_lag1', 'inflation_lag1', 'interest_rate_lag1', 'interest_rate_lag2']].values
-    y_y = data['output_gap'].values
+    # Construct params_pi
+    params_pi = {}
+    params_pi['const'] = best_model_pi.params[0]
     
-    # Add constant
-    X_y = add_constant(X_y)
+    features_pi_names = ['output_gap']
+    for l in range(1, best_lags + 1):
+        features_pi_names.extend([f'output_gap_lag{l}', f'inflation_lag{l}', f'interest_rate_lag{l}'])
+        
+    for idx, name in enumerate(features_pi_names):
+        if name == 'output_gap':
+            short_name = 'y_lag0'
+        else:
+            short_name = name.replace('output_gap', 'y').replace('inflation', 'pi').replace('interest_rate', 'i')
+        
+        params_pi[short_name] = best_model_pi.params[idx + 1]
     
-    # OLS estimation
-    model_y = OLS(y_y, X_y).fit()
-    
-    logger.info("\nOutput Gap Equation:")
-    logger.info(model_y.summary())
-    
-    # Inflation equation: π_t = C^π + a^π_{y,0} y_t + a^π_{y,1} y_{t-1} + 
-    #                            a^π_{π,1} π_{t-1} + a^π_{π,2} π_{t-2} + a^π_{i,1} i_{t-1} + ε^π_t
-
-    X_pi = data[['output_gap', 'output_gap_lag1', 'inflation_lag1','inflation_lag2', 'interest_rate_lag1']].values
-    y_pi = data['inflation'].values
-    
-    X_pi = add_constant(X_pi)
-    model_pi = OLS(y_pi, X_pi).fit()
-    
-    logger.info("\nInflation Equation:")
-    logger.info(model_pi.summary())
-    
-    # Extract parameters
-    params_y = {
-        'const': model_y.params[0],
-        'y_lag1': model_y.params[1],
-        # 'y_lag2': model_y.params[2],
-        'pi_lag1': model_y.params[2],
-        # 'pi_lag2': model_y.params[4],
-        'i_lag1': model_y.params[3],
-        'i_lag2': model_y.params[4]
-    }
-    
-    params_pi = {
-        'const': model_pi.params[0],
-        'y_lag0': model_pi.params[1],
-        'y_lag1': model_pi.params[2],
-        # 'y_lag2': model_pi.params[3],
-        'pi_lag1': model_pi.params[3],
-        'pi_lag2': model_pi.params[4],
-        'i_lag1': model_pi.params[5],
-        # 'i_lag2': model_pi.params[6]
-    }
-    
-    # Compute residuals (structural shocks)
-    residuals_y = model_y.resid
-    residuals_pi = model_pi.resid
+    # Compute residuals and stats
+    residuals_y = best_model_y.resid
+    residuals_pi = best_model_pi.resid
     
     shock_std = {
         'output_gap': np.std(residuals_y),
         'inflation': np.std(residuals_pi)
     }
     
-    # Compute fit statistics
-    fitted_y = model_y.fittedvalues
-    fitted_pi = model_pi.fittedvalues
+    fitted_y = best_model_y.fittedvalues
+    fitted_pi = best_model_pi.fittedvalues
     
-    mse_y = mean_squared_error(y_y, fitted_y)
-    mse_pi = mean_squared_error(y_pi, fitted_pi)
+    # We need to be careful with MSE calculation because different lags mean different sample sizes
+    # But here we just report the MSE of the fitted model on its training data
+    mse_y = best_model_y.mse_resid
+    mse_pi = best_model_pi.mse_resid
     mse_total = (mse_y + mse_pi) / 2
     
     logger.info("\n" + "-"*60)
-    logger.info("FIT STATISTICS")
+    logger.info("FIT STATISTICS (OPTIMAL MODEL)")
     logger.info("-"*60)
     logger.info(f"Output Gap MSE: {mse_y:.6f}")
     logger.info(f"Inflation MSE:  {mse_pi:.6f}")
     logger.info(f"Total MSE:      {mse_total:.6f}")
-    logger.info(f"Output Gap R²:  {model_y.rsquared:.4f}")
-    logger.info(f"Inflation R²:   {model_pi.rsquared:.4f}")
+    logger.info(f"Output Gap R²:  {best_model_y.rsquared:.4f}")
+    logger.info(f"Inflation R²:   {best_model_pi.rsquared:.4f}")
     
     return {
         'coefficients': {
@@ -131,12 +219,13 @@ def estimate_svar(
             'inflation': params_pi
         },
         'shock_std': shock_std,
+        'lags': best_lags,
         'fit_statistics': {
             'mse_output_gap': mse_y,
             'mse_inflation': mse_pi,
             'mse_total': mse_total,
-            'r2_output_gap': model_y.rsquared,
-            'r2_inflation': model_pi.rsquared
+            'r2_output_gap': best_model_y.rsquared,
+            'r2_inflation': best_model_pi.rsquared
         },
         'residuals': {
             'output_gap': residuals_y,
@@ -241,10 +330,150 @@ def train_ann_network(
     
     return network
 
+def set_seed(seed: int):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+def train_evaluate_network(
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    X_val: np.ndarray,
+    y_val: np.ndarray,
+    params: Dict[str, Any],
+    epochs: int
+) -> float:
+    """
+    Train network and return validation loss.
+    """
+    input_dim = X_train.shape[1]
+    hidden_units = params['hidden_units']
+    learning_rate = params['learning_rate']
+    batch_size = params['batch_size']
+    
+    # Initialize network
+    network = EconomyNetwork(input_dim, hidden_units)
+    
+    # Optimizer and loss
+    optimizer = optim.Adam(network.parameters(), lr=learning_rate)
+    criterion = nn.MSELoss()
+    
+    # Convert to tensors
+    X_train_t = torch.FloatTensor(X_train)
+    y_train_t = torch.FloatTensor(y_train)
+    X_val_t = torch.FloatTensor(X_val)
+    y_val_t = torch.FloatTensor(y_val)
+    
+    # Create data loader for batching
+    train_dataset = torch.utils.data.TensorDataset(X_train_t, y_train_t)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    
+    best_val_loss = np.inf
+    patience = 10
+    patience_counter = 0
+    
+    for epoch in range(epochs):
+        network.train()
+        for batch_X, batch_y in train_loader:
+            optimizer.zero_grad()
+            predictions = network(batch_X)
+            loss = criterion(predictions, batch_y)
+            loss.backward()
+            optimizer.step()
+        
+        # Validation
+        network.eval()
+        with torch.no_grad():
+            val_predictions = network(X_val_t)
+            val_loss = criterion(val_predictions, y_val_t).item()
+        
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            patience_counter = 0
+        else:
+            patience_counter += 1
+            
+        if patience_counter >= patience:
+            break
+            
+    return best_val_loss
+
+def sample_hyperparameters() -> Dict[str, Any]:
+    """Sample random hyperparameters."""
+    return {
+        'hidden_units': random.choice([2, 4, 8, 16, 32]),
+        'learning_rate': random.choice([0.01, 0.005, 0.001, 0.0005, 0.0001]),
+        'batch_size': random.choice([16, 32, 64])
+    }
+
+def tune_hyperparameters(
+    data: pd.DataFrame,
+    config: dict,
+    logger,
+    trials: int,
+    epochs: int
+) -> Dict[str, Dict[str, Any]]:
+    """
+    Tune hyperparameters for ANN economy.
+    """
+    logger.info("\n" + "="*60)
+    logger.info("TUNING HYPERPARAMETERS")
+    logger.info("="*60)
+    
+    # Prepare data
+    from src.data.data_loader import prepare_training_data, create_lagged_features
+    train_data, val_data = prepare_training_data(data, config['data']['validation_split'])
+    train_lagged = create_lagged_features(train_data, lags=2)
+    val_lagged = create_lagged_features(val_data, lags=2)
+    
+    # Prepare datasets for Output Gap
+    X_train_y = train_lagged[['output_gap_lag1', 'inflation_lag1', 'interest_rate_lag1', 'interest_rate_lag2']].values
+    y_train_y = train_lagged['output_gap'].values
+    X_val_y = val_lagged[['output_gap_lag1', 'inflation_lag1', 'interest_rate_lag1', 'interest_rate_lag2']].values
+    y_val_y = val_lagged['output_gap'].values
+    
+    # Prepare datasets for Inflation
+    X_train_pi = train_lagged[['output_gap', 'output_gap_lag1', 'inflation_lag1', 'inflation_lag2', 'interest_rate_lag1']].values
+    y_train_pi = train_lagged['inflation'].values
+    X_val_pi = val_lagged[['output_gap', 'output_gap_lag1', 'inflation_lag1', 'inflation_lag2', 'interest_rate_lag1']].values
+    y_val_pi = val_lagged['inflation'].values
+    
+    best_y_params = None
+    best_y_loss = np.inf
+    
+    best_pi_params = None
+    best_pi_loss = np.inf
+    
+    logger.info(f"\nStarting {trials} trials...")
+    
+    for i in range(trials):
+        params = sample_hyperparameters()
+        logger.info(f"\nTrial {i+1}/{trials}: {params}")
+        
+        # Tune Output Gap
+        loss_y = train_evaluate_network(X_train_y, y_train_y, X_val_y, y_val_y, params, epochs)
+        if loss_y < best_y_loss:
+            best_y_loss = loss_y
+            best_y_params = params
+            logger.info(f"  New best Output Gap loss: {loss_y:.6f}")
+            
+        # Tune Inflation
+        loss_pi = train_evaluate_network(X_train_pi, y_train_pi, X_val_pi, y_val_pi, params, epochs)
+        if loss_pi < best_pi_loss:
+            best_pi_loss = loss_pi
+            best_pi_params = params
+            logger.info(f"  New best Inflation loss: {loss_pi:.6f}")
+            
+    return {
+        'output_gap': best_y_params,
+        'inflation': best_pi_params
+    }
+
 def estimate_ann(
     data: pd.DataFrame,
     config: dict,
-    logger
+    logger,
+    tuned_params: Dict[str, Dict[str, Any]] = None
 ) -> dict:
     """
     Estimate ANN economy model (Equation 8).
@@ -253,6 +482,7 @@ def estimate_ann(
         data: Full dataset
         config: Configuration dictionary
         logger: Logger instance
+        tuned_params: Optional tuned hyperparameters
     
     Returns:
         Dictionary with trained networks and statistics
@@ -261,7 +491,31 @@ def estimate_ann(
     logger.info("ESTIMATING ANN ECONOMY")
     logger.info("="*60)
     
-    ann_config = config['economy']['ann']
+    ann_config = config['economy']['ann'].copy()
+    
+    # Apply tuned parameters if available
+    if tuned_params:
+        logger.info("\nUsing tuned hyperparameters:")
+        
+        # Output gap params
+        y_params = tuned_params['output_gap']
+        ann_config['hidden_units_y'] = y_params['hidden_units']
+        # Note: learning_rate and batch_size are shared in config but can be specific here if we modify train_ann_network
+        # For now, we'll use the tuned values for the respective networks
+        
+        logger.info("  Output Gap:")
+        logger.info(f"    Hidden Units: {y_params['hidden_units']}")
+        logger.info(f"    Learning Rate: {y_params['learning_rate']}")
+        logger.info(f"    Batch Size: {y_params['batch_size']}")
+        
+        # Inflation params
+        pi_params = tuned_params['inflation']
+        ann_config['hidden_units_pi'] = pi_params['hidden_units']
+        
+        logger.info("  Inflation:")
+        logger.info(f"    Hidden Units: {pi_params['hidden_units']}")
+        logger.info(f"    Learning Rate: {pi_params['learning_rate']}")
+        logger.info(f"    Batch Size: {pi_params['batch_size']}")
     
     # Split into train/validation
     from src.data.data_loader import prepare_training_data
@@ -294,11 +548,17 @@ def estimate_ann(
                           'interest_rate_lag1', 'interest_rate_lag2']].values
     y_val_y = val_lagged['output_gap'].values
     
+    # Use tuned config or default
+    y_config = ann_config.copy()
+    if tuned_params:
+        y_config['learning_rate'] = tuned_params['output_gap']['learning_rate']
+        y_config['batch_size'] = tuned_params['output_gap']['batch_size']
+    
     network_y = train_ann_network(
         X_train_y, y_train_y,
         X_val_y, y_val_y,
         ann_config['hidden_units_y'],
-        ann_config,
+        y_config,
         logger,
         'output_gap'
     )
@@ -314,14 +574,20 @@ def estimate_ann(
     y_train_pi = train_lagged['inflation'].values
     
     X_val_pi = val_lagged[['output_gap', 'output_gap_lag1', 'inflation_lag1',
-                           'inflation_lag2', 'interest_rate_lag1']].values
+                           'interest_rate_lag1', 'interest_rate_lag2']].values
     y_val_pi = val_lagged['inflation'].values
+    
+    # Use tuned config or default
+    pi_config = ann_config.copy()
+    if tuned_params:
+        pi_config['learning_rate'] = tuned_params['inflation']['learning_rate']
+        pi_config['batch_size'] = tuned_params['inflation']['batch_size']
     
     network_pi = train_ann_network(
         X_train_pi, y_train_pi,
         X_val_pi, y_val_pi,
         ann_config['hidden_units_pi'],
-        ann_config,
+        pi_config,
         logger,
         'inflation'
     )
@@ -408,6 +674,9 @@ def main():
                        help='Data directory')
     parser.add_argument('--output_dir', type=str, default='results/checkpoints',
                        help='Output directory')
+    parser.add_argument('--tune', action='store_true', help='Tune hyperparameters before estimation')
+    parser.add_argument('--trials', type=int, default=20, help='Number of tuning trials')
+    parser.add_argument('--epochs', type=int, default=500, help='Max epochs for tuning')
     
     args = parser.parse_args()
     
@@ -434,7 +703,7 @@ def main():
     )
     
     data = data_loader.get_data()
-    lagged_data = data_loader.get_lagged_data(lags=2)
+    # lagged_data = data_loader.get_lagged_data(lags=2) # No longer needed for SVAR here
     
     logger.info(f"Data loaded: {len(data)} observations")
     logger.info(f"Date range: {data.index[0]} to {data.index[-1]}")
@@ -444,7 +713,8 @@ def main():
     
     # Estimate models
     if args.model in ['svar', 'both']:
-        svar_results = estimate_svar(lagged_data, config, logger)
+        # Pass raw data to estimate_svar so it can generate lags dynamically
+        svar_results = estimate_svar(data, config, logger)
         
         # Save SVAR results
         svar_path = os.path.join(args.output_dir, 'svar_params.pkl')
@@ -453,7 +723,11 @@ def main():
         logger.info(f"\nSVAR parameters saved to: {svar_path}")
     
     if args.model in ['ann', 'both']:
-        ann_results = estimate_ann(data, config, logger)
+        tuned_params = None
+        if args.tune:
+            tuned_params = tune_hyperparameters(data, config, logger, args.trials, args.epochs)
+            
+        ann_results = estimate_ann(data, config, logger, tuned_params)
         
         # Save ANN results
         ann_y_path = os.path.join(args.output_dir, 'ann_y_network.pth')

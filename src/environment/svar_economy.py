@@ -88,12 +88,15 @@ class SVAREconomy(BaseEconomy):
         
         # Step 1: Compute output gap y_{t+1} (Equation 6)
         # y_{t+1} = C^y + a^y_{y,1}y_t + a^y_{π,1}π_t + a^y_{i,1}i_t + a^y_{i,2}i_{t-1} + ε^y_{t+1}
+        # Note: We use .get() to support sparse parameter sets from refined estimation
         y_next = (
-            self.y_params['const'] +
-            self.y_params['y_lag1'] * y_t +
-            self.y_params['pi_lag1'] * pi_t +
-            self.y_params['i_lag1'] * i_t +
-            self.y_params['i_lag2'] * i_lag1 +
+            self.y_params.get('const', 0.0) +
+            self.y_params.get('y_lag1', 0.0) * y_t +
+            self.y_params.get('y_lag2', 0.0) * y_lag1 +
+            self.y_params.get('pi_lag1', 0.0) * pi_t +
+            self.y_params.get('pi_lag2', 0.0) * pi_lag1 +
+            self.y_params.get('i_lag1', 0.0) * i_t +
+            self.y_params.get('i_lag2', 0.0) * i_lag1 +
             shock_y
         )
         
@@ -101,12 +104,14 @@ class SVAREconomy(BaseEconomy):
         # Recursive: π_{t+1} depends on y_{t+1} contemporaneously
         # π_{t+1} = C^π + a^π_{y,0}y_{t+1} + a^π_{y,1}y_t + a^π_{π,1}π_t + a^π_{π,2}π_{t-1} + a^π_{i,1}i_t + ε^π_{t+1}
         pi_next = (
-            self.pi_params['const'] +
-            self.pi_params['y_lag0'] * y_next +  # Contemporaneous effect
-            self.pi_params['y_lag1'] * y_t +
-            self.pi_params['pi_lag1'] * pi_t +
-            self.pi_params['pi_lag2'] * pi_lag1 +
-            self.pi_params['i_lag1'] * i_t +
+            self.pi_params.get('const', 0.0) +
+            self.pi_params.get('y_lag0', 0.0) * y_next +  # Contemporaneous effect
+            self.pi_params.get('y_lag1', 0.0) * y_t +
+            self.pi_params.get('y_lag2', 0.0) * y_lag1 +
+            self.pi_params.get('pi_lag1', 0.0) * pi_t +
+            self.pi_params.get('pi_lag2', 0.0) * pi_lag1 +
+            self.pi_params.get('i_lag1', 0.0) * i_t +
+            self.pi_params.get('i_lag2', 0.0) * i_lag1 +
             shock_pi
         )
         
@@ -191,21 +196,25 @@ class SVAREconomy(BaseEconomy):
         
         # Output gap (no shock)
         y_next = (
-            self.y_params['const'] +
-            self.y_params['y_lag1'] * y_t +
-            self.y_params['pi_lag1'] * pi_t +
-            self.y_params['i_lag1'] * i_t +
-            self.y_params['i_lag2'] * i_lag1
+            self.y_params.get('const', 0.0) +
+            self.y_params.get('y_lag1', 0.0) * y_t +
+            self.y_params.get('y_lag2', 0.0) * y_lag1 +
+            self.y_params.get('pi_lag1', 0.0) * pi_t +
+            self.y_params.get('pi_lag2', 0.0) * pi_lag1 +
+            self.y_params.get('i_lag1', 0.0) * i_t +
+            self.y_params.get('i_lag2', 0.0) * i_lag1
         )
         
         # Inflation (no shock)
         pi_next = (
-            self.pi_params['const'] +
-            self.pi_params['y_lag0'] * y_next +
-            self.pi_params['y_lag1'] * y_t +
-            self.pi_params['pi_lag1'] * pi_t +
-            self.pi_params['pi_lag2'] * pi_lag1 +
-            self.pi_params['i_lag1'] * i_t
+            self.pi_params.get('const', 0.0) +
+            self.pi_params.get('y_lag0', 0.0) * y_next +
+            self.pi_params.get('y_lag1', 0.0) * y_t +
+            self.pi_params.get('y_lag2', 0.0) * y_lag1 +
+            self.pi_params.get('pi_lag1', 0.0) * pi_t +
+            self.pi_params.get('pi_lag2', 0.0) * pi_lag1 +
+            self.pi_params.get('i_lag1', 0.0) * i_t +
+            self.pi_params.get('i_lag2', 0.0) * i_lag1
         )
         
         return y_next, pi_next
