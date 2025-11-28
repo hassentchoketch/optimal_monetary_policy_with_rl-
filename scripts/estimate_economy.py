@@ -312,7 +312,7 @@ def sample_hyperparameters() -> Dict[str, Any]:
     """Sample random hyperparameters including lags."""
     return {
         'hidden_units': random.choice([2, 4, 8, 16, 32]),
-        'learning_rate': random.choice([0.01, 0.005, 0.001, 0.0005, 0.0001]),
+        'learning_rate': random.choice([0.005, 0.001, 0.0005, 0.0001]),
         'batch_size': random.choice([16, 32, 64]),
         'lags': random.choice([1, 2, 3, 4])
     }
@@ -501,7 +501,7 @@ def main():
     parser.add_argument('--data_dir', type=str, default='data/processed')
     parser.add_argument('--output_dir', type=str, default='results/checkpoints')
     parser.add_argument('--tune', action='store_true', help='Tune hyperparameters')
-    parser.add_argument('--trials', type=int, default=20)
+    parser.add_argument('--trials', type=int, default=50)
     parser.add_argument('--epochs', type=int, default=500)
     
     args = parser.parse_args()

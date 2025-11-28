@@ -1,0 +1,621 @@
+2025-11-28 14:53:39 - economy_estimation - INFO - ============================================================
+2025-11-28 14:53:39 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-28 14:53:39 - economy_estimation - INFO - ============================================================
+2025-11-28 14:53:55 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+============================================================
+2025-11-28 14:53:55 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY (OPTIMAL LAGS)
+2025-11-28 14:53:55 - economy_estimation - INFO - ============================================================
+2025-11-28 14:53:55 - economy_estimation - INFO - Searching for optimal lags (1 to 4) using BIC...
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+Lag Selection Results:
+2025-11-28 14:53:55 - economy_estimation - INFO - Lags  BIC          MSE         
+2025-11-28 14:53:55 - economy_estimation - INFO - -----------------------------------
+2025-11-28 14:53:55 - economy_estimation - INFO - 1     557.96       0.597264     
+2025-11-28 14:53:55 - economy_estimation - INFO - 2     524.85       0.570879     *
+2025-11-28 14:53:55 - economy_estimation - INFO - 3     529.02       0.553437     
+2025-11-28 14:53:55 - economy_estimation - INFO - 4     538.45       0.563845     
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+Optimal lag length selected: 2
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+Output Gap Equation (Optimal Lags):
+2025-11-28 14:53:55 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.716
+Model:                            OLS   Adj. R-squared:                  0.702
+Method:                 Least Squares   F-statistic:                     54.91
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           2.03e-33
+Time:                        14:53:55   Log-Likelihood:                -195.29
+No. Observations:                 138   AIC:                             404.6
+Df Residuals:                     131   BIC:                             425.1
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.2589      0.256     -1.009      0.315      -0.766       0.249
+x1             0.7044      0.100      7.026      0.000       0.506       0.903
+x2            -0.1249      0.258     -0.485      0.629      -0.635       0.385
+x3             0.4777      0.227      2.105      0.037       0.029       0.927
+x4             0.0834      0.094      0.885      0.378      -0.103       0.270
+x5             0.1323      0.263      0.503      0.616      -0.388       0.653
+x6            -0.4395      0.214     -2.056      0.042      -0.862      -0.017
+==============================================================================
+Omnibus:                      146.798   Durbin-Watson:                   2.030
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6930.165
+Skew:                          -3.414   Prob(JB):                         0.00
+Kurtosis:                      37.039   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+Inflation Equation (Optimal Lags):
+2025-11-28 14:53:55 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.944
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     313.9
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           3.43e-78
+Time:                        14:53:55   Log-Likelihood:                -30.177
+No. Observations:                 138   AIC:                             76.35
+Df Residuals:                     130   BIC:                             99.77
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2348      0.078      3.006      0.003       0.080       0.389
+x1             0.1342      0.027      5.063      0.000       0.082       0.187
+x2            -0.0974      0.036     -2.730      0.007      -0.168      -0.027
+x3             1.5308      0.078     19.553      0.000       1.376       1.686
+x4            -0.1135      0.070     -1.621      0.107      -0.252       0.025
+x5            -0.0036      0.029     -0.124      0.901      -0.060       0.053
+x6            -0.6105      0.080     -7.637      0.000      -0.769      -0.452
+x7             0.1000      0.066      1.517      0.132      -0.030       0.230
+==============================================================================
+Omnibus:                       15.278   Durbin-Watson:                   2.254
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.456
+Skew:                           0.415   Prob(JB):                     5.44e-08
+Kurtosis:                       5.265   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 14:53:55 - economy_estimation - INFO - FIT STATISTICS (OPTIMAL MODEL)
+2025-11-28 14:53:55 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 14:53:55 - economy_estimation - INFO - Output Gap MSE: 1.045508
+2025-11-28 14:53:55 - economy_estimation - INFO - Inflation MSE:  0.096250
+2025-11-28 14:53:55 - economy_estimation - INFO - Total MSE:      0.570879
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+============================================================
+2025-11-28 14:53:55 - economy_estimation - INFO - ESTIMATING ANN ECONOMY
+2025-11-28 14:53:55 - economy_estimation - INFO - ============================================================
+2025-11-28 14:53:55 - economy_estimation - INFO - 
+Training Output Gap Network (Lags: 2)
+2025-11-28 14:53:59 - economy_estimation - INFO -   Early stopping at epoch 13
+2025-11-28 14:53:59 - economy_estimation - INFO -   Best validation loss: 5.006152
+2025-11-28 14:53:59 - economy_estimation - INFO - 
+Training Inflation Network (Lags: 2)
+2025-11-28 14:53:59 - economy_estimation - INFO -   Early stopping at epoch 18
+2025-11-28 14:53:59 - economy_estimation - INFO -   Best validation loss: 7.374424
+2025-11-28 14:53:59 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 14:53:59 - economy_estimation - INFO - FIT STATISTICS
+2025-11-28 14:53:59 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 14:53:59 - economy_estimation - INFO - Output Gap MSE: 2.384254
+2025-11-28 14:53:59 - economy_estimation - INFO - Inflation MSE:  1.555702
+2025-11-28 14:53:59 - economy_estimation - INFO - Total MSE:      1.969978
+2025-11-28 14:53:59 - economy_estimation - INFO - 
+============================================================
+2025-11-28 14:53:59 - economy_estimation - INFO - MODEL COMPARISON
+2025-11-28 14:53:59 - economy_estimation - INFO - ============================================================
+2025-11-28 14:53:59 - economy_estimation - INFO - 
+  Model  MSE_Output_Gap  MSE_Inflation  MSE_Total
+0  SVAR        1.045508       0.096250   0.570879
+1   ANN        2.384254       1.555702   1.969978
+2025-11-28 14:53:59 - economy_estimation - INFO - 
+ANN improvement over SVAR: -245.1%
+2025-11-28 15:07:39 - economy_estimation - INFO - ============================================================
+2025-11-28 15:07:39 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-28 15:07:39 - economy_estimation - INFO - ============================================================
+2025-11-28 15:07:46 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:07:46 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY (OPTIMAL LAGS)
+2025-11-28 15:07:46 - economy_estimation - INFO - ============================================================
+2025-11-28 15:07:46 - economy_estimation - INFO - Searching for optimal lags (1 to 4) using BIC...
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Lag Selection Results:
+2025-11-28 15:07:46 - economy_estimation - INFO - Lags  BIC          MSE         
+2025-11-28 15:07:46 - economy_estimation - INFO - -----------------------------------
+2025-11-28 15:07:46 - economy_estimation - INFO - 1     557.96       0.597264     
+2025-11-28 15:07:46 - economy_estimation - INFO - 2     524.85       0.570879     *
+2025-11-28 15:07:46 - economy_estimation - INFO - 3     529.02       0.553437     
+2025-11-28 15:07:46 - economy_estimation - INFO - 4     538.45       0.563845     
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Optimal lag length selected: 2
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Output Gap Equation (Optimal Lags):
+2025-11-28 15:07:46 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.716
+Model:                            OLS   Adj. R-squared:                  0.702
+Method:                 Least Squares   F-statistic:                     54.91
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           2.03e-33
+Time:                        15:07:46   Log-Likelihood:                -195.29
+No. Observations:                 138   AIC:                             404.6
+Df Residuals:                     131   BIC:                             425.1
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.2589      0.256     -1.009      0.315      -0.766       0.249
+x1             0.7044      0.100      7.026      0.000       0.506       0.903
+x2            -0.1249      0.258     -0.485      0.629      -0.635       0.385
+x3             0.4777      0.227      2.105      0.037       0.029       0.927
+x4             0.0834      0.094      0.885      0.378      -0.103       0.270
+x5             0.1323      0.263      0.503      0.616      -0.388       0.653
+x6            -0.4395      0.214     -2.056      0.042      -0.862      -0.017
+==============================================================================
+Omnibus:                      146.798   Durbin-Watson:                   2.030
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6930.165
+Skew:                          -3.414   Prob(JB):                         0.00
+Kurtosis:                      37.039   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Inflation Equation (Optimal Lags):
+2025-11-28 15:07:46 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.944
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     313.9
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           3.43e-78
+Time:                        15:07:46   Log-Likelihood:                -30.177
+No. Observations:                 138   AIC:                             76.35
+Df Residuals:                     130   BIC:                             99.77
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2348      0.078      3.006      0.003       0.080       0.389
+x1             0.1342      0.027      5.063      0.000       0.082       0.187
+x2            -0.0974      0.036     -2.730      0.007      -0.168      -0.027
+x3             1.5308      0.078     19.553      0.000       1.376       1.686
+x4            -0.1135      0.070     -1.621      0.107      -0.252       0.025
+x5            -0.0036      0.029     -0.124      0.901      -0.060       0.053
+x6            -0.6105      0.080     -7.637      0.000      -0.769      -0.452
+x7             0.1000      0.066      1.517      0.132      -0.030       0.230
+==============================================================================
+Omnibus:                       15.278   Durbin-Watson:                   2.254
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.456
+Skew:                           0.415   Prob(JB):                     5.44e-08
+Kurtosis:                       5.265   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 15:07:46 - economy_estimation - INFO - FIT STATISTICS (OPTIMAL MODEL)
+2025-11-28 15:07:46 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 15:07:46 - economy_estimation - INFO - Output Gap MSE: 1.045508
+2025-11-28 15:07:46 - economy_estimation - INFO - Inflation MSE:  0.096250
+2025-11-28 15:07:46 - economy_estimation - INFO - Total MSE:      0.570879
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:07:46 - economy_estimation - INFO - TUNING HYPERPARAMETERS
+2025-11-28 15:07:46 - economy_estimation - INFO - ============================================================
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Starting 20 trials...
+2025-11-28 15:07:46 - economy_estimation - INFO - 
+Trial 1/20: {'hidden_units': 16, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:07:52 - economy_estimation - INFO -   New best Output Gap loss: 3.961931
+2025-11-28 15:07:53 - economy_estimation - INFO -   New best Inflation loss: 11.898508
+2025-11-28 15:07:53 - economy_estimation - INFO - 
+Trial 2/20: {'hidden_units': 16, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 1}
+2025-11-28 15:07:57 - economy_estimation - INFO -   New best Inflation loss: 4.036815
+2025-11-28 15:07:57 - economy_estimation - INFO - 
+Trial 3/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:07:58 - economy_estimation - INFO - 
+Trial 4/20: {'hidden_units': 4, 'learning_rate': 0.005, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:07:59 - economy_estimation - INFO - 
+Trial 5/20: {'hidden_units': 4, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:08:02 - economy_estimation - INFO - 
+Trial 6/20: {'hidden_units': 4, 'learning_rate': 0.0005, 'batch_size': 32, 'lags': 2}
+2025-11-28 15:08:04 - economy_estimation - INFO - 
+Trial 7/20: {'hidden_units': 2, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:08:06 - economy_estimation - INFO - 
+Trial 8/20: {'hidden_units': 8, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 4}
+2025-11-28 15:08:09 - economy_estimation - INFO - 
+Trial 9/20: {'hidden_units': 2, 'learning_rate': 0.005, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:08:10 - economy_estimation - INFO -   New best Output Gap loss: 3.818470
+2025-11-28 15:08:11 - economy_estimation - INFO - 
+Trial 10/20: {'hidden_units': 2, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:08:15 - economy_estimation - INFO - 
+Trial 11/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 2}
+2025-11-28 15:08:16 - economy_estimation - INFO - 
+Trial 12/20: {'hidden_units': 16, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 1}
+2025-11-28 15:08:19 - economy_estimation - INFO - 
+Trial 13/20: {'hidden_units': 16, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:08:23 - economy_estimation - INFO - 
+Trial 14/20: {'hidden_units': 4, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 1}
+2025-11-28 15:08:26 - economy_estimation - INFO - 
+Trial 15/20: {'hidden_units': 16, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 4}
+2025-11-28 15:08:27 - economy_estimation - INFO - 
+Trial 16/20: {'hidden_units': 2, 'learning_rate': 0.0005, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:08:29 - economy_estimation - INFO - 
+Trial 17/20: {'hidden_units': 16, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:08:33 - economy_estimation - INFO -   New best Inflation loss: 3.232170
+2025-11-28 15:08:33 - economy_estimation - INFO - 
+Trial 18/20: {'hidden_units': 4, 'learning_rate': 0.0001, 'batch_size': 64, 'lags': 2}
+2025-11-28 15:08:34 - economy_estimation - INFO - 
+Trial 19/20: {'hidden_units': 8, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:08:36 - economy_estimation - INFO - 
+Trial 20/20: {'hidden_units': 32, 'learning_rate': 0.001, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:08:37 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:08:37 - economy_estimation - INFO - ESTIMATING ANN ECONOMY
+2025-11-28 15:08:37 - economy_estimation - INFO - ============================================================
+2025-11-28 15:08:37 - economy_estimation - INFO - 
+Using tuned hyperparameters:
+2025-11-28 15:08:37 - economy_estimation - INFO -   Output Gap (Lags=1): {'hidden_units': 2, 'learning_rate': 0.005, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:08:37 - economy_estimation - INFO -   Inflation (Lags=2): {'hidden_units': 16, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:08:37 - economy_estimation - INFO - 
+Training Output Gap Network (Lags: 1)
+2025-11-28 15:08:37 - economy_estimation - INFO -   Epoch 100: Val Loss=4.460604
+2025-11-28 15:08:38 - economy_estimation - INFO -   Epoch 200: Val Loss=3.982756
+2025-11-28 15:08:38 - economy_estimation - INFO -   Early stopping at epoch 233
+2025-11-28 15:08:38 - economy_estimation - INFO -   Best validation loss: 3.964856
+2025-11-28 15:08:38 - economy_estimation - INFO - 
+Training Inflation Network (Lags: 2)
+2025-11-28 15:08:38 - economy_estimation - INFO -   Epoch 100: Val Loss=6.730430
+2025-11-28 15:08:38 - economy_estimation - INFO -   Early stopping at epoch 108
+2025-11-28 15:08:38 - economy_estimation - INFO -   Best validation loss: 6.729830
+2025-11-28 15:08:38 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 15:08:38 - economy_estimation - INFO - FIT STATISTICS
+2025-11-28 15:08:38 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 15:08:38 - economy_estimation - INFO - Output Gap MSE: 1.481136
+2025-11-28 15:08:38 - economy_estimation - INFO - Inflation MSE:  1.174157
+2025-11-28 15:08:38 - economy_estimation - INFO - Total MSE:      1.327646
+2025-11-28 15:08:38 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:08:38 - economy_estimation - INFO - MODEL COMPARISON
+2025-11-28 15:08:38 - economy_estimation - INFO - ============================================================
+2025-11-28 15:08:38 - economy_estimation - INFO - 
+  Model  MSE_Output_Gap  MSE_Inflation  MSE_Total
+0  SVAR        1.045508       0.096250   0.570879
+1   ANN        1.481136       1.174157   1.327646
+2025-11-28 15:08:38 - economy_estimation - INFO - 
+ANN improvement over SVAR: -132.6%
+2025-11-28 15:10:39 - economy_estimation - INFO - ============================================================
+2025-11-28 15:10:39 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-28 15:10:39 - economy_estimation - INFO - ============================================================
+2025-11-28 15:11:13 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:11:13 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY (OPTIMAL LAGS)
+2025-11-28 15:11:13 - economy_estimation - INFO - ============================================================
+2025-11-28 15:11:13 - economy_estimation - INFO - Searching for optimal lags (1 to 4) using BIC...
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Lag Selection Results:
+2025-11-28 15:11:13 - economy_estimation - INFO - Lags  BIC          MSE         
+2025-11-28 15:11:13 - economy_estimation - INFO - -----------------------------------
+2025-11-28 15:11:13 - economy_estimation - INFO - 1     557.96       0.597264     
+2025-11-28 15:11:13 - economy_estimation - INFO - 2     524.85       0.570879     *
+2025-11-28 15:11:13 - economy_estimation - INFO - 3     529.02       0.553437     
+2025-11-28 15:11:13 - economy_estimation - INFO - 4     538.45       0.563845     
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Optimal lag length selected: 2
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Output Gap Equation (Optimal Lags):
+2025-11-28 15:11:13 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.716
+Model:                            OLS   Adj. R-squared:                  0.702
+Method:                 Least Squares   F-statistic:                     54.91
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           2.03e-33
+Time:                        15:11:13   Log-Likelihood:                -195.29
+No. Observations:                 138   AIC:                             404.6
+Df Residuals:                     131   BIC:                             425.1
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.2589      0.256     -1.009      0.315      -0.766       0.249
+x1             0.7044      0.100      7.026      0.000       0.506       0.903
+x2            -0.1249      0.258     -0.485      0.629      -0.635       0.385
+x3             0.4777      0.227      2.105      0.037       0.029       0.927
+x4             0.0834      0.094      0.885      0.378      -0.103       0.270
+x5             0.1323      0.263      0.503      0.616      -0.388       0.653
+x6            -0.4395      0.214     -2.056      0.042      -0.862      -0.017
+==============================================================================
+Omnibus:                      146.798   Durbin-Watson:                   2.030
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6930.165
+Skew:                          -3.414   Prob(JB):                         0.00
+Kurtosis:                      37.039   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Inflation Equation (Optimal Lags):
+2025-11-28 15:11:13 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.944
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     313.9
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           3.43e-78
+Time:                        15:11:13   Log-Likelihood:                -30.177
+No. Observations:                 138   AIC:                             76.35
+Df Residuals:                     130   BIC:                             99.77
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2348      0.078      3.006      0.003       0.080       0.389
+x1             0.1342      0.027      5.063      0.000       0.082       0.187
+x2            -0.0974      0.036     -2.730      0.007      -0.168      -0.027
+x3             1.5308      0.078     19.553      0.000       1.376       1.686
+x4            -0.1135      0.070     -1.621      0.107      -0.252       0.025
+x5            -0.0036      0.029     -0.124      0.901      -0.060       0.053
+x6            -0.6105      0.080     -7.637      0.000      -0.769      -0.452
+x7             0.1000      0.066      1.517      0.132      -0.030       0.230
+==============================================================================
+Omnibus:                       15.278   Durbin-Watson:                   2.254
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.456
+Skew:                           0.415   Prob(JB):                     5.44e-08
+Kurtosis:                       5.265   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 15:11:13 - economy_estimation - INFO - FIT STATISTICS (OPTIMAL MODEL)
+2025-11-28 15:11:13 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 15:11:13 - economy_estimation - INFO - Output Gap MSE: 1.045508
+2025-11-28 15:11:13 - economy_estimation - INFO - Inflation MSE:  0.096250
+2025-11-28 15:11:13 - economy_estimation - INFO - Total MSE:      0.570879
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:11:13 - economy_estimation - INFO - TUNING HYPERPARAMETERS
+2025-11-28 15:11:13 - economy_estimation - INFO - ============================================================
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Starting 20 trials...
+2025-11-28 15:11:13 - economy_estimation - INFO - 
+Trial 1/20: {'hidden_units': 32, 'learning_rate': 0.005, 'batch_size': 16, 'lags': 4}
+2025-11-28 15:11:18 - economy_estimation - INFO -   New best Output Gap loss: 3.928536
+2025-11-28 15:11:19 - economy_estimation - INFO -   New best Inflation loss: 6.907730
+2025-11-28 15:11:19 - economy_estimation - INFO - 
+Trial 2/20: {'hidden_units': 16, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:11:38 - economy_estimation - INFO -   New best Inflation loss: 5.960615
+2025-11-28 15:11:38 - economy_estimation - INFO - 
+Trial 3/20: {'hidden_units': 2, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:11:53 - economy_estimation - INFO - 
+Trial 4/20: {'hidden_units': 16, 'learning_rate': 0.005, 'batch_size': 32, 'lags': 4}
+2025-11-28 15:11:54 - economy_estimation - INFO - 
+Trial 5/20: {'hidden_units': 8, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:11:55 - economy_estimation - INFO - 
+Trial 6/20: {'hidden_units': 32, 'learning_rate': 0.005, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:11:56 - economy_estimation - INFO -   New best Output Gap loss: 3.476464
+2025-11-28 15:11:58 - economy_estimation - INFO -   New best Inflation loss: 4.938116
+2025-11-28 15:11:58 - economy_estimation - INFO - 
+Trial 7/20: {'hidden_units': 2, 'learning_rate': 0.0001, 'batch_size': 64, 'lags': 2}
+2025-11-28 15:12:05 - economy_estimation - INFO - 
+Trial 8/20: {'hidden_units': 2, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 2}
+2025-11-28 15:12:09 - economy_estimation - INFO - 
+Trial 9/20: {'hidden_units': 32, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 2}
+2025-11-28 15:12:17 - economy_estimation - INFO - 
+Trial 10/20: {'hidden_units': 2, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 4}
+2025-11-28 15:12:22 - economy_estimation - INFO - 
+Trial 11/20: {'hidden_units': 4, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:12:28 - economy_estimation - INFO - 
+Trial 12/20: {'hidden_units': 4, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 4}
+2025-11-28 15:12:40 - economy_estimation - INFO - 
+Trial 13/20: {'hidden_units': 16, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:12:42 - economy_estimation - INFO - 
+Trial 14/20: {'hidden_units': 2, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:12:58 - economy_estimation - INFO - 
+Trial 15/20: {'hidden_units': 2, 'learning_rate': 0.0001, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:13:02 - economy_estimation - INFO - 
+Trial 16/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:13:09 - economy_estimation - INFO -   New best Inflation loss: 3.330297
+2025-11-28 15:13:09 - economy_estimation - INFO - 
+Trial 17/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 4}
+2025-11-28 15:13:40 - economy_estimation - INFO - ============================================================
+2025-11-28 15:13:40 - economy_estimation - INFO - ECONOMY ESTIMATION
+2025-11-28 15:13:40 - economy_estimation - INFO - ============================================================
+2025-11-28 15:13:47 - economy_estimation - INFO - Data loaded: 140 observations
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:13:47 - economy_estimation - INFO - ESTIMATING SVAR ECONOMY (OPTIMAL LAGS)
+2025-11-28 15:13:47 - economy_estimation - INFO - ============================================================
+2025-11-28 15:13:47 - economy_estimation - INFO - Searching for optimal lags (1 to 4) using BIC...
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Lag Selection Results:
+2025-11-28 15:13:47 - economy_estimation - INFO - Lags  BIC          MSE         
+2025-11-28 15:13:47 - economy_estimation - INFO - -----------------------------------
+2025-11-28 15:13:47 - economy_estimation - INFO - 1     557.96       0.597264     
+2025-11-28 15:13:47 - economy_estimation - INFO - 2     524.85       0.570879     *
+2025-11-28 15:13:47 - economy_estimation - INFO - 3     529.02       0.553437     
+2025-11-28 15:13:47 - economy_estimation - INFO - 4     538.45       0.563845     
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Optimal lag length selected: 2
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Output Gap Equation (Optimal Lags):
+2025-11-28 15:13:47 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.716
+Model:                            OLS   Adj. R-squared:                  0.702
+Method:                 Least Squares   F-statistic:                     54.91
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           2.03e-33
+Time:                        15:13:47   Log-Likelihood:                -195.29
+No. Observations:                 138   AIC:                             404.6
+Df Residuals:                     131   BIC:                             425.1
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -0.2589      0.256     -1.009      0.315      -0.766       0.249
+x1             0.7044      0.100      7.026      0.000       0.506       0.903
+x2            -0.1249      0.258     -0.485      0.629      -0.635       0.385
+x3             0.4777      0.227      2.105      0.037       0.029       0.927
+x4             0.0834      0.094      0.885      0.378      -0.103       0.270
+x5             0.1323      0.263      0.503      0.616      -0.388       0.653
+x6            -0.4395      0.214     -2.056      0.042      -0.862      -0.017
+==============================================================================
+Omnibus:                      146.798   Durbin-Watson:                   2.030
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             6930.165
+Skew:                          -3.414   Prob(JB):                         0.00
+Kurtosis:                      37.039   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Inflation Equation (Optimal Lags):
+2025-11-28 15:13:47 - economy_estimation - INFO -                             OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.944
+Model:                            OLS   Adj. R-squared:                  0.941
+Method:                 Least Squares   F-statistic:                     313.9
+Date:                Fri, 28 Nov 2025   Prob (F-statistic):           3.43e-78
+Time:                        15:13:47   Log-Likelihood:                -30.177
+No. Observations:                 138   AIC:                             76.35
+Df Residuals:                     130   BIC:                             99.77
+Df Model:                           7                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.2348      0.078      3.006      0.003       0.080       0.389
+x1             0.1342      0.027      5.063      0.000       0.082       0.187
+x2            -0.0974      0.036     -2.730      0.007      -0.168      -0.027
+x3             1.5308      0.078     19.553      0.000       1.376       1.686
+x4            -0.1135      0.070     -1.621      0.107      -0.252       0.025
+x5            -0.0036      0.029     -0.124      0.901      -0.060       0.053
+x6            -0.6105      0.080     -7.637      0.000      -0.769      -0.452
+x7             0.1000      0.066      1.517      0.132      -0.030       0.230
+==============================================================================
+Omnibus:                       15.278   Durbin-Watson:                   2.254
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.456
+Skew:                           0.415   Prob(JB):                     5.44e-08
+Kurtosis:                       5.265   Cond. No.                         27.4
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 15:13:47 - economy_estimation - INFO - FIT STATISTICS (OPTIMAL MODEL)
+2025-11-28 15:13:47 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 15:13:47 - economy_estimation - INFO - Output Gap MSE: 1.045508
+2025-11-28 15:13:47 - economy_estimation - INFO - Inflation MSE:  0.096250
+2025-11-28 15:13:47 - economy_estimation - INFO - Total MSE:      0.570879
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:13:47 - economy_estimation - INFO - TUNING HYPERPARAMETERS
+2025-11-28 15:13:47 - economy_estimation - INFO - ============================================================
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Starting 20 trials...
+2025-11-28 15:13:47 - economy_estimation - INFO - 
+Trial 1/20: {'hidden_units': 8, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:14:00 - economy_estimation - INFO -   New best Output Gap loss: 4.953725
+2025-11-28 15:14:09 - economy_estimation - INFO -   New best Inflation loss: 10.131901
+2025-11-28 15:14:09 - economy_estimation - INFO - 
+Trial 2/20: {'hidden_units': 4, 'learning_rate': 0.001, 'batch_size': 64, 'lags': 4}
+2025-11-28 15:14:10 - economy_estimation - INFO -   New best Inflation loss: 9.256143
+2025-11-28 15:14:10 - economy_estimation - INFO - 
+Trial 3/20: {'hidden_units': 8, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:14:12 - economy_estimation - INFO -   New best Output Gap loss: 3.794538
+2025-11-28 15:14:13 - economy_estimation - INFO -   New best Inflation loss: 6.190026
+2025-11-28 15:14:13 - economy_estimation - INFO - 
+Trial 4/20: {'hidden_units': 2, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 4}
+2025-11-28 15:14:18 - economy_estimation - INFO -   New best Output Gap loss: 3.537000
+2025-11-28 15:14:24 - economy_estimation - INFO - 
+Trial 5/20: {'hidden_units': 8, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:14:35 - economy_estimation - INFO - 
+Trial 6/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:14:39 - economy_estimation - INFO -   New best Inflation loss: 5.843836
+2025-11-28 15:14:39 - economy_estimation - INFO - 
+Trial 7/20: {'hidden_units': 8, 'learning_rate': 0.001, 'batch_size': 16, 'lags': 3}
+2025-11-28 15:14:42 - economy_estimation - INFO - 
+Trial 8/20: {'hidden_units': 32, 'learning_rate': 0.005, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:14:43 - economy_estimation - INFO - 
+Trial 9/20: {'hidden_units': 32, 'learning_rate': 0.0001, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:14:51 - economy_estimation - INFO - 
+Trial 10/20: {'hidden_units': 8, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:14:58 - economy_estimation - INFO -   New best Inflation loss: 3.519106
+2025-11-28 15:14:58 - economy_estimation - INFO - 
+Trial 11/20: {'hidden_units': 32, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:15:02 - economy_estimation - INFO -   New best Inflation loss: 2.811706
+2025-11-28 15:15:02 - economy_estimation - INFO - 
+Trial 12/20: {'hidden_units': 8, 'learning_rate': 0.0005, 'batch_size': 64, 'lags': 3}
+2025-11-28 15:15:05 - economy_estimation - INFO - 
+Trial 13/20: {'hidden_units': 2, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:15:09 - economy_estimation - INFO -   New best Output Gap loss: 3.499446
+2025-11-28 15:15:15 - economy_estimation - INFO - 
+Trial 14/20: {'hidden_units': 16, 'learning_rate': 0.0005, 'batch_size': 16, 'lags': 2}
+2025-11-28 15:15:21 - economy_estimation - INFO - 
+Trial 15/20: {'hidden_units': 32, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 3}
+2025-11-28 15:15:32 - economy_estimation - INFO - 
+Trial 16/20: {'hidden_units': 4, 'learning_rate': 0.005, 'batch_size': 16, 'lags': 1}
+2025-11-28 15:15:39 - economy_estimation - INFO -   New best Inflation loss: 2.063878
+2025-11-28 15:15:39 - economy_estimation - INFO - 
+Trial 17/20: {'hidden_units': 8, 'learning_rate': 0.0001, 'batch_size': 64, 'lags': 1}
+2025-11-28 15:15:46 - economy_estimation - INFO - 
+Trial 18/20: {'hidden_units': 4, 'learning_rate': 0.0001, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:15:57 - economy_estimation - INFO - 
+Trial 19/20: {'hidden_units': 8, 'learning_rate': 0.0001, 'batch_size': 16, 'lags': 4}
+2025-11-28 15:16:07 - economy_estimation - INFO - 
+Trial 20/20: {'hidden_units': 8, 'learning_rate': 0.005, 'batch_size': 64, 'lags': 3}
+2025-11-28 15:16:10 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:16:10 - economy_estimation - INFO - ESTIMATING ANN ECONOMY
+2025-11-28 15:16:10 - economy_estimation - INFO - ============================================================
+2025-11-28 15:16:10 - economy_estimation - INFO - 
+Using tuned hyperparameters:
+2025-11-28 15:16:10 - economy_estimation - INFO -   Output Gap (Lags=1): {'hidden_units': 2, 'learning_rate': 0.001, 'batch_size': 32, 'lags': 1}
+2025-11-28 15:16:10 - economy_estimation - INFO -   Inflation (Lags=1): {'hidden_units': 4, 'learning_rate': 0.005, 'batch_size': 16, 'lags': 1}
+2025-11-28 15:16:10 - economy_estimation - INFO - 
+Training Output Gap Network (Lags: 1)
+2025-11-28 15:16:10 - economy_estimation - INFO -   Epoch 100: Val Loss=7.129571
+2025-11-28 15:16:10 - economy_estimation - INFO -   Early stopping at epoch 152
+2025-11-28 15:16:10 - economy_estimation - INFO -   Best validation loss: 7.105157
+2025-11-28 15:16:10 - economy_estimation - INFO - 
+Training Inflation Network (Lags: 1)
+2025-11-28 15:16:10 - economy_estimation - INFO -   Epoch 100: Val Loss=11.675696
+2025-11-28 15:16:10 - economy_estimation - INFO -   Epoch 200: Val Loss=9.394533
+2025-11-28 15:16:11 - economy_estimation - INFO -   Epoch 300: Val Loss=8.396955
+2025-11-28 15:16:11 - economy_estimation - INFO -   Epoch 400: Val Loss=7.484614
+2025-11-28 15:16:11 - economy_estimation - INFO -   Epoch 500: Val Loss=6.885837
+2025-11-28 15:16:11 - economy_estimation - INFO -   Best validation loss: 6.885837
+2025-11-28 15:16:11 - economy_estimation - INFO - 
+------------------------------------------------------------
+2025-11-28 15:16:11 - economy_estimation - INFO - FIT STATISTICS
+2025-11-28 15:16:11 - economy_estimation - INFO - ------------------------------------------------------------
+2025-11-28 15:16:11 - economy_estimation - INFO - Output Gap MSE: 1.969439
+2025-11-28 15:16:11 - economy_estimation - INFO - Inflation MSE:  1.091223
+2025-11-28 15:16:11 - economy_estimation - INFO - Total MSE:      1.530331
+2025-11-28 15:16:11 - economy_estimation - INFO - 
+============================================================
+2025-11-28 15:16:11 - economy_estimation - INFO - MODEL COMPARISON
+2025-11-28 15:16:11 - economy_estimation - INFO - ============================================================
+2025-11-28 15:16:11 - economy_estimation - INFO - 
+  Model  MSE_Output_Gap  MSE_Inflation  MSE_Total
+0  SVAR        1.045508       0.096250   0.570879
+1   ANN        1.969439       1.091223   1.530331
+2025-11-28 15:16:11 - economy_estimation - INFO - 
+ANN improvement over SVAR: -168.1%

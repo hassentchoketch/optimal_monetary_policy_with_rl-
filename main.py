@@ -673,6 +673,27 @@ Examples:
         help='Model to estimate (for estimate task)'
     )
     
+    
+    parser.add_argument(
+        '--tune',
+        action='store_true',
+        help='Tune hyperparameters (for estimate task)'
+    )
+    
+    parser.add_argument(
+        '--trials',
+        type=int,
+        default=50,
+        help='Number of tuning trials (for estimate task with --tune)'
+    )
+    
+    parser.add_argument(
+        '--epochs',
+        type=int,
+        default=500,
+        help='Max epochs for tuning (for estimate task with --tune)'
+    )
+    
     # Training arguments
     parser.add_argument(
         '--economy',
@@ -800,7 +821,10 @@ def main():
             # Estimate economy
             exit_code = runner.estimate_economy(
                 model=args.model,
-                output_dir=args.output_dir
+                output_dir=args.output_dir,
+                tune=args.tune,
+                trials=args.trials,
+                epochs=args.epochs
             )
         
         elif args.task == 'train':
