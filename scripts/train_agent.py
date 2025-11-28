@@ -77,12 +77,34 @@ def load_economy(
         network_y_path = os.path.join(checkpoint_dir, 'ann_y_network.pth')
         network_pi_path = os.path.join(checkpoint_dir, 'ann_pi_network.pth')
         
-        # Load network architectures
-        hidden_units_y = config['economy']['ann']['hidden_units_y']
-        hidden_units_pi = config['economy']['ann']['hidden_units_pi']
+        # Load tuned parameters if available
+        params_path = os.path.join(checkpoint_dir, 'ann_params.pkl')
+        tuned_params = None
+        if os.path.exists(params_path):
+            with open(params_path, 'rb') as f:
+                tuned_params = pickle.load(f)
         
-        network_y = EconomyNetwork(input_dim=4, hidden_units=hidden_units_y)
-        network_pi = EconomyNetwork(input_dim=5, hidden_units=hidden_units_pi)
+        # Determine hyperparameters
+        if tuned_params:
+            hidden_units_y = tuned_params['output_gap']['hidden_units']
+            hidden_units_pi = tuned_params['inflation']['hidden_units']
+            lags_y = tuned_params['output_gap'].get('lags', 2)
+            lags_pi = tuned_params['inflation'].get('lags', 2)
+            # Use max lags for economy simulation if they differ
+            lags = max(lags_y, lags_pi)
+        else:
+            hidden_units_y = config['economy']['ann']['hidden_units_y']
+            hidden_units_pi = config['economy']['ann']['hidden_units_pi']
+            lags = 2 # Default
+            lags_y = 2
+            lags_pi = 2
+            
+        # Calculate input dimensions based on lags
+        input_dim_y = 3 * lags_y
+        input_dim_pi = 1 + 3 * lags_pi
+        
+        network_y = EconomyNetwork(input_dim=input_dim_y, hidden_units=hidden_units_y)
+        network_pi = EconomyNetwork(input_dim=input_dim_pi, hidden_units=hidden_units_pi)
         
         network_y.load_state_dict(torch.load(network_y_path, map_location=device))
         network_pi.load_state_dict(torch.load(network_pi_path, map_location=device))
@@ -104,7 +126,8 @@ def load_economy(
             penalty_threshold=config['reward']['penalty_threshold'],
             penalty_multiplier=config['reward']['penalty_multiplier'],
             seed=config['seed'],
-            device=device
+            device=device,
+            lags=lags
         )
     
     return economy
@@ -188,13 +211,20 @@ def train_agent(
         actor_losses = []
         
         for step in range(max_steps):
-            # Extract observation based on state_dim
+            # Extract observation based on state_dim and lags
+            # State: [y_t, ..., y_{t-p+1}, π_t, ..., π_{t-p+1}, i_{t-1}, ..., i_{t-p}]
+            p = economy.lags
+            
             if state_dim == 2:
                 # No lags: [y_t, π_t]
-                obs = np.array([state[0], state[2]])
+                # y_t is at index 0
+                # π_t is at index p
+                obs = np.array([state[0], state[p]])
             else:  # state_dim == 4
                 # One lag: [y_t, y_{t-1}, π_t, π_{t-1}]
-                obs = np.array([state[0], state[1], state[2], state[3]])
+                # y_t is at 0, y_{t-1} is at 1
+                # π_t is at p, π_{t-1} is at p+1
+                obs = np.array([state[0], state[1], state[p], state[p+1]])
             
             # Select action (step f)
             action = agent.select_action(obs, add_noise=True)
@@ -204,10 +234,10 @@ def train_agent(
             
             # Store transition (step h)
             if state_dim == 2:
-                next_obs = np.array([next_state[0], next_state[2]])
+                next_obs = np.array([next_state[0], next_state[p]])
             else:
                 next_obs = np.array([next_state[0], next_state[1], 
-                                    next_state[2], next_state[3]])
+                                    next_state[p], next_state[p+1]])
             
             agent.replay_buffer.add(obs, action, reward, next_obs, done)
             

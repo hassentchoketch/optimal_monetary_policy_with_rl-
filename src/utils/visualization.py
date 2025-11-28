@@ -126,7 +126,15 @@ def plot_partial_dependence(
     
     # Create grid for two main variables
     if variable == 'inflation':
-        # π_t vs (y_t, i_{t-1})
+        # Determine lags from input dim
+        # Input: [y_{t+1}, y_t, π_t, i_t, y_{t-1}, π_{t-1}, i_{t-1}, ...]
+        # Dim = 1 + 3 * lags
+        input_dim = network.network[0].weight.shape[1]
+        lags = (input_dim - 1) // 3
+        
+        # π_t vs (y_t, i_{t-1}) if lags >= 2
+        # π_t vs (y_t, i_t) if lags == 1
+        
         y_vals = np.linspace(input_ranges['output_gap'][0], 
                             input_ranges['output_gap'][1], 
                             grid_resolution)
@@ -137,28 +145,52 @@ def plot_partial_dependence(
         
         # Compute network outputs
         Z = np.zeros_like(Y)
+        
+        # Base input vector (steady state)
+        # y=0, pi=2, i=2
+        base_input = np.zeros(input_dim)
+        # y_{t+1} (0) = 0
+        base_input[0] = 0.0
+        for k in range(1, lags + 1):
+            # y_{t-k+1} = 0
+            base_input[1 + (k-1)*3] = 0.0
+            # pi_{t-k+1} = 2.0
+            base_input[2 + (k-1)*3] = 2.0
+            # i_{t-k+1} = 2.0
+            base_input[3 + (k-1)*3] = 2.0
+            
         for idx_i in range(grid_resolution):
             for idx_j in range(grid_resolution):
-                # Marginalize over other variables
-                # Input: [y_{t+1}, y_t, π_t, π_{t-1}, i_t]
-                # Fix marginal values at their means
-                input_vec = torch.tensor([
-                    Y[idx_i, idx_j],  # y_t
-                    0.0,               # y_{t-1} (marginalized)
-                    2.0,               # π_t (marginalized)
-                    2.0,               # π_{t-1} (marginalized)
-                    I[idx_i, idx_j]    # i_{t-1}
-                ], dtype=torch.float32).unsqueeze(0)
+                input_vec = torch.tensor(base_input, dtype=torch.float32).clone()
+                
+                # Set y_t (index 1)
+                input_vec[1] = Y[idx_i, idx_j]
+                
+                if lags >= 2:
+                    # Set i_{t-1} (index 6)
+                    input_vec[6] = I[idx_i, idx_j]
+                    ylabel = r'Interest Rate $i_{t-1}$ (\%)'
+                else:
+                    # Set i_t (index 3)
+                    input_vec[3] = I[idx_i, idx_j]
+                    ylabel = r'Interest Rate $i_t$ (\%)'
                 
                 with torch.no_grad():
-                    Z[idx_i, idx_j] = network(input_vec).item()
+                    Z[idx_i, idx_j] = network(input_vec.unsqueeze(0)).item()
         
         xlabel = r'Output Gap $y_t$ (\%)'
-        ylabel = r'Interest Rate $i_{t-1}$ (\%)'
         zlabel = r'Inflation $\pi_t$ (\%)'
         
     elif variable == 'output_gap':
-        # y_t vs (π_{t-1}, i_{t-1})
+        # Determine lags from input dim
+        # Input: [y_t, π_t, i_t, y_{t-1}, π_{t-1}, i_{t-1}, ...]
+        # Dim = 3 * lags
+        input_dim = network.network[0].weight.shape[1]
+        lags = input_dim // 3
+        
+        # y_t vs (π_{t-1}, i_{t-1}) if lags >= 2
+        # y_t vs (π_t, i_t) if lags == 1
+        
         pi_vals = np.linspace(input_ranges['inflation'][0], 
                              input_ranges['inflation'][1], 
                              grid_resolution)
@@ -168,21 +200,39 @@ def plot_partial_dependence(
         Pi, I = np.meshgrid(pi_vals, i_vals)
         
         Z = np.zeros_like(Pi)
+        
+        # Base input vector (steady state)
+        base_input = np.zeros(input_dim)
+        for k in range(1, lags + 1):
+            # y_{t-k+1} = 0
+            base_input[(k-1)*3] = 0.0
+            # pi_{t-k+1} = 2.0
+            base_input[1 + (k-1)*3] = 2.0
+            # i_{t-k+1} = 2.0
+            base_input[2 + (k-1)*3] = 2.0
+            
         for idx_i in range(grid_resolution):
             for idx_j in range(grid_resolution):
-                # Input: [y_t, π_t, i_t, i_{t-1}]
-                input_vec = torch.tensor([
-                    0.0,                # y_t (marginalized)
-                    Pi[idx_i, idx_j],  # π_t
-                    I[idx_i, idx_j],    # i_t
-                    I[idx_i, idx_j]     # i_{t-1} (assume equal)
-                ], dtype=torch.float32).unsqueeze(0)
+                input_vec = torch.tensor(base_input, dtype=torch.float32).clone()
+                
+                if lags >= 2:
+                    # Set π_{t-1} (index 4)
+                    input_vec[4] = Pi[idx_i, idx_j]
+                    # Set i_{t-1} (index 5)
+                    input_vec[5] = I[idx_i, idx_j]
+                    xlabel = r'Inflation $\pi_{t-1}$ (\%)'
+                    ylabel = r'Interest Rate $i_{t-1}$ (\%)'
+                else:
+                    # Set π_t (index 1)
+                    input_vec[1] = Pi[idx_i, idx_j]
+                    # Set i_t (index 2)
+                    input_vec[2] = I[idx_i, idx_j]
+                    xlabel = r'Inflation $\pi_t$ (\%)'
+                    ylabel = r'Interest Rate $i_t$ (\%)'
                 
                 with torch.no_grad():
-                    Z[idx_i, idx_j] = network(input_vec).item()
+                    Z[idx_i, idx_j] = network(input_vec.unsqueeze(0)).item()
         
-        xlabel = r'Inflation $\pi_{t-1}$ (\%)'
-        ylabel = r'Interest Rate $i_{t-1}$ (\%)'
         zlabel = r'Output Gap $y_t$ (\%)'
         Pi, I = Pi, I  # For consistency
         Y, I = Pi, I   # Rename for plotting

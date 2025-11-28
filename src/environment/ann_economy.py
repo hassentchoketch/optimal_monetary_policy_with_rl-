@@ -41,19 +41,17 @@ class ANNEconomy(BaseEconomy):
         penalty_threshold: float = 2.0,
         penalty_multiplier: float = 10.0,
         seed: Optional[int] = None,
-        device: str = 'cpu'
+        device: str = 'cpu',
+        lags: int = 2
     ):
         """
         Initialize ANN economy.
         
         Args:
             network_y: Trained neural network for output gap equation
-                      Input: [y_{t-1}, π_{t-1}, i_{t-1}, i_{t-2}]
-                      Output: y_t (before shock)
             network_pi: Trained neural network for inflation equation
-                       Input: [y_t, y_{t-1}, π_{t-1}, π_{t-2}, i_{t-1}]
-                       Output: π_t (before shock)
             shock_std: Standard deviations for structural shocks
+            lags: Number of lags p
             Other args: See BaseEconomy
         """
         super().__init__(
@@ -63,7 +61,8 @@ class ANNEconomy(BaseEconomy):
             reward_weights=reward_weights,
             penalty_threshold=penalty_threshold,
             penalty_multiplier=penalty_multiplier,
-            seed=seed
+            seed=seed,
+            lags=lags
         )
         
         self.device = torch.device(device)
@@ -74,6 +73,38 @@ class ANNEconomy(BaseEconomy):
         self.network_y.eval()
         self.network_pi.eval()
     
+    def _construct_input_y(self, state: np.ndarray, action: float) -> torch.Tensor:
+        """Construct input for output gap network."""
+        p = self.lags
+        y_lags = state[0:p]      # y_t, ..., y_{t-p+1}
+        pi_lags = state[p:2*p]   # π_t, ..., π_{t-p+1}
+        i_lags = state[2*p:3*p]  # i_{t-1}, ..., i_{t-p}
+        i_t = action
+        
+        # Input features: lags 1 to p of y, π, i
+        # lag 1: y_t, π_t, i_t
+        # lag k: y_{t-k+1}, π_{t-k+1}, i_{t-k+1}
+        
+        features = []
+        for k in range(1, p + 1):
+            features.append(y_lags[k-1])
+            features.append(pi_lags[k-1])
+            if k == 1:
+                features.append(i_t)
+            else:
+                features.append(i_lags[k-2])
+                
+        return torch.tensor(features, dtype=torch.float32, device=self.device).unsqueeze(0)
+
+    def _construct_input_pi(self, state: np.ndarray, action: float, y_next: float) -> torch.Tensor:
+        """Construct input for inflation network."""
+        # Input features: y_{t+1} + lags 1 to p of y, π, i
+        
+        input_y = self._construct_input_y(state, action)
+        # Prepend y_next
+        y_next_tensor = torch.tensor([[y_next]], dtype=torch.float32, device=self.device)
+        return torch.cat([y_next_tensor, input_y], dim=1)
+
     def step(
         self,
         state: np.ndarray,
@@ -82,21 +113,13 @@ class ANNEconomy(BaseEconomy):
         """
         Compute next state using ANN equations.
         
-        State vector format: [y_t, y_{t-1}, π_t, π_{t-1}, i_{t-1}, i_{t-2}]
-        
-        Recursive structure maintained:
-        1. First compute y_{t+1} = f^y(y_t, π_t, i_t, i_{t-1}) + ε^y
-        2. Then compute π_{t+1} = f^π(y_{t+1}, y_t, π_t, π_{t-1}, i_t) + ε^π
-        
-        Args:
-            state: Current state vector (6 elements)
-            action: Nominal interest rate i_t
-            
-        Returns:
-            next_state, reward, done, info
+        State vector format: [y_t, ..., y_{t-p+1}, π_t, ..., π_{t-p+1}, i_{t-1}, ..., i_{t-p}]
         """
-        # Unpack current state
-        y_t, y_lag1, pi_t, pi_lag1, i_lag1, i_lag2 = state
+        # Unpack current state for shifting later
+        p = self.lags
+        y_lags = state[0:p]
+        pi_lags = state[p:2*p]
+        i_lags = state[2*p:3*p]
         i_t = action
         
         # Generate structural shocks
@@ -104,12 +127,7 @@ class ANNEconomy(BaseEconomy):
         shock_pi = self.sample_shock('inflation')
         
         # Step 1: Compute output gap y_{t+1}
-        # Input: [y_t, π_t, i_t, i_{t-1}]
-        input_y = torch.tensor(
-            [y_t, pi_t, i_t, i_lag1],
-            dtype=torch.float32,
-            device=self.device
-        ).unsqueeze(0)  # Add batch dimension
+        input_y = self._construct_input_y(state, action)
         
         with torch.no_grad():
             y_next_pred = self.network_y(input_y).item()
@@ -117,13 +135,7 @@ class ANNEconomy(BaseEconomy):
         y_next = y_next_pred + shock_y
         
         # Step 2: Compute inflation π_{t+1}
-        # Input: [y_{t+1}, y_t, π_t, π_{t-1}, i_t]
-        # Recursive: uses contemporaneous y_{t+1}
-        input_pi = torch.tensor(
-            [y_next, y_t, pi_t, pi_lag1, i_t],
-            dtype=torch.float32,
-            device=self.device
-        ).unsqueeze(0)
+        input_pi = self._construct_input_pi(state, action, y_next)
         
         with torch.no_grad():
             pi_next_pred = self.network_pi(input_pi).item()
@@ -131,22 +143,16 @@ class ANNEconomy(BaseEconomy):
         pi_next = pi_next_pred + shock_pi
         
         # Construct next state vector
-        next_state = np.array([
-            y_next,      # y_{t+1}
-            y_t,         # y_t (becomes lag)
-            pi_next,     # π_{t+1}
-            pi_t,        # π_t (becomes lag)
-            i_t,         # i_t (becomes lag)
-            i_lag1       # i_{t-1} (becomes second lag)
-        ], dtype=np.float32)
+        next_y_lags = np.r_[y_next, y_lags[:-1]]
+        next_pi_lags = np.r_[pi_next, pi_lags[:-1]]
+        next_i_lags = np.r_[i_t, i_lags[:-1]]
         
-        # Compute reward (Equation 14)
+        next_state = np.concatenate([next_y_lags, next_pi_lags, next_i_lags]).astype(np.float32)
+        
+        # Compute reward
         reward = self.compute_reward(pi_next, y_next)
-        
-        # Episode termination
         done = False
         
-        # Diagnostic information
         info = {
             'inflation': pi_next,
             'output_gap': y_next,
@@ -169,28 +175,17 @@ class ANNEconomy(BaseEconomy):
         self,
         initial_state: Optional[np.ndarray] = None
     ) -> np.ndarray:
-        """
-        Reset environment to initial state.
-        
-        Args:
-            initial_state: Optional initial state
-                          If None, initialize near steady state
-        
-        Returns:
-            Initial state vector
-        """
+        """Reset environment to initial state."""
         if initial_state is not None:
             self.current_state = initial_state.copy()
         else:
-            # Initialize near steady state with small noise
-            self.current_state = np.array([
-                self.target_output_gap + self.rng.normal(0, 0.1),
-                self.target_output_gap + self.rng.normal(0, 0.1),
-                self.target_inflation + self.rng.normal(0, 0.1),
-                self.target_inflation + self.rng.normal(0, 0.1),
-                self.target_inflation + self.rng.normal(0, 0.5),
-                self.target_inflation + self.rng.normal(0, 0.5)
-            ], dtype=np.float32)
+            # Initialize near steady state
+            p = self.lags
+            y_init = self.target_output_gap + self.rng.normal(0, 0.1, size=p)
+            pi_init = self.target_inflation + self.rng.normal(0, 0.1, size=p)
+            i_init = self.target_inflation + self.rng.normal(0, 0.5, size=p)
+            
+            self.current_state = np.concatenate([y_init, pi_init, i_init]).astype(np.float32)
         
         self.episode_step = 0
         return self.current_state
@@ -200,38 +195,12 @@ class ANNEconomy(BaseEconomy):
         state: np.ndarray,
         action: float
     ) -> Tuple[float, float]:
-        """
-        Predict next inflation and output gap without shocks.
-        
-        Used for evaluation and counterfactual analysis.
-        
-        Args:
-            state: Current state vector
-            action: Nominal interest rate
-            
-        Returns:
-            (y_{t+1}, π_{t+1}) without stochastic shocks
-        """
-        y_t, y_lag1, pi_t, pi_lag1, i_lag1, i_lag2 = state
-        i_t = action
-        
-        # Output gap prediction (no shock)
-        input_y = torch.tensor(
-            [y_t, pi_t, i_t, i_lag1],
-            dtype=torch.float32,
-            device=self.device
-        ).unsqueeze(0)
-        
+        """Predict next inflation and output gap without shocks."""
+        input_y = self._construct_input_y(state, action)
         with torch.no_grad():
             y_next = self.network_y(input_y).item()
-        
-        # Inflation prediction (no shock)
-        input_pi = torch.tensor(
-            [y_next, y_t, pi_t, pi_lag1, i_t],
-            dtype=torch.float32,
-            device=self.device
-        ).unsqueeze(0)
-        
+            
+        input_pi = self._construct_input_pi(state, action, y_next)
         with torch.no_grad():
             pi_next = self.network_pi(input_pi).item()
         
@@ -241,23 +210,9 @@ class ANNEconomy(BaseEconomy):
 class EconomyNetwork(nn.Module):
     """
     Feed-forward neural network for economy equation.
-    
-    Architecture (Equation 8):
-    - Input layer
-    - Hidden layer with tanh activation
-    - Output layer (linear)
-    
-    Weights initialized using Glorot initialization (Table A.2).
     """
     
     def __init__(self, input_dim: int, hidden_units: int):
-        """
-        Initialize network.
-        
-        Args:
-            input_dim: Number of input features (4 for y, 5 for π)
-            hidden_units: Number of hidden units (2 for y, 8 for π)
-        """
         super().__init__()
         
         self.network = nn.Sequential(
@@ -266,11 +221,9 @@ class EconomyNetwork(nn.Module):
             nn.Linear(hidden_units, 1)
         )
         
-        # Glorot initialization
         self._init_weights()
     
     def _init_weights(self):
-        """Initialize weights using Glorot uniform initialization."""
         for module in self.modules():
             if isinstance(module, nn.Linear):
                 nn.init.xavier_uniform_(module.weight)
@@ -278,13 +231,4 @@ class EconomyNetwork(nn.Module):
                     nn.init.zeros_(module.bias)
     
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        
-        Args:
-            x: Input tensor [batch_size, input_dim]
-            
-        Returns:
-            Output tensor [batch_size, 1]
-        """
         return self.network(x).squeeze(-1)

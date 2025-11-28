@@ -34,7 +34,8 @@ class BaseEconomy(ABC):
         reward_weights: Optional[Dict[str, float]] = None,
         penalty_threshold: float = 2.0,
         penalty_multiplier: float = 10.0,
-        seed: Optional[int] = None
+        seed: Optional[int] = None,
+        lags: int = 2
     ):
         """
         Initialize base economy.
@@ -50,10 +51,12 @@ class BaseEconomy(ABC):
             penalty_threshold: Threshold for extreme deviation penalty (pp)
             penalty_multiplier: Multiplier for penalty term
             seed: Random seed for shock generation
+            lags: Number of lags in the model (default: 2)
         """
         self.shock_std = shock_std
         self.target_inflation = target_inflation
         self.target_output_gap = target_output_gap
+        self.lags = lags
         
         # Default equal weights (Table 1 discussion, footnote 6)
         if reward_weights is None:
@@ -84,7 +87,7 @@ class BaseEconomy(ABC):
         
         Args:
             state: Current economic state vector
-                  [y_t, y_{t-1}, π_t, π_{t-1}, i_{t-1}, i_{t-2}]
+                  [y_t, ..., y_{t-p+1}, π_t, ..., π_{t-p+1}, i_{t-1}, ..., i_{t-p}]
             action: Nominal interest rate i_t set by policy
             
         Returns:
@@ -211,7 +214,7 @@ class BaseEconomy(ABC):
     @property
     def state_dim(self) -> int:
         """Dimension of state vector."""
-        return 6  # [y_t, y_{t-1}, π_t, π_{t-1}, i_{t-1}, i_{t-2}]
+        return 3 * self.lags
     
     @property
     def action_dim(self) -> int:

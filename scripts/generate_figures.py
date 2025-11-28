@@ -54,9 +54,34 @@ def generate_figure2(config: dict, checkpoint_dir: str, output_dir: str, logger)
     fitted_y_svar = svar_results['fitted_values']['output_gap']
     fitted_pi_svar = svar_results['fitted_values']['inflation']
     
+    # Load tuned parameters if available
+    params_path = os.path.join(checkpoint_dir, 'ann_params.pkl')
+    tuned_params = None
+    if os.path.exists(params_path):
+        with open(params_path, 'rb') as f:
+            tuned_params = pickle.load(f)
+    
+    # Determine hyperparameters
+    if tuned_params:
+        hidden_units_y = tuned_params['output_gap']['hidden_units']
+        hidden_units_pi = tuned_params['inflation']['hidden_units']
+        lags_y = tuned_params['output_gap'].get('lags', 2)
+        lags_pi = tuned_params['inflation'].get('lags', 2)
+        lags = max(lags_y, lags_pi)
+    else:
+        hidden_units_y = config['economy']['ann']['hidden_units_y']
+        hidden_units_pi = config['economy']['ann']['hidden_units_pi']
+        lags = 2
+        lags_y = 2
+        lags_pi = 2
+    
+    # Calculate input dimensions
+    input_dim_y = 3 * lags_y
+    input_dim_pi = 1 + 3 * lags_pi
+    
     # Load ANN and compute fitted values
-    network_y = EconomyNetwork(4, config['economy']['ann']['hidden_units_y'])
-    network_pi = EconomyNetwork(5, config['economy']['ann']['hidden_units_pi'])
+    network_y = EconomyNetwork(input_dim_y, hidden_units_y)
+    network_pi = EconomyNetwork(input_dim_pi, hidden_units_pi)
     
     network_y.load_state_dict(torch.load(
         os.path.join(checkpoint_dir, 'ann_y_network.pth'),
@@ -69,12 +94,26 @@ def generate_figure2(config: dict, checkpoint_dir: str, output_dir: str, logger)
     
     # Prepare inputs
     from src.data.data_loader import create_lagged_features
-    lagged_data = create_lagged_features(data, lags=2)
+    lagged_data = create_lagged_features(data, lags=lags)
     
-    X_y = lagged_data[['output_gap_lag1', 'inflation_lag1',
-                       'interest_rate_lag1', 'interest_rate_lag2']].values
-    X_pi = lagged_data[['output_gap', 'output_gap_lag1', 'inflation_lag1',
-                        'inflation_lag2', 'interest_rate_lag1']].values
+    # Construct inputs dynamically based on lags
+    # For Y network: lags 1..p of y, pi, i
+    X_y_list = []
+    for k in range(1, lags_y + 1):
+        X_y_list.append(lagged_data[f'output_gap_lag{k}'].values)
+        X_y_list.append(lagged_data[f'inflation_lag{k}'].values)
+        X_y_list.append(lagged_data[f'interest_rate_lag{k}'].values)
+    X_y = np.column_stack(X_y_list)
+    
+    # For Pi network: y_t + lags 1..p of y, pi, i
+    # Note: y_t here is the ACTUAL y_t (or fitted y_t? usually actual in one-step ahead)
+    # The original code used 'output_gap' which is y_t.
+    X_pi_list = [lagged_data['output_gap'].values]
+    for k in range(1, lags_pi + 1):
+        X_pi_list.append(lagged_data[f'output_gap_lag{k}'].values)
+        X_pi_list.append(lagged_data[f'inflation_lag{k}'].values)
+        X_pi_list.append(lagged_data[f'interest_rate_lag{k}'].values)
+    X_pi = np.column_stack(X_pi_list)
     
     network_y.eval()
     network_pi.eval()
@@ -125,9 +164,32 @@ def generate_figure3(config: dict, checkpoint_dir: str, output_dir: str, logger)
     paper_fig_dir = os.path.join(output_dir, 'paper_figures')
     os.makedirs(paper_fig_dir, exist_ok=True)
     
+    # Load tuned parameters if available
+    params_path = os.path.join(checkpoint_dir, 'ann_params.pkl')
+    tuned_params = None
+    if os.path.exists(params_path):
+        with open(params_path, 'rb') as f:
+            tuned_params = pickle.load(f)
+    
+    # Determine hyperparameters
+    if tuned_params:
+        hidden_units_y = tuned_params['output_gap']['hidden_units']
+        hidden_units_pi = tuned_params['inflation']['hidden_units']
+        lags_y = tuned_params['output_gap'].get('lags', 2)
+        lags_pi = tuned_params['inflation'].get('lags', 2)
+    else:
+        hidden_units_y = config['economy']['ann']['hidden_units_y']
+        hidden_units_pi = config['economy']['ann']['hidden_units_pi']
+        lags_y = 2
+        lags_pi = 2
+        
+    # Calculate input dimensions
+    input_dim_y = 3 * lags_y
+    input_dim_pi = 1 + 3 * lags_pi
+    
     # Load networks
-    network_y = EconomyNetwork(4, config['economy']['ann']['hidden_units_y'])
-    network_pi = EconomyNetwork(5, config['economy']['ann']['hidden_units_pi'])
+    network_y = EconomyNetwork(input_dim_y, hidden_units_y)
+    network_pi = EconomyNetwork(input_dim_pi, hidden_units_pi)
     
     network_y.load_state_dict(torch.load(
         os.path.join(checkpoint_dir, 'ann_y_network.pth'),

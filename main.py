@@ -516,6 +516,18 @@ class ProjectRunner:
                         except Exception as e:
                             print(f"  Could not remove {file}: {e}")
         
+        if all_results or tables:
+            print("Cleaning tables...")
+            tables_dir = Path('results/tables')
+            if tables_dir.exists():
+                for pattern in ['*.csv', '*.txt', '*.tex']:
+                    for file in tables_dir.glob(pattern):
+                        try:
+                            file.unlink()
+                            print(f"  Removed {file}")
+                        except Exception as e:
+                            print(f"  Could not remove {file}: {e}")
+        
         print("[OK] Cleaning completed")
         
         # Reinitialize the original logger by calling the existing setup method
